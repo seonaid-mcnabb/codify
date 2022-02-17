@@ -16,8 +16,12 @@ const DrawingTool = () => {
             return { x1, y1, x2, y2, roughEl };
         } else if (elementType === "square") {
             // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
+            const roughEl = gen.rectangle(x1 - 5, y1 - 5, (x2 - x1) - 5, (y2 - y1) - 5); // - 5 allows cursor and line to be aligned - due to 10px border
+            return { x1, y1, x2, y2, roughEl };
         } else if (elementType === "circle") {
             // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
+            const roughEl = gen.circle(x1 - 5, y1 - 5, 2 * (x2 - x1 + y2 - y1) - 5); // - 10 allows cursor and line to be aligned - due to 10px border
+            return { x1, y1, x2, y2, roughEl };
         }
     }    
 
