@@ -12,6 +12,7 @@ const DrawingTool = () => {
 
     const createElement = (x1, y1, x2, y2) => { // returns coordinates based on position of cursor and element to be drawn
         if (elementType === "line") {
+            // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
             const roughEl = gen.line(x1 - 10, y1 - 10, x2 - 10, y2 - 10); // - 10 allows cursor and line to be aligned - due to 10px border
             return { x1, y1, x2, y2, roughEl };
         } else if (elementType === "square") {
@@ -20,7 +21,7 @@ const DrawingTool = () => {
             return { x1, y1, x2, y2, roughEl };
         } else if (elementType === "circle") {
             // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
-            const roughEl = gen.circle(x1 - 5, y1 - 5, 2 * (x2 - x1 + y2 - y1) - 5); // - 10 allows cursor and line to be aligned - due to 10px border
+            const roughEl = gen.circle(x1 - 5, y1 - 5, 2 * (x2 - x1 + y2 - y1) - 5); // - 5 allows cursor and line to be aligned - due to 10px border
             return { x1, y1, x2, y2, roughEl };
         }
     }    

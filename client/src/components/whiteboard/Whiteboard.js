@@ -6,7 +6,7 @@ import Pencil from './penciltool';
 export default function Whiteboard() {
   return (
     <div>
-      <Drawing />
+      <Pencil />
     </div>
   )
 }
