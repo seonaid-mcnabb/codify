@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./whiteboard.css";
+import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import rough from "roughjs/bundled/rough.esm";
 
@@ -34,16 +34,23 @@ function Whiteboard() {
 
   const createElement = (id, x1, y1, x2, y2) => {
     if (toolType === "line") {
-      const roughEl = gen.line(x1, y1, x2, y2, {stroke: "red"});
+      const roughEl = gen.line(x1, y1, x2, y2, { stroke: "red" });
       return { id, x1, y1, x2, y2, roughEl };
     } else if (toolType === "square") {
-      const roughEl = gen.rectangle(x1, y1, x2 - x1, y2 - y1, {roughness: 0.5, stroke: "black"});
+      const roughEl = gen.rectangle(x1, y1, x2 - x1, y2 - y1, {
+        roughness: 0.5,
+        stroke: "black",
+      });
       return { id, x1, y1, x2, y2, roughEl };
     } else if (toolType === "circle") {
-      const roughEl = gen.circle(x1, y1, 2 * (x2 - x1 + y2 - y1, {roughness: 0.5, stroke: "green"}));
+      const roughEl = gen.circle(
+        x1,
+        y1,
+        2 * (x2 - x1 + y2 - y1, { roughness: 0.5, stroke: "green" })
+      );
       return { id, x1, y1, x2, y2, roughEl };
     }
-  }
+  };
 
   useEffect(() => {
     const canvas = document.getElementById("canvas");
@@ -122,7 +129,6 @@ function Whiteboard() {
     } else {
       setAction("drawing");
       const element = createElement(id, clientX, clientY, clientX, clientY);
-      
 
       setElements((prevState) => [...prevState, element]);
       setSelectedElement(element);
