@@ -30,21 +30,20 @@ function Whiteboard() {
 
   const [action, setAction] = useState("none");
   const [toolType, setToolType] = useState("pencil");
+  const [penColour, setPenColour] = useState("#000000");
+  const [fillColour, setFillColour] = useState("#ffffff");
+  const [lineWidth, setLineWidth] = useState(1);
   const [selectedElement, setSelectedElement] = useState(null);
 
   const createElement = (id, x1, y1, x2, y2) => {
     if (toolType === "line") {
-      const roughEl = gen.line(x1, y1, x2, y2);
+      const roughEl = gen.line(x1, y1, x2, y2, {stroke: penColour, strokeWidth: lineWidth});
       return { id, x1, y1, x2, y2, roughEl };
     } else if (toolType === "square") {
-      const roughEl = gen.rectangle(x1, y1, x2 - x1, y2 - y1);
+      const roughEl = gen.rectangle(x1, y1, x2 - x1, y2 - y1, { roughness: 0.5, fill: fillColour, stroke: penColour, strokeWidth: lineWidth });
       return { id, x1, y1, x2, y2, roughEl };
     } else if (toolType === "circle") {
-      const roughEl = gen.circle(
-        x1,
-        y1,
-        2 * (x2 - x1 + y2 - y1)
-      );
+      const roughEl = gen.circle(x1, y1, 2 * (x2 - x1 + y2 - y1), { roughness: 0.5, fill: fillColour, stroke: penColour, strokeWidth: lineWidth });
       return { id, x1, y1, x2, y2, roughEl };
     }
   };
@@ -119,8 +118,8 @@ function Whiteboard() {
       setPoints((state) => [...state, newEle]);
 
       context.lineCap = 5;
-      context.strokeStyle = "black";
-      context.lineWidth = 3;
+      context.strokeStyle = penColour;
+      context.lineWidth = lineWidth;
       context.moveTo(clientX, clientY);
       context.beginPath();
     } else {
@@ -176,7 +175,7 @@ function Whiteboard() {
   return (
     <div>
       <div>
-        <Toolbar setToolType={setToolType} />
+        <Toolbar setToolType={setToolType} setPenColour={setPenColour} />
       </div>
       <canvas
         id="canvas"

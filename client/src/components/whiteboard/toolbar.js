@@ -1,6 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
+import { HuePicker } from "react-color";
 
-export default function Toolbar({ setToolType }) {
+
+export default function Toolbar({ setToolType, setPenColour }) {
+
+const [showColours, setShowColours] = useState(false)
+const [colourValue, setColourValue] = useState("#fff");
+
+const handleColourChange = (color) => {
+    console.log(color);
+    setPenColour(color.hex);
+}
+
   return (
     <div>
       <div className="row">
@@ -42,8 +53,21 @@ export default function Toolbar({ setToolType }) {
             >
               Circle
             </button>
+            <button
+              title="Blue"
+              className="colour-button"
+              onClick={() => {
+                setShowColours(!showColours);
+              }}
+            >
+              Pen Colour
+            </button>
+
+        { showColours ? <div className="popover"><div className="cover" />
+          <HuePicker color="#fff" onChange={(color) => handleColourChange(color)}/>
+        </div> : null }
+      </div>
           </div>
-        </div>
       </div>
     </div>
   );
