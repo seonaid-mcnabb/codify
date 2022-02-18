@@ -2,14 +2,22 @@ import React, {useState} from "react";
 import { HuePicker } from "react-color";
 
 
-export default function Toolbar({ setToolType, setPenColour }) {
+export default function Toolbar({ setToolType, setPenColour, setFillColour }) {
 
-const [showColours, setShowColours] = useState(false)
+const [showColours, setShowColours] = useState(false);
+const [showFillColours, setShowFillColours] = useState(false);
 const [colourValue, setColourValue] = useState("#fff");
 
 const handleColourChange = (color) => {
     console.log(color);
+    document.getElementById("colour-button").style.backgroundColor = color.hex;
     setPenColour(color.hex);
+}
+
+const handleFillColourChange = (color) => {
+    console.log(color);
+    document.getElementById("fill-button").style.backgroundColor = color.hex;
+    setFillColour(color.hex);
 }
 
   return (
@@ -54,7 +62,8 @@ const handleColourChange = (color) => {
               Circle
             </button>
             <button
-              title="Blue"
+              title="Colour"
+              id="colour-button"
               className="colour-button"
               onClick={() => {
                 setShowColours(!showColours);
@@ -65,6 +74,20 @@ const handleColourChange = (color) => {
 
         { showColours ? <div className="popover"><div className="cover" />
           <HuePicker color="#fff" onChange={(color) => handleColourChange(color)}/>
+        </div> : null }
+        <button
+              title="Fill"
+              id="fill-button"
+              className="fill-button"
+              onClick={() => {
+                setShowFillColours(!showFillColours);
+              }}
+            >
+              Fill Colour
+            </button>
+
+        { showFillColours ? <div className="popover"><div className="cover" />
+          <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)}/>
         </div> : null }
       </div>
           </div>

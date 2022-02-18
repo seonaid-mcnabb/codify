@@ -39,10 +39,16 @@
     top: 5%;
 }
 
+.fill-button {
+    position: absolute;
+    left: 22.75%;
+    top: 5%;
+    color: fillColour;
+}
+
 .popover {
     position: absolute;
     top: 100px;
     left: 80px;
+    width: 500px
 }
-
-.colour-picker {}
