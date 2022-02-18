@@ -86,7 +86,7 @@ const handleFillColourChange = (color) => {
               Fill Colour
             </button>
 
-        { showFillColours ? <div className="popover"><div className="cover" />
+        { showFillColours ? <div className="fill-popover"><div className="cover" />
           <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)}/>
         </div> : null }
       </div>

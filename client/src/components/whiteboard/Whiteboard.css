@@ -52,3 +52,10 @@
     left: 80px;
     width: 500px
 }
+
+.fill-popover {
+    position: absolute;
+    top: 130px;
+    left: 80px;
+    width: 500px
+}
