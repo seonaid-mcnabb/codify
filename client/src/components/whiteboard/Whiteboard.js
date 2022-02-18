@@ -34,19 +34,16 @@ function Whiteboard() {
 
   const createElement = (id, x1, y1, x2, y2) => {
     if (toolType === "line") {
-      const roughEl = gen.line(x1, y1, x2, y2, { stroke: "red" });
+      const roughEl = gen.line(x1, y1, x2, y2);
       return { id, x1, y1, x2, y2, roughEl };
     } else if (toolType === "square") {
-      const roughEl = gen.rectangle(x1, y1, x2 - x1, y2 - y1, {
-        roughness: 0.5,
-        stroke: "black",
-      });
+      const roughEl = gen.rectangle(x1, y1, x2 - x1, y2 - y1);
       return { id, x1, y1, x2, y2, roughEl };
     } else if (toolType === "circle") {
       const roughEl = gen.circle(
         x1,
         y1,
-        2 * (x2 - x1 + y2 - y1, { roughness: 0.5, stroke: "green" })
+        2 * (x2 - x1 + y2 - y1)
       );
       return { id, x1, y1, x2, y2, roughEl };
     }
