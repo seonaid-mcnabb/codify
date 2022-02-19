@@ -25,6 +25,15 @@ const handleFillColourChange = (color) => {
       <div className="row">
         <div className="col-md-12">
           <div>
+          <button
+              title="Select"
+              className="select-drawing"
+              onClick={() => {
+                setToolType("select");
+              }}
+            >
+              Select
+            </button>
             <button
               title="Pencil"
               className="freehand-drawing"
