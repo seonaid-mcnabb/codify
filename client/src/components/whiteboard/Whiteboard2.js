@@ -36,6 +36,10 @@ const isWithinElement = (x, y, element) => {
         const c = { x, y };
         const offset = distance(a, b) - (distance(a, c) + distance(b, c)); // if c is between a + b, and equal distance between a + c, and b + c
         return Math.abs(offset) < 1; // offset < 1 gives some leeway so user doesn't have to click exactly on the line
+
+    } else if (type === "circle") {
+        const radius = (x2 - x1) + (y2 - y1); // defines radius
+        return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)) < radius; // checks if mouse point is less than the radius meaning it is within the circle
     }
 }
 
