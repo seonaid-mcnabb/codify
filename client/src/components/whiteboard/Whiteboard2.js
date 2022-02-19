@@ -85,6 +85,13 @@ export default function Whiteboard2() {
             onChange={() => setElementType("square")}
             />
             <label htmlFor="square">Square</label>
+            <input
+            type="radio"
+            id="circle"
+            checked={elementType === "circle"}
+            onChange={() => setElementType("circle")}
+            />
+            <label htmlFor="circle">Circle</label>
         </div>
         <canvas 
         id="canvas" 
