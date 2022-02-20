@@ -12,6 +12,8 @@ const StartQuiz = (props) => {
       <form>
         <div className="Topic">
           <label for="Topic">Topic:</label>
+          {/* convert this to a radio */}
+
           <select
             id="Topic"
             name="Topic"
@@ -25,6 +27,7 @@ const StartQuiz = (props) => {
         <br />
         <div className="Level">
           <label for="Level">Level:</label>
+          {/* convert this to a radio */}
           <select
             id="Level"
             name="Level"

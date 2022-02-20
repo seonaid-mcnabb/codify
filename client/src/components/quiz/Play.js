@@ -36,6 +36,15 @@ const Play = (props) => {
     }
   }
 
+  function previousQuestion(event) {
+    event.preventDefault();
+    if (currentQuestion == 1) {
+      console.log("First Question");
+    } else {
+      setCurrentQuestion(currentQuestion - 1);
+    }
+  }
+
   return (
     <div>
       <h1>Quiz</h1>
@@ -44,8 +53,9 @@ const Play = (props) => {
       {!props.questions[0] ? (
         "Starting..."
       ) : (
-        <form onSubmit={(e) => nextQuestion(e)}>
+        <form>
           <h6>{props.questions[currentQuestion - 1].question}</h6>
+          {/* convert this to a radio */}
           <select
             id={currentQuestion}
             name={currentQuestion}
@@ -95,7 +105,13 @@ const Play = (props) => {
             )}
           </select>
           {/* conditionally render a finish quiz button that takes you to a results page and hide submit button if the currentQuestion == props.length */}
-          <input type="submit" value="Submit" />
+          <br />
+          <input
+            type="button"
+            value="Back"
+            onClick={(e) => previousQuestion(e)}
+          />
+          <input type="button" value="Next" onClick={(e) => nextQuestion(e)} />
         </form>
       )}
     </div>
