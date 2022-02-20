@@ -35,14 +35,14 @@ app.listen(port, () => {
 
 //1. API ROUTES FOR THE MUST-HAVES TABLE
 //Get full must-haves list
-app.get("/must-haves", (req, res) => {
+app.get("/must-haves-list", (req, res) => {
   db("select * from job_must_haves;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
 //add to must-haves list
-app.post("/add-must-have", (req, res) => {
+app.post("/must-have", (req, res) => {
   db(
     `INSERT INTO job_must_haves(must_haves) VALUES ("${req.body.must_haves}");`
   )
@@ -55,7 +55,7 @@ app.post("/add-must-have", (req, res) => {
 });
 
 //delete from list by id
-app.delete("/delete-must-have/:id", (req, res) => {
+app.delete("/must-have/:id", (req, res) => {
   db(`DELETE FROM job_must_haves WHERE id=${req.params.id}`)
     .then((result) => db("SELECT * FROM job_must_haves;"))
     .then((results) => {
@@ -64,9 +64,35 @@ app.delete("/delete-must-have/:id", (req, res) => {
 });
 
 //2. API ROUTES FOR THE NEGOTIABLES TABLE
-//add to list
+//get the full negotiables list
+app.get("/negotiables-list", (req, res) => {
+  db("select * from job_negotiables;")
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err));
+});
+
+//add to the negotiables
+app.post("/negotiable", (req, res) => {
+  db(
+    `INSERT INTO job_negotiables(negotiables) VALUES ("${req.body.negotiables}");`
+  )
+    .then((result) =>
+      db("SELECT * FROM job_negotiables;").then((results) => {
+        res.send(results.data);
+      })
+    )
+    .catch((err) => res.status(500).send(err));
+});
 
 //delete from list by id
+
+app.delete("/negotiable/:id", (req, res) => {
+  db(`DELETE FROM job_negotiables WHERE id=${req.params.id}`)
+    .then((result) => db("SELECT * FROM job_negotiables;"))
+    .then((results) => {
+      res.send(results.data);
+    });
+});
 
 //3. API ROUTES FOR THE DEAL-BREAKERS TABLE
 //add to list
