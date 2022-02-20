@@ -10,6 +10,7 @@ import Whiteboard from "./components/whiteboard/Whiteboard.js";
 import Quiz from "./components/quiz/Quiz";
 import Play from "./components/quiz/Play";
 import WorkReqsList from "./components/Personal Reflection Area/WorkReqsList";
+import Results from "./components/quiz/Results";
 
 //comment to add push
 function App() {
@@ -18,6 +19,7 @@ function App() {
   let [topic, setTopic] = useState("HTML");
   let [questions, setQuestions] = useState([]);
   let [userAnswersArray, setUserAnswersArray] = useState([]);
+  let [quizStatus, setQuizStatus] = useState("Playing");
 
   return (
     <div className="App">
@@ -52,10 +54,26 @@ function App() {
               setQuestions={setQuestions}
               userAnswersArray={userAnswersArray}
               setUserAnswersArray={setUserAnswersArray}
+              quizStatus={quizStatus}
+              setQuizStatus={setQuizStatus}
             />
           }
         />
-
+        <Route
+          path="/quiz/results"
+          element={
+            <Results
+              level={level}
+              length={length}
+              topic={topic}
+              questions={questions}
+              setQuestions={setQuestions}
+              userAnswersArray={userAnswersArray}
+              quizStatus={quizStatus}
+              setQuizStatus={setQuizStatus}
+            />
+          }
+        />
         {/*Seonaids Component Routes--For Testing Purposes */}
         <Route path="/joblist" element={<WorkReqsList />} />
       </Routes>
