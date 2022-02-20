@@ -19,6 +19,8 @@ con.connect(function (err) {
   console.log("Connected!");
 
   //ADD THE TABLES THAT YOU WANT IN THE BACK-END HERE\\
+
+  /* DATABASE TABLES FOR THE WORKREQSLIST.JS COMPONENT */
   //Add table to store job must-haves
   let jobMustHavesSQL =
     "DROP TABLE if exists job_must_haves; CREATE TABLE job_must_haves(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, must_haves VARCHAR(200));";
@@ -28,9 +30,6 @@ con.connect(function (err) {
 
     console.log("Closing...");
   });
-
-  //con.end();
-  //});
 
   //Add table to store job negotiables
   let jobNegotiablesSQL =

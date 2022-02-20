@@ -33,11 +33,50 @@ app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
 
+//1. API ROUTES FOR THE MUST-HAVES TABLE
+//Get full must-haves list
 app.get("/must-haves", (req, res) => {
-  db("select * from job_reqs;")
+  db("select * from job_must_haves;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
+
+//add to must-haves list
+app.post("/add-must-have", (req, res) => {
+  db(
+    `INSERT INTO job_must_haves(must_haves) VALUES ("${req.body.must_haves}");`
+  )
+    .then((result) =>
+      db("SELECT * FROM job_must_haves;").then((results) => {
+        res.send(results.data);
+      })
+    )
+    .catch((err) => res.status(500).send(err));
+});
+
+//delete from list by id
+app.delete("/delete-must-have/:id", (req, res) => {
+  db(`DELETE FROM job_must_haves WHERE id=${req.params.id}`)
+    .then((result) => db("SELECT * FROM job_must_haves;"))
+    .then((results) => {
+      res.send(results.data);
+    });
+});
+
+//2. API ROUTES FOR THE NEGOTIABLES TABLE
+//add to list
+
+//delete from list by id
+
+//3. API ROUTES FOR THE DEAL-BREAKERS TABLE
+//add to list
+
+//delete from list by id
+
+//4. API ROUTES FOR THE NICE2HAVES TABLE
+//add to list
+
+//delete from list by id
 
 module.exports = app;
 
