@@ -10,19 +10,20 @@ const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
   password: DB_PASS,
-  database: DB_NAME || "facebook",
-  multipleStatements: true
+  database: DB_NAME || "codify",
+  multipleStatements: true,
 });
 
-con.connect(function(err) {
+con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
 
-  let sql =
-    "DROP TABLE if exists students; CREATE TABLE students(id INT NOT NULL AUTO_INCREMENT, firstname VARCHAR(40) not null, lastname VARCHAR(40) not null, PRIMARY KEY (id));";
-  con.query(sql, function(err, result) {
+  //ADD THE TABLES THAT YOU WANT IN THE BACK-END HERE\\
+  let jobReqsSQL =
+    "DROP TABLE if exists job_reqs; CREATE TABLE job_reqs(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, must_haves VARCHAR(200), negotiables VARCHAR(200), deal_breakers VARCHAR(200), nice_to_haves VARCHAR(200));";
+  con.query(jobReqsSQL, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `students` was successful!");
+    console.log("Table creation `job_reqs` was successful!");
 
     console.log("Closing...");
   });
