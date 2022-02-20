@@ -47,9 +47,9 @@ const Play = (props) => {
         <form onSubmit={(e) => nextQuestion(e)}>
           <h6>{props.questions[currentQuestion - 1].question}</h6>
           <select
-            id="Level"
-            name="Level"
-            onChange={(e) => props.setLevel(e.target.value)}
+            id={currentQuestion}
+            name={currentQuestion}
+            onChange={(e) => e}
           >
             {!props.questions[currentQuestion - 1].answers.answer_a ? (
               ""
