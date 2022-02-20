@@ -91,7 +91,7 @@ const StartQuiz = (props) => {
         </div>
       </form>
       <Link to="/quiz/play">
-        <input type="submit" value="Quiz Me " />
+        <input type="submit" value="Quiz Me" />
       </Link>
     </div>
   );
