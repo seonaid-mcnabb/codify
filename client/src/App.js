@@ -17,6 +17,7 @@ function App() {
   let [length, setLength] = useState("20");
   let [topic, setTopic] = useState("HTML");
   let [questions, setQuestions] = useState([]);
+  let [userAnswersArray, setUserAnswersArray] = useState([]);
 
   return (
     <div className="App">
@@ -49,6 +50,8 @@ function App() {
               topic={topic}
               questions={questions}
               setQuestions={setQuestions}
+              userAnswersArray={userAnswersArray}
+              setUserAnswersArray={setUserAnswersArray}
             />
           }
         />
