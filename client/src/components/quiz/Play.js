@@ -32,7 +32,7 @@ const Play = (props) => {
       <h1>Quiz</h1>
       <p>Number of questions: {props.length}</p>
 
-      {!props.questions[currentQuestion - 1].question ? (
+      {!props.questions[0] ? (
         "Loading..."
       ) : (
         <form>{props.questions[currentQuestion - 1].question}</form>
