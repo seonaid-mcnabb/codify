@@ -7,7 +7,6 @@ const Play = (props) => {
   }, props);
 
   let [currentQuestion, setCurrentQuestion] = useState(1);
-  let [userAnswersArray, setUserAnswersArray] = useState([]);
   let [currentAnswer, setCurrentAnswer] = useState("");
 
   function startQuiz() {
@@ -34,12 +33,7 @@ const Play = (props) => {
     if (currentQuestion == props.length) {
       console.log("Quiz Finished");
     } else {
-      setUserAnswersArray([
-        ...userAnswersArray,
-        {
-          [currentQuestion]: currentAnswer,
-        },
-      ]);
+      props.setUserAnswersArray([...props.userAnswersArray, currentAnswer]);
       setCurrentQuestion(currentQuestion + 1);
     }
   }
