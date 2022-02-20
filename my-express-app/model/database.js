@@ -10,19 +10,53 @@ const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
   password: DB_PASS,
-  database: DB_NAME || "facebook",
-  multipleStatements: true
+  database: DB_NAME || "codify",
+  multipleStatements: true,
 });
 
-con.connect(function(err) {
+con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
 
-  let sql =
-    "DROP TABLE if exists students; CREATE TABLE students(id INT NOT NULL AUTO_INCREMENT, firstname VARCHAR(40) not null, lastname VARCHAR(40) not null, PRIMARY KEY (id));";
-  con.query(sql, function(err, result) {
+  //ADD THE TABLES THAT YOU WANT IN THE BACK-END HERE\\
+
+  /* DATABASE TABLES FOR THE WORKREQSLIST.JS COMPONENT */
+  //Add table to store job must-haves
+  let jobMustHavesSQL =
+    "DROP TABLE if exists job_must_haves; CREATE TABLE job_must_haves(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, must_haves VARCHAR(200));";
+  con.query(jobMustHavesSQL, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `students` was successful!");
+    console.log("Table creation `job_must_haves` was successful!");
+
+    console.log("Closing...");
+  });
+
+  //Add table to store job negotiables
+  let jobNegotiablesSQL =
+    "DROP TABLE if exists job_negotiables; CREATE TABLE job_negotiables (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, negotiables VARCHAR(200));";
+  con.query(jobNegotiablesSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `job_negotiables` was successful!");
+
+    console.log("Closing...");
+  });
+
+  //Add table to store job deal-breakers
+  let jobDealBreakersSQL =
+    "DROP TABLE if exists job_deal_breakers; CREATE TABLE job_deal_breakers (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, deal_breakers VARCHAR(200));";
+  con.query(jobDealBreakersSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `job_deal_breakers` was successful!");
+
+    console.log("Closing...");
+  });
+
+  //Add table to store job nice-to-haves
+  let jobNice2HavesSQL =
+    "DROP TABLE if exists job_nice2haves; CREATE TABLE job_nice2haves (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nice_to_have VARCHAR(200));";
+  con.query(jobNice2HavesSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `job_nice2haves` was successful!");
 
     console.log("Closing...");
   });

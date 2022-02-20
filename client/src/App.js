@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Whiteboard from "./components/whiteboard/Whiteboard.js";
 import Quiz from "./components/quiz/Quiz";
 import Play from "./components/quiz/Play";
+import WorkReqsList from "./components/Personal Reflection Area/WorkReqsList";
 
 //comment to add push
 function App() {
@@ -51,6 +52,9 @@ function App() {
             />
           }
         />
+
+        {/*Seonaids Component Routes--For Testing Purposes */}
+        <Route path="/joblist" element={<WorkReqsList />} />
       </Routes>
 
       <Footer />
