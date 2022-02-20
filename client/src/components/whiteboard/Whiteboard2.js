@@ -144,9 +144,10 @@ export default function Whiteboard2() {
 
 
   return (
-    <div>
-        <div style={{position: "fixed"}}> 
+    <div className="canvas-container">
+        <div style={{position: "fixed"}}>
         {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
+        <h1>Whiteboard</h1>
         <input
             type="radio"
             id="select"
@@ -179,7 +180,7 @@ export default function Whiteboard2() {
         <canvas 
         id="canvas" 
         width={window.innerWidth} 
-        height={window.innerHeight}
+        height={window.innerWidth}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={finishDrawing}>
