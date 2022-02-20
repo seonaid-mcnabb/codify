@@ -19,11 +19,45 @@ con.connect(function (err) {
   console.log("Connected!");
 
   //ADD THE TABLES THAT YOU WANT IN THE BACK-END HERE\\
-  let jobReqsSQL =
-    "DROP TABLE if exists job_reqs; CREATE TABLE job_reqs(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, must_haves VARCHAR(200), negotiables VARCHAR(200), deal_breakers VARCHAR(200), nice_to_haves VARCHAR(200));";
-  con.query(jobReqsSQL, function (err, result) {
+  //Add table to store job must-haves
+  let jobMustHavesSQL =
+    "DROP TABLE if exists job_must_haves; CREATE TABLE job_must_haves(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, must_haves VARCHAR(200));";
+  con.query(jobMustHavesSQL, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `job_reqs` was successful!");
+    console.log("Table creation `job_must_haves` was successful!");
+
+    console.log("Closing...");
+  });
+
+  //con.end();
+  //});
+
+  //Add table to store job negotiables
+  let jobNegotiablesSQL =
+    "DROP TABLE if exists job_negotiables; CREATE TABLE job_negotiables (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, negotiables VARCHAR(200));";
+  con.query(jobNegotiablesSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `job_negotiables` was successful!");
+
+    console.log("Closing...");
+  });
+
+  //Add table to store job deal-breakers
+  let jobDealBreakersSQL =
+    "DROP TABLE if exists job_deal_breakers; CREATE TABLE job_deal_breakers (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, deal_breakers VARCHAR(200));";
+  con.query(jobDealBreakersSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `job_deal_breakers` was successful!");
+
+    console.log("Closing...");
+  });
+
+  //Add table to store job nice-to-haves
+  let jobNice2HavesSQL =
+    "DROP TABLE if exists job_nice2haves; CREATE TABLE job_nice2haves (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nice_to_have VARCHAR(200));";
+  con.query(jobNice2HavesSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `job_nice2haves` was successful!");
 
     console.log("Closing...");
   });
