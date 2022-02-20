@@ -95,11 +95,13 @@ app.delete("/negotiable/:id", (req, res) => {
 });
 
 //3. API ROUTES FOR THE DEAL-BREAKERS TABLE
+//get full list
 //add to list
 
 //delete from list by id
 
 //4. API ROUTES FOR THE NICE2HAVES TABLE
+//get full list
 //add to list
 
 //delete from list by id
