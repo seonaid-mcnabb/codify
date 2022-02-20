@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useDebugValue, useEffect, useState } from "react";
 import "./Quiz.css";
 
 const Play = (props) => {
@@ -7,6 +7,8 @@ const Play = (props) => {
   }, props);
 
   let [currentQuestion, setCurrentQuestion] = useState(1);
+  let [userAnswersArray, setUserAnswersArray] = useState([]);
+  let [currentAnswer, setCurrentAnswer] = useState("");
 
   function startQuiz() {
     fetch(
@@ -32,6 +34,12 @@ const Play = (props) => {
     if (currentQuestion == props.length) {
       console.log("Quiz Finished");
     } else {
+      setUserAnswersArray([
+        ...userAnswersArray,
+        {
+          [currentQuestion]: currentAnswer,
+        },
+      ]);
       setCurrentQuestion(currentQuestion + 1);
     }
   }
@@ -48,70 +56,147 @@ const Play = (props) => {
   return (
     <div>
       <h1>Quiz</h1>
-      <p>Number of questions: {props.length}</p>
+      <p>
+        Question {currentQuestion} of {props.length}
+      </p>
 
       {!props.questions[0] ? (
         "Starting..."
       ) : (
-        <form>
-          <h6>{props.questions[currentQuestion - 1].question}</h6>
-          {/* convert this to a radio */}
-          <select
-            id={currentQuestion}
-            name={currentQuestion}
-            onChange={(e) => e}
-          >
-            {!props.questions[currentQuestion - 1].answers.answer_a ? (
-              ""
-            ) : (
-              <option value="Answer A" defaultValue>
+        <form
+          id={currentQuestion}
+          name={currentQuestion}
+          onSubmit={(e) => nextQuestion(e)}
+        >
+          <h6 id={currentQuestion} name={currentQuestion}>
+            {props.questions[currentQuestion - 1].question}
+          </h6>
+          {/* ANSWER A */}
+          {!props.questions[currentQuestion - 1].answers.answer_a ? (
+            ""
+          ) : (
+            <div className="Answer A">
+              <input
+                type="radio"
+                id="Answer A"
+                name={currentQuestion}
+                value={props.questions[currentQuestion - 1].answers.answer_a}
+                onClick={(e) => setCurrentAnswer("answer_a")}
+              />
+              <label for="Answer A">
                 {props.questions[currentQuestion - 1].answers.answer_a}
-              </option>
-            )}
-            {!props.questions[currentQuestion - 1].answers.answer_b ? (
-              ""
-            ) : (
-              <option value="Answer B" defaultValue>
+              </label>
+              <br />
+            </div>
+          )}
+
+          {/* ANSWER B */}
+          {!props.questions[currentQuestion - 1].answers.answer_b ? (
+            ""
+          ) : (
+            <div className="Answer B">
+              <input
+                type="radio"
+                id="Answer B"
+                name={currentQuestion}
+                value={props.questions[currentQuestion - 1].answers.answer_b}
+                onClick={(e) => setCurrentAnswer("answer_b")}
+              />
+              <label for="Answer B">
                 {props.questions[currentQuestion - 1].answers.answer_b}
-              </option>
-            )}
-            {!props.questions[currentQuestion - 1].answers.answer_c ? (
-              ""
-            ) : (
-              <option value="Answer C" defaultValue>
+              </label>
+              <br />
+            </div>
+          )}
+          {/* ANSWER C */}
+          {!props.questions[currentQuestion - 1].answers.answer_c ? (
+            ""
+          ) : (
+            <div className="Answer C">
+              <input
+                type="radio"
+                id="Answer C"
+                name={currentQuestion}
+                value={props.questions[currentQuestion - 1].answers.answer_c}
+                onClick={(e) => setCurrentAnswer("answer_c")}
+              />
+              <label for="Answer C">
                 {props.questions[currentQuestion - 1].answers.answer_c}
-              </option>
-            )}
-            {!props.questions[currentQuestion - 1].answers.answer_d ? (
-              ""
-            ) : (
-              <option value="Answer D" defaultValue>
+              </label>
+              <br />
+            </div>
+          )}
+          {/* ANSWER D */}
+          {!props.questions[currentQuestion - 1].answers.answer_d ? (
+            ""
+          ) : (
+            <div className="Answer D">
+              <input
+                type="radio"
+                id="Answer D"
+                name={currentQuestion}
+                value={props.questions[currentQuestion - 1].answers.answer_d}
+                onClick={(e) => setCurrentAnswer("answer_d")}
+              />
+              <label for="Answer D">
                 {props.questions[currentQuestion - 1].answers.answer_d}
-              </option>
-            )}
-            {!props.questions[currentQuestion - 1].answers.answer_e ? (
-              ""
-            ) : (
-              <option value="Answer E" defaultValue>
+              </label>{" "}
+              <br />
+            </div>
+          )}
+          {/* ANSWER E */}
+          {!props.questions[currentQuestion - 1].answers.answer_e ? (
+            ""
+          ) : (
+            <div className="Answer E">
+              <input
+                type="radio"
+                id="Answer E"
+                name={currentQuestion}
+                value={props.questions[currentQuestion - 1].answers.answer_e}
+                onClick={(e) => setCurrentAnswer("answer_e")}
+              />
+              <label for="Answer E">
                 {props.questions[currentQuestion - 1].answers.answer_e}
-              </option>
-            )}
-            {!props.questions[currentQuestion - 1].answers.answer_f ? (
-              ""
-            ) : (
-              <option value="Answer F" defaultValue>
+              </label>{" "}
+              <br />
+            </div>
+          )}
+          {/* ANSWER F */}
+          {!props.questions[currentQuestion - 1].answers.answer_f ? (
+            ""
+          ) : (
+            <div className="Answer F">
+              <input
+                type="radio"
+                id="Answer F"
+                name={currentQuestion}
+                value={props.questions[currentQuestion - 1].answers.answer_f}
+                onClick={(e) => setCurrentAnswer("answer_f")}
+              />
+              <label for="Answer F">
                 {props.questions[currentQuestion - 1].answers.answer_f}
-              </option>
-            )}
-          </select>
+              </label>{" "}
+              <br />
+            </div>
+          )}
           {/* conditionally render a finish quiz button that takes you to a results page and hide submit button if the currentQuestion == props.length */}
           <br />
-          <input
-            type="button"
-            value="Back"
-            onClick={(e) => previousQuestion(e)}
-          />
-          <input type="button" value="Next" onClick={(e) => nextQuestion(e)} />
+          {currentQuestion == 1 ? (
+            ""
+          ) : (
+            <input
+              type="button"
+              value="Back"
+              onClick={(e) => previousQuestion(e)}
+            />
+          )}
+
+          {currentQuestion < props.length ? (
+            <input type="submit" value="Next" />
+          ) : (
+            <input type="submit" value="Submit Answers" />
+          )}
         </form>
       )}
     </div>
