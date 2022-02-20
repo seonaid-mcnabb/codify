@@ -7,6 +7,95 @@ function WorkReqsList() {
   const [dealBreakers, setDealBreakers] = useState([]);
   const [niceToHaves, setNicetoHaves] = useState([]);
 
+  //STATES TO RECORD FORM INPUT
+  const [type, setType] = useState("must-have");
+  const [description, setDescription] = useState("");
+
+  //record and set the input description
+  function handleInputChange(e) {
+    const value = e.target.value;
+    setDescription(value);
+  }
+
+  //record and set the priority type
+  function handleInputSelection(e) {
+    const value = e.target.value;
+    setType(value);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (type === "must-have") {
+      fetch("http://localhost:5001/must-have", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          must_haves: description,
+        }),
+      })
+        .then((res) => res.json()) //First transform the JSON to a Javascript object
+        .then((json) => {
+          setMustHaves(json); //update the list
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (type === "negotiable") {
+      fetch("http://localhost:5001/negotiable", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          negotiables: description,
+        }),
+      })
+        .then((res) => res.json()) //First transform the JSON to a Javascript object
+        .then((json) => {
+          setNegotiables(json); //update the list
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (type === "deal-breaker") {
+      fetch("http://localhost:5001/dealbreaker", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deal_breakers: description,
+        }),
+      })
+        .then((res) => res.json()) //First transform the JSON to a Javascript object
+        .then((json) => {
+          setDealBreakers(json); //update the list
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (type === "nice-to-have") {
+      fetch("http://localhost:5001/nice2have", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nice_to_have: description,
+        }),
+      })
+        .then((res) => res.json()) //First transform the JSON to a Javascript object
+        .then((json) => {
+          setNicetoHaves(json); //update the list
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   //get all niceToHaves from backEnd
   useEffect(() => {
     fetch("http://localhost:5001/nice2haves-list")
@@ -98,15 +187,28 @@ function WorkReqsList() {
       </p>
 
       <div id="add-to-list">
-        <h1 id="addNew-title">Add a new priority:</h1>
+        <h1 id="addNew-title">Add a new priority</h1>
 
-        <form>
-          <select name="priority-type" id="select-type-dropdown-menu">
+        <form onSubmit={handleSubmit}>
+          <h2>Select Type:</h2>
+          <select
+            onChange={handleInputSelection}
+            name="priority-type"
+            id="select-type-dropdown-menu"
+          >
             <option value="must-have">must-have</option>
             <option value="negotiable">negotiable</option>
             <option value="deal-breaker">deal-breaker</option>
             <option value="nice-to-have">nice to have</option>
           </select>
+          <h2>Add a description:</h2>
+          <input
+            id="priority-description-input"
+            onChange={handleInputChange}
+          ></input>
+          <br />{" "}
+          {/*<--remove this later by styling so that submit button is on next line */}
+          <button id="submit-priority-button">SUBMIT</button>
         </form>
       </div>
 

@@ -15,12 +15,16 @@ View should include:
 --Section 2: Header "Negotiables" COMPLETE
 --Section 3: Header: "Deal Breakers" COMPLETE
 --Section 4: Header: "Nice to Have" COMPLETE
+--An add new form COMPLETE
+--A submit form button COMPLETE
 
 STATES:
 --[mustHaves, setMustHaves] COMPLETE
 --[negotiables, setNegotiables] COMPLETE
 --[dealBreakers, setDealBreakers] COMPLETE
---[niceToHaves, setNicetoHaves] COMPLETE*/
+--[niceToHaves, setNicetoHaves] COMPLETE
+--[type, setType] COMPLETE
+--[description, setDescription] COMPLETE*/
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -53,7 +57,7 @@ describe("Testing the Future Work Component Rendered Elements", () => {
   });
   it("should have an add new section", () => {
     let addNewSection = wrapper.find("#addNew-title");
-    expect(addNewSection.text()).toBe("Add a new priority:");
+    expect(addNewSection.text()).toBe("Add a new priority");
   });
 });
 
@@ -64,8 +68,21 @@ describe("Testing the DropDown Select Type Menu", () => {
   beforeEach(() => {
     wrapper = shallow(<WorkReqsList />); //before each tests, gets the WorkReqsList component to evaluate it
   });
-  it("should have a dropdown menu", () => {
+  it("should have a dropdown menu with 4 choices", () => {
     let dropdownMenu = wrapper.find("#select-type-dropdown-menu");
     expect(dropdownMenu.exists()).toEqual(true);
   });
+  it("should have a description input", () => {
+    let priorityInput = wrapper.find("#priority-description-input");
+    expect(priorityInput.exists()).toEqual(true);
+  });
+  it("should have a submit button", () => {
+    let prioritySubmitButton = wrapper.find("#submit-priority-button");
+    expect(prioritySubmitButton.exists()).toEqual(true);
+  });
+  //need to look into testing functionality
+  //it("should record input when user types in input form", () => {
+  // wrapper.find("#priority-description-input").simulate("change");
+  //expect(prioritySubmitButton.exists()).toEqual(true);
+  //});
 });
