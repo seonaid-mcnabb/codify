@@ -96,15 +96,63 @@ app.delete("/negotiable/:id", (req, res) => {
 
 //3. API ROUTES FOR THE DEAL-BREAKERS TABLE
 //get full list
+app.get("/dealbreakers-list", (req, res) => {
+  db("select * from job_deal_breakers;")
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err));
+});
+
 //add to list
+app.post("/dealbreaker", (req, res) => {
+  db(
+    `INSERT INTO job_deal_breakers(deal_breakers) VALUES ("${req.body.deal_breakers}");`
+  )
+    .then((result) =>
+      db("SELECT * FROM job_deal_breakers;").then((results) => {
+        res.send(results.data);
+      })
+    )
+    .catch((err) => res.status(500).send(err));
+});
 
 //delete from list by id
+app.delete("/dealbreaker/:id", (req, res) => {
+  db(`DELETE FROM job_deal_breakers WHERE id=${req.params.id}`)
+    .then((result) => db("SELECT * FROM job_deal_breakers;"))
+    .then((results) => {
+      res.send(results.data);
+    });
+});
 
 //4. API ROUTES FOR THE NICE2HAVES TABLE
 //get full list
+app.get("/nice2haves-list", (req, res) => {
+  db("select * from job_nice2haves;")
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err));
+});
 //add to list
+app.post("/nice2have", (req, res) => {
+  db(
+    `INSERT INTO job_nice2haves(nice_to_have) VALUES ("${req.body.nice_to_have}");`
+  )
+    .then((result) =>
+      db("SELECT * FROM job_nice2haves;").then((results) => {
+        res.send(results.data);
+      })
+    )
+    .catch((err) => res.status(500).send(err));
+});
 
 //delete from list by id
+
+app.delete("/nice2have/:id", (req, res) => {
+  db(`DELETE FROM job_nice2haves WHERE id=${req.params.id}`)
+    .then((result) => db("SELECT * FROM job_nice2haves;"))
+    .then((results) => {
+      res.send(results.data);
+    });
+});
 
 module.exports = app;
 
