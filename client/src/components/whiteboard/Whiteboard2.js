@@ -36,10 +36,11 @@ const isWithinElement = (x, y, element) => {
         const c = { x, y };
         const offset = distance(a, b) - (distance(a, c) + distance(b, c)); // if c is between a + b, and equal distance between a + c, and b + c
         return Math.abs(offset) < 1; // offset < 1 gives some leeway so user doesn't have to click exactly on the line
-
-    } else if (type === "circle") {
-        const radius = (x2 - x1) + (y2 - y1); // defines radius
-        return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)) < radius; // checks if mouse point is less than the radius meaning it is within the circle
+    } else if (type === "circle") { // currently not working properly as the circle can be moved from anywhere on the screen....
+        // const radius = (x2 - x1 + (y2 - y1)) / 1.4; // defines radius
+        // const x0 = (x1 + x2) / 2;
+        // const y0 = (y1 + y2) / 2;
+        // return Math.sqrt((x1-x0)*(x1-x0) + (y1-y0)*(y1-y0)) < radius;
     }
 }
 
@@ -48,6 +49,21 @@ const distance = (a, b) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y
 const getElementAtPosition = (x, y, elements) => {
     return elements.find(element => isWithinElement(x, y, element));
 }
+
+const cursorForPosition = position => {
+    switch (position) {
+      case "tl":
+      case "br":
+      case "start":
+      case "end":
+        return "nwse-resize";
+      case "tr":
+      case "bl":
+        return "nesw-resize";
+      default:
+        return "move";
+    }
+  };
 
 export default function Whiteboard2() {
 
@@ -98,6 +114,11 @@ export default function Whiteboard2() {
 
     const draw = (e) => { // tracks movement of mouse after clicking, saves copy of element to elements state
         const { clientX, clientY } = e; // mouse coordinates relative to window size
+
+        if (tool === "select") {
+            const element = getElementAtPosition(clientX, clientY, elements);
+            e.target.style.cursor = element ? cursorForPosition(element.position) : "default";
+          }
 
         if (action === "drawing") {
 
