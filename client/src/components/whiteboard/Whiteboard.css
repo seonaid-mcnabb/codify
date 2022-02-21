@@ -6,6 +6,10 @@ input {
     margin-right: 5px;
 }
 
+.select {
+    margin-left: 5px;
+}
+
 label {
     margin-right: 10px;
 }

@@ -21,21 +21,30 @@ const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates bas
     }
 }
 
-const isWithinElement = (x, y, element) => {
+const nearPoint = (x, y, x1, y1, name) => { // function checks if mouse is near the corner/end of the shape for resizing
+    return Math.abs(x - x1) < 5 && Math.abs(y - y1) < 5 ? name : null; // mouse is subtracting shape sides and checking if they're near each other, < 5 is the offset, .abs deals with positive and negative digits
+}
+
+const positionWithinElement = (x, y, element) => {
     const { type, x1, y1, x2, y2 } = element;
     if (type === "square") {
-        const minX = Math.min(x1, x2); // min and max x - checking if mouse position is between
-        const maxX = Math.max(x1, x2);
-        const minY = Math.min(y1, y2); // min and max y - checking if mouse position is between
-        const maxY = Math.max(y1, y2);
-        return x >= minX && x <= maxX && y >= minY && y <= maxY; // returns true if mouse is within the square
+        const topLeft = nearPoint(x, y, x1, y1, "tl"); // tl = topleft
+        const topRight = nearPoint(x, y, x2, y1, "tr");
+        const bottomLeft = nearPoint(x, y, x1, y2, "bl");
+        const bottomRight = nearPoint(x, y, x2, y2, "br");
+        const inside = x >= x1 && x <= x2 && y >= y1 && y <= y2 ? "inside" : null; // returns true if mouse is within the square
+        return topLeft || topRight || bottomLeft || bottomRight || inside; // return what is found
 
     } else if (type === "line") {
         const a = { x: x1, y: y1 };
         const b = { x: x2, y: y2 };
         const c = { x, y };
         const offset = distance(a, b) - (distance(a, c) + distance(b, c)); // if c is between a + b, and equal distance between a + c, and b + c
-        return Math.abs(offset) < 1; // offset < 1 gives some leeway so user doesn't have to click exactly on the line
+        const start = nearPoint(x, y, x1, y1, "start"); // finds start of line
+        const end = nearPoint(x, y, x2, y2, "end"); // finds end of line
+        const inside = Math.abs(offset) < 1 ? "inside" : null; // offset < 1 gives some leeway so user doesn't have to click exactly on the line
+        return start || end || inside; // returns whichever is available
+
     } else if (type === "circle") { // currently not working properly as the circle can be moved from anywhere on the screen....
         // const radius = (x2 - x1 + (y2 - y1)) / 1.4; // defines radius
         // const x0 = (x1 + x2) / 2;
@@ -47,23 +56,60 @@ const isWithinElement = (x, y, element) => {
 const distance = (a, b) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 
 const getElementAtPosition = (x, y, elements) => {
-    return elements.find(element => isWithinElement(x, y, element));
+    return elements
+      .map(element => ({ ...element, position: positionWithinElement(x, y, element) })) // goes through elements and returns position within element
+      .find(element => element.position !== null); // finds first one in return statement that isn't null
+  };
+
+const adjustElementCoordinates = (element) => { // function ensures that x1,y1 and x2,y2 are always in the same place no matter which direction the user draws in - for resizing purposes
+    const { type, x1, y1, x2, y2 } = element;
+    if (type === "square") {
+        const minX = Math.min(x1, x2); // min and max x - checking if mouse position is between
+        const maxX = Math.max(x1, x2);
+        const minY = Math.min(y1, y2); // min and max y - checking if mouse position is between
+        const maxY = Math.max(y1, y2);
+        return { x1: minX, y1: minY, x2: maxX, y2: maxY };
+    } else if (type === "line") {
+        if (x1 < x2 || (x1 === x2 && y1 < y2)) {
+            return { x1, y1, x2, y2 };
+        } else {
+            return {x1: x2, y1: y2, x2: x1, y2: y1}; // switching coords if user draws the line in the opposite direction
+        }
+    }
 }
 
-const cursorForPosition = position => {
+const cursorForPosition = position => { // returns cursor style based on position within element 
     switch (position) {
       case "tl":
       case "br":
       case "start":
       case "end":
-        return "nwse-resize";
+        return "nwse-resize"; 
       case "tr":
       case "bl":
         return "nesw-resize";
       default:
-        return "move";
+        return "move"; // if cursor inside element
     }
   };
+
+  const resizedCoordinates = (clientX, clientY, position, coordinates) => { // adjusts shape size based on which corner is being moved
+      const { x1, y1, x2, y2 } = coordinates;
+        switch (position) {
+            case "tl":
+            case "start":
+                return { x1: clientX, y1: clientY, x2, y2 };
+            case "tr":
+                return { x1, y1: clientY, x2: clientX, y2 };
+            case "bl":
+                return { x1: clientX, y1, x2, y2: clientY };
+            case "br":
+            case "end":
+                return { x1, y1, x2: clientX, y2: clientY };
+            default:
+                return null; // should not reach this return
+      }
+  }
 
 export default function Whiteboard2() {
 
@@ -100,7 +146,12 @@ export default function Whiteboard2() {
                 const offsetX = clientX - element.x1;
                 const offsetY = clientY - element.y1;
                 setSelectedElement({...element, offsetX, offsetY});
+
+                if (element.position === "inside") {
                 setAction("moving");
+                } else {
+                    setAction("resizing");
+                }
             }
         } else {
             const id = elements.length;
@@ -117,11 +168,10 @@ export default function Whiteboard2() {
 
         if (tool === "select") {
             const element = getElementAtPosition(clientX, clientY, elements);
-            e.target.style.cursor = element ? cursorForPosition(element.position) : "default";
+            e.target.style.cursor = element ? cursorForPosition(element.position) : "default"; // if cursor within element, returns different cursor style
           }
 
         if (action === "drawing") {
-
             const index = elements.length - 1;
             const { x1, y1 } = elements[index];
             updateElement(index, x1, y1, clientX, clientY, tool); // ensures last coords stored are the ones where the mouse stops moving
@@ -134,10 +184,20 @@ export default function Whiteboard2() {
             const newY1 = clientY - offsetY;
             updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type); // ensures last coords stored are the ones where the mouse stops moving
 
+        } else if (action === "resizing") {
+            const { id, type, position, ...coordinates } = selectedElement;
+            const { x1, y1, x2, y2 } = resizedCoordinates(clientX, clientY, position, coordinates);
+            updateElement(id, x1, y1, x2, y2, type);
         }
     }
 
     const finishDrawing = () => { // sets drawing state to false when mouse is released, stores end coords for shape and stroke so the final element is rendered on board
+        const index = elements.length - 1;
+        const { id, type } = elements[index];
+        if (action === "drawing") {
+            const { x1, y1, x2, y2 } = adjustElementCoordinates(elements[index]);
+            updateElement(id, x1, y1, x2, y2, type);
+        }
         setAction("none");
         setSelectedElement(null);
     }
@@ -151,6 +211,7 @@ export default function Whiteboard2() {
         <input
             type="radio"
             id="select"
+            className="select"
             checked={tool === "select"}
             onChange={() => setTool("select")}
             />
