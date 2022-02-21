@@ -2,22 +2,29 @@ import React, { useState, useLayoutEffect, useEffect } from "react";
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import rough from "roughjs/bundled/rough.esm";
+import { StrokeOptions, getStroke } from 'perfect-freehand';
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
 
 const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates based on position of cursor and element to be drawn
+    switch (type) {}
     if (type === "line") {
         // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
         const roughElement = generator.line(x1, y1, x2, y2);
         return { id, x1, y1, x2, y2, type, roughElement };
+
     } else if (type === "square") {
         // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
         const roughElement = generator.rectangle(x1, y1, x2-x1, y2-y1);
         return { id, x1, y1, x2, y2, type, roughElement };
+
     } else if (type === "circle") {
         // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
         const roughElement = generator.circle(x1, y1, 2 * (x2 - x1 + y2 - y1));
         return { id, x1, y1, x2, y2, type, roughElement };
+
+    } else if (type === "pencil") {
+        return { id, type, points: [{x: x1, y: y1}] };
     }
 }
 
@@ -94,20 +101,20 @@ const cursorForPosition = position => { // returns cursor style based on positio
   };
 
   const resizedCoordinates = (clientX, clientY, position, coordinates) => { // adjusts shape size based on which corner is being moved
-      const { x1, y1, x2, y2 } = coordinates;
-        switch (position) {
-            case "tl":
-            case "start":
-                return { x1: clientX, y1: clientY, x2, y2 };
-            case "tr":
-                return { x1, y1: clientY, x2: clientX, y2 };
-            case "bl":
-                return { x1: clientX, y1, x2, y2: clientY };
-            case "br":
-            case "end":
-                return { x1, y1, x2: clientX, y2: clientY };
-            default:
-                return null; // should not reach this return
+    const { x1, y1, x2, y2 } = coordinates;
+    switch (position) {
+        case "tl":
+        case "start":
+            return { x1: clientX, y1: clientY, x2, y2 };
+        case "tr":
+            return { x1, y1: clientY, x2: clientX, y2 };
+        case "bl":
+            return { x1: clientX, y1, x2, y2: clientY };
+        case "br":
+        case "end":
+            return { x1, y1, x2: clientX, y2: clientY };
+        default:
+            return null; // should not reach this return
       }
   }
 
@@ -139,12 +146,55 @@ const cursorForPosition = position => { // returns cursor style based on positio
     return [history[index], setState, undo, redo]; 
   }
 
+
+
+  const getSvgPathFromStroke = (stroke) => { // the function below will turn the points returned by getStroke into SVG path data for rendering
+    if (!stroke.length) return '';
+  
+    const d = stroke.reduce(
+      (acc, [x0, y0], i, arr) => {
+        const [x1, y1] = arr[(i + 1) % arr.length]
+        acc.push(x0, y0, (x0 + x1) / 2, (y0 + y1) / 2)
+        return acc
+      },
+      ['M', ...stroke[0], 'Q']
+    )
+  
+    d.push('Z')
+    return d.join(' ')
+  }
+
+  const pencilOptions = {
+      size: 1,
+      thinning: 0,
+      
+  }
+
+  const drawElement = (roughCanvas, ctx, element) => {
+      switch (element.type) {
+        case "square":
+        case "line":
+        case "circle":
+            roughCanvas.draw(element.roughElement);
+            break;
+        case "pencil":
+            const stroke = getSvgPathFromStroke(getStroke(element.points, pencilOptions));
+            ctx.fill(new Path2D(stroke));
+            break;
+        default:
+            throw new Error("Type not recognised")
+      }
+    }
+
+    const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
+
 export default function Whiteboard2() {
 
     const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
     const [action, setAction] = useState("none");
-    const [tool, setTool] = useState("line");
+    const [tool, setTool] = useState("pencil");
     const [selectedElement, setSelectedElement] = useState(null);
+    const [penColour, setPenColour] = useState("red");
 
 
     useLayoutEffect(() => {
@@ -154,7 +204,7 @@ export default function Whiteboard2() {
 
         const roughCanvas = rough.canvas(canvas);
 
-        elements.forEach(({roughElement}) => roughCanvas.draw(roughElement));
+        elements.forEach(element => drawElement(roughCanvas, ctx, element));
 
     }, [elements])
 
@@ -180,10 +230,21 @@ export default function Whiteboard2() {
     
 
     const updateElement = (id, x1, y1, x2, y2, type) => {
-        const updatedElement = createElement(id, x1, y1, x2, y2, type); // ensures last coords stored are the ones where the mouse stops moving
 
         const elementsCopy = [...elements];
-        elementsCopy[id] = updatedElement;
+
+        switch (type) {
+            case "line":
+            case "square":
+            case "circle":
+                elementsCopy[id] = createElement(id, x1, y1, x2, y2, type); // ensures last coords stored are the ones where the mouse stops moving;
+                break;
+            case "pencil":
+                elementsCopy[id].points = [...elementsCopy[id].points, {x: x2, y: y2}];
+                break;
+            default:
+                throw new Error("Type not recognised");
+        }
         setElements(elementsCopy, true);
     }
 
@@ -246,7 +307,7 @@ export default function Whiteboard2() {
         if (selectedElement) {
             const index = selectedElement.id;
             const { id, type } = elements[index];
-            if (action === "drawing" || action === "resizing") {
+            if ((action === "drawing" || action === "resizing") && adjustmentRequired(type)) {
                 const { x1, y1, x2, y2 } = adjustElementCoordinates(elements[index]);
                 updateElement(id, x1, y1, x2, y2, type);
             }
@@ -276,6 +337,13 @@ export default function Whiteboard2() {
             onChange={() => setTool("line")}
             />
             <label htmlFor="line">Line</label>
+            <input
+            type="radio"
+            id="pencil"
+            checked={tool === "pencil"}
+            onChange={() => setTool("pencil")}
+            />
+            <label htmlFor="pencil">Pencil</label>
             <input
             type="radio"
             id="square"
