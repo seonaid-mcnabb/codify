@@ -10,6 +10,7 @@ import Whiteboard from "./components/whiteboard/Whiteboard.js";
 import Quiz from "./components/quiz/Quiz";
 import Play from "./components/quiz/Play";
 import WorkReqsList from "./components/Personal Reflection Area/WorkReqsList";
+import MyQandAs from "./components/Backup Brain/MyQandAs";
 
 //comment to add push
 function App() {
@@ -55,6 +56,7 @@ function App() {
 
         {/*Seonaids Component Routes--For Testing Purposes */}
         <Route path="/joblist" element={<WorkReqsList />} />
+        <Route path="/qandas" element={<MyQandAs />} />
       </Routes>
 
       <Footer />
