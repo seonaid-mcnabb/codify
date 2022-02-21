@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import rough from "roughjs/bundled/rough.esm";
@@ -111,9 +111,37 @@ const cursorForPosition = position => { // returns cursor style based on positio
       }
   }
 
+  const useHistory = (initialState) => { // custom hook to save history of state changes for undo/redo function
+    const [index, setIndex] = useState(0);
+    const [history, setHistory] = useState([initialState]); 
+
+    const setState = (action, overwrite = false) => {
+        const newState = typeof action === "function" ? action(history[index]) : action; // prevstate = previous step in drawing
+        if (overwrite) { // ensures that steps are only added once and now every time the coordinates change
+            const historyCopy = [...history];
+            historyCopy[index] = newState;
+            setHistory(historyCopy);
+        } else {
+            const updatedState = [...history].slice(0, index + 1);
+            setHistory(prevState => [...updatedState, newState]); // adds point in time to history state that we can go back and forth from, overrides any undone steps
+            setIndex(prevState => prevState + 1);
+        }
+    }
+
+    const undo = () => {
+        index > 0 && setIndex(prevState => prevState - 1);
+    }
+
+    const redo = () => {
+        index < history.length - 1 && setIndex(prevState => prevState + 1);
+    }
+
+    return [history[index], setState, undo, redo]; 
+  }
+
 export default function Whiteboard2() {
 
-    const [elements, setElements] = useState([]); // keeping track of created elements
+    const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
     const [action, setAction] = useState("none");
     const [tool, setTool] = useState("line");
     const [selectedElement, setSelectedElement] = useState(null);
@@ -130,12 +158,33 @@ export default function Whiteboard2() {
 
     }, [elements])
 
+    useEffect(() => {
+
+        const undoRedoFunction = (e) => { // allows users to use CTRL+Z to undo
+            if ((e.metaKey || e.ctrlKey) && e.key === "z") { // checks for command or ctrl key
+                if (e.shiftKey) { // command + shift + z = redo for mac
+                    redo();
+                } else { // command/ctrl + z = undo for windows/mac
+                    undo(); 
+                }
+            } else if ((e.metaKey || e.ctrlKey) && e.key === "y") { // ctrl + y = redo for windows
+                redo();
+            }
+        }
+
+        document.addEventListener("keydown", undoRedoFunction);
+        return () => {
+            document.removeEventListener("keydown", undoRedoFunction);
+        }
+    }, [undo, redo])
+    
+
     const updateElement = (id, x1, y1, x2, y2, type) => {
         const updatedElement = createElement(id, x1, y1, x2, y2, type); // ensures last coords stored are the ones where the mouse stops moving
 
         const elementsCopy = [...elements];
         elementsCopy[id] = updatedElement;
-        setElements(elementsCopy);
+        setElements(elementsCopy, true);
     }
 
     const startDrawing = (e) => { // onMouseDown
@@ -146,6 +195,7 @@ export default function Whiteboard2() {
                 const offsetX = clientX - element.x1;
                 const offsetY = clientY - element.y1;
                 setSelectedElement({...element, offsetX, offsetY});
+                setElements(prevState => prevState); // updates steps so copies of elements are made. when shapes are moved, a copy of their previous state/position is saved and can undone/redone
 
                 if (element.position === "inside") {
                 setAction("moving");
@@ -157,6 +207,7 @@ export default function Whiteboard2() {
             const id = elements.length;
             const element = createElement(id, clientX, clientY, clientX, clientY, tool);
             setElements((prevState) => [...prevState, element]);
+            setSelectedElement(element);
 
             setAction("drawing");
 
@@ -192,11 +243,13 @@ export default function Whiteboard2() {
     }
 
     const finishDrawing = () => { // sets drawing state to false when mouse is released, stores end coords for shape and stroke so the final element is rendered on board
-        const index = elements.length - 1;
-        const { id, type } = elements[index];
-        if (action === "drawing") {
-            const { x1, y1, x2, y2 } = adjustElementCoordinates(elements[index]);
-            updateElement(id, x1, y1, x2, y2, type);
+        if (selectedElement) {
+            const index = selectedElement.id;
+            const { id, type } = elements[index];
+            if (action === "drawing" || action === "resizing") {
+                const { x1, y1, x2, y2 } = adjustElementCoordinates(elements[index]);
+                updateElement(id, x1, y1, x2, y2, type);
+            }
         }
         setAction("none");
         setSelectedElement(null);
@@ -238,6 +291,10 @@ export default function Whiteboard2() {
             />
             <label htmlFor="circle">Circle</label>
         </div>
+            <div style={{position: "fixed", bottom: 0, padding: 10}}>
+                <button onClick={undo}>Undo</button>
+                <button onClick={redo}>Redo</button>
+            </div>
         <canvas 
         id="canvas" 
         width={window.innerWidth} 
