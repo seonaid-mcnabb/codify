@@ -9,13 +9,8 @@ import Whiteboard from "./components/whiteboard/Whiteboard.js";
 import Quiz from "./components/quiz/Quiz";
 import Play from "./components/quiz/Play";
 import WorkReqsList from "./components/Personal Reflection Area/WorkReqsList";
-<<<<<<< HEAD
 import MyQandAs from "./components/Backup Brain/MyQandAs";
-||||||| 284510f
-=======
 import Results from "./components/quiz/Results";
->>>>>>> 0fce7a04ac0df0106a13645451aaef6fbd057b7e
-
 //comment to add push
 function App() {
   let [level, setLevel] = useState("Easy");
