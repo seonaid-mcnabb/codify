@@ -2,31 +2,11 @@ import React, { useState, useLayoutEffect, useEffect } from "react";
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import rough from "roughjs/bundled/rough.esm";
-import { StrokeOptions, getStroke } from 'perfect-freehand';
+import { getStroke } from 'perfect-freehand';
+import { HuePicker } from "react-color";
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
 
-const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates based on position of cursor and element to be drawn
-    switch (type) {}
-    if (type === "line") {
-        // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
-        const roughElement = generator.line(x1, y1, x2, y2);
-        return { id, x1, y1, x2, y2, type, roughElement };
-
-    } else if (type === "square") {
-        // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
-        const roughElement = generator.rectangle(x1, y1, x2-x1, y2-y1);
-        return { id, x1, y1, x2, y2, type, roughElement };
-
-    } else if (type === "circle") {
-        // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
-        const roughElement = generator.circle(x1, y1, 2 * (x2 - x1 + y2 - y1));
-        return { id, x1, y1, x2, y2, type, roughElement };
-
-    } else if (type === "pencil") {
-        return { id, type, points: [{x: x1, y: y1}] };
-    }
-}
 
 const nearPoint = (x, y, x1, y1, name) => { // function checks if mouse is near the corner/end of the shape for resizing
     return Math.abs(x - x1) < 5 && Math.abs(y - y1) < 5 ? name : null; // mouse is subtracting shape sides and checking if they're near each other, < 5 is the offset, .abs deals with positive and negative digits
@@ -142,7 +122,6 @@ const cursorForPosition = position => { // returns cursor style based on positio
     const redo = () => {
         index < history.length - 1 && setIndex(prevState => prevState + 1);
     }
-
     return [history[index], setState, undo, redo]; 
   }
 
@@ -164,27 +143,6 @@ const cursorForPosition = position => { // returns cursor style based on positio
     return d.join(' ')
   }
 
-  const pencilOptions = {
-      size: 1,
-      thinning: 0,
-      
-  }
-
-  const drawElement = (roughCanvas, ctx, element) => {
-      switch (element.type) {
-        case "square":
-        case "line":
-        case "circle":
-            roughCanvas.draw(element.roughElement);
-            break;
-        case "pencil":
-            const stroke = getSvgPathFromStroke(getStroke(element.points, pencilOptions));
-            ctx.fill(new Path2D(stroke));
-            break;
-        default:
-            throw new Error("Type not recognised")
-      }
-    }
 
     const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
@@ -194,15 +152,25 @@ export default function Whiteboard2() {
     const [action, setAction] = useState("none");
     const [tool, setTool] = useState("pencil");
     const [selectedElement, setSelectedElement] = useState(null);
-    const [penColour, setPenColour] = useState("red");
+    const [penColour, setPenColour] = useState("#000000");
+    const [showColours, setShowColours] = useState(false);
+    const [showFillColours, setShowFillColours] = useState(false);
+    const [fillColour, setFillColour] = useState("#ffffff");
+    const [lineWidth, setLineWidth] = useState(1);
 
 
     useLayoutEffect(() => {
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d"); // gets canvas's context = what the drawings will be rendered on. 2d = creation of object with 2d rendering context
+        
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.lineCap = 5;
+        ctx.strokeStyle = penColour;
         ctx.clearRect(0, 0, canvas.width, canvas.height); // clears canvas each time it is re-rendered
 
         const roughCanvas = rough.canvas(canvas);
+
 
         elements.forEach(element => drawElement(roughCanvas, ctx, element));
 
@@ -227,6 +195,28 @@ export default function Whiteboard2() {
             document.removeEventListener("keydown", undoRedoFunction);
         }
     }, [undo, redo])
+
+    const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates based on position of cursor and element to be drawn
+        switch (type) {}
+        if (type === "line") {
+            // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
+            const roughElement = generator.line(x1, y1, x2, y2, {stroke: penColour, strokeWidth: lineWidth});
+            return { id, x1, y1, x2, y2, type, roughElement };
+    
+        } else if (type === "square") {
+            // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
+            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { roughness: 0.5, fill: fillColour, stroke: penColour, strokeWidth: lineWidth });
+            return { id, x1, y1, x2, y2, type, roughElement };
+    
+        } else if (type === "circle") {
+            // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
+            // const roughElement = generator.circle(x1, y1, 2 * (x2 - x1 + y2 - y1), { roughness: 0.5, fill: fillColour, stroke: penColour, strokeWidth: lineWidth });
+            // return { id, x1, y1, x2, y2, type, roughElement };
+    
+        } else if (type === "pencil") {
+            return { id, type, points: [{x: x1, y: y1}] };
+        }
+    }
     
 
     const updateElement = (id, x1, y1, x2, y2, type) => {
@@ -236,7 +226,7 @@ export default function Whiteboard2() {
         switch (type) {
             case "line":
             case "square":
-            case "circle":
+            // case "circle":
                 elementsCopy[id] = createElement(id, x1, y1, x2, y2, type); // ensures last coords stored are the ones where the mouse stops moving;
                 break;
             case "pencil":
@@ -246,6 +236,45 @@ export default function Whiteboard2() {
                 throw new Error("Type not recognised");
         }
         setElements(elementsCopy, true);
+    }
+
+    const drawElement = (roughCanvas, ctx, element) => {
+        switch (element.type) {
+          case "square":
+          case "line":
+          case "circle":
+              roughCanvas.draw(element.roughElement);
+              break;
+          case "pencil":
+              ctx.fillStyle = penColour;
+              const stroke = getStroke(element.points, {
+                  size: 3,
+                  thinning: 0
+              })
+              const pathData = getSvgPathFromStroke(stroke);
+  
+              const myPath = new Path2D(pathData);
+              console.log(myPath)
+  
+              ctx.fill(myPath);
+              // const stroke = getSvgPathFromStroke(getStroke(element.points, pencilOptions));
+              // ctx.fill(new Path2D(stroke));
+              break;
+          default:
+              throw new Error("Type not recognised")
+        }
+      }
+
+      const handleColourChange = (color) => {
+        console.log(color);
+        document.getElementById("colour-button").style.backgroundColor = color.hex;
+        setPenColour(color.hex);
+    }
+
+    const handleFillColourChange = (color) => {
+        console.log(color);
+        document.getElementById("fill-button").style.backgroundColor = color.hex;
+        setFillColour(color.hex);
     }
 
     const startDrawing = (e) => { // onMouseDown
@@ -354,10 +383,35 @@ export default function Whiteboard2() {
             <input
             type="radio"
             id="circle"
+            disabled={true}
             checked={tool === "circle"}
             onChange={() => setTool("circle")}
             />
             <label htmlFor="circle">Circle</label>
+            <button
+              title="Colour"
+              id="colour-button"
+              onClick={() => {
+                setShowColours(!showColours);
+              }}
+            >
+              Pen Colour
+            </button>
+            { showColours ? <div className="popover">
+          <HuePicker color="#fff" onChange={(color) => handleColourChange(color)}/>
+        </div> : null }
+        <button
+              title="Fill"
+              id="fill-button"
+              onClick={() => {
+                setShowFillColours(!showFillColours);
+              }}
+            >
+              Fill Colour
+            </button>
+        { showFillColours ? <div className="fill-popover">
+          <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)}/>
+        </div> : null }
         </div>
             <div style={{position: "fixed", bottom: 0, padding: 10}}>
                 <button onClick={undo}>Undo</button>
