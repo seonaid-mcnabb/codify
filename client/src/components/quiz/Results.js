@@ -87,7 +87,7 @@ const Results = (props) => {
             <div id={id} key={id}>
               <h5>{answer.question}</h5>
               <h6>
-                {answer.user_answer == answer.correct_answer ? (
+                {answer.user_answer === answer.correct_answer ? (
                   <p>
                     ✅ You got it right! The correct answer was{" "}
                     {answer.formatted_correct_answer})
