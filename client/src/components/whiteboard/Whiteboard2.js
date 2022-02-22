@@ -5,6 +5,9 @@ import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from 'perfect-freehand';
 import { HuePicker } from "react-color";
 import Codify from "../Codify.png";
+import Lined from "./images/lined.jpg";
+import Grid from "./images/grid.png";
+
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
 
@@ -163,17 +166,24 @@ const cursorForPosition = position => { // returns cursor style based on positio
 
     const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
+
+
 export default function Whiteboard2() {
 
     const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
     const [action, setAction] = useState("none");
     const [tool, setTool] = useState("pencil");
     const [selectedElement, setSelectedElement] = useState(null);
-    const [penColour, setPenColour] = useState("#000000");
+    const [lineColour, setLineColour] = useState("#000000");
     const [showColours, setShowColours] = useState(false);
     const [showFillColours, setShowFillColours] = useState(false);
     const [fillColour, setFillColour] = useState("#ffffff");
     const [lineWidth, setLineWidth] = useState(3);
+    const [background, setBackground] = useState("#ffffff");
+    const [backgroundImage, setBackgroundImage] = ("");
+    // const [penSelected, setPenSelected] = useState(false);
+    // const [pencilSelected, setPencilSelected] = useState(true);
+    // const [arrowSelected, setArrowSelected] = useState(false);
 
 
     useLayoutEffect(() => {
@@ -183,15 +193,15 @@ export default function Whiteboard2() {
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.lineCap = 5;
-        ctx.strokeStyle = penColour;
+        ctx.strokeStyle = lineColour;
         ctx.clearRect(0, 0, canvas.width, canvas.height); // clears canvas each time it is re-rendered
 
         const roughCanvas = rough.canvas(canvas);
 
-
         elements.forEach(element => drawElement(roughCanvas, ctx, element));
 
-    }, [elements, penColour])
+
+    }, [elements, lineColour, background]);
 
     useEffect(() => {
 
@@ -211,27 +221,27 @@ export default function Whiteboard2() {
         return () => {
             document.removeEventListener("keydown", undoRedoFunction);
         }
-    }, [undo, redo])
+    }, [background, undo, redo])
 
     const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates based on position of cursor and element to be drawn
         switch (type) {}
         if (type === "line") {
             // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
-            const roughElement = generator.line(x1, y1, x2, y2, {stroke: penColour, strokeWidth: lineWidth});
+            const roughElement = generator.line(x1, y1, x2, y2, {stroke: lineColour, strokeWidth: lineWidth});
             return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "square") {
             // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
-            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: penColour, strokeWidth: lineWidth });
+            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: lineColour, strokeWidth: lineWidth });
             return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "circle") {
             // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
-            // const roughElement = generator.circle(x1, y1, 2 * (x2 - x1 + y2 - y1), { roughness: 0.5, fill: fillColour, stroke: penColour, strokeWidth: lineWidth });
+            // const roughElement = generator.circle(x1, y1, 2 * (x2 - x1 + y2 - y1), { roughness: 0.5, fill: fillColour, stroke: lineColour, strokeWidth: lineWidth });
             // return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "pencil") {
-            return { id, type, points: [{x: x1, y: y1}], penColour };
+            return { id, type, points: [{x: x1, y: y1}], lineColour };
         }
     }
 
@@ -264,7 +274,7 @@ export default function Whiteboard2() {
               roughCanvas.draw(element.roughElement);
               break;
           case "pencil":
-              ctx.fillStyle = penColour;
+              ctx.fillStyle = lineColour;
               const stroke = getStroke(element.points, {
                   size: lineWidth,
                   thinning: 0
@@ -286,9 +296,9 @@ export default function Whiteboard2() {
       const handleColourChange = (color) => {
         console.log(color);
         document.getElementById("colour-button").style.backgroundColor = color.hex;
-        // setPenColour((prevState) => [...prevState, color.hex]);
+        // setLineColour((prevState) => [...prevState, color.hex]);
         const newState = color.hex;
-        setPenColour(newState); // adds point in time to history state that we can go back and forth from, overrides any undone steps
+        setLineColour(newState); // adds point in time to history state that we can go back and forth from, overrides any undone steps
         // setIndex(prevState => prevState + 1);
     }
 
@@ -340,6 +350,7 @@ export default function Whiteboard2() {
             const element = getElementAtPosition(clientX, clientY, elements);
             e.target.style.cursor = element ? cursorForPosition(element.position) : "default"; // if cursor within element, returns different cursor style
           }
+
 
         if (action === "drawing") {
             const index = elements.length - 1;
@@ -393,13 +404,14 @@ export default function Whiteboard2() {
     <div className="canvas-container">
         <div style={{position: "fixed"}}>
         {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
-        <img src={Codify} className="logo" alt="Codify logo" /><h1>Whiteboard</h1>
+        <img src={Codify} className="logo" alt="Codify logo" />
+        <h1>Whiteboard</h1>
         <input
             type="radio"
             id="select"
-            className="select"
             checked={tool === "select"}
             onChange={() => setTool("select")}
+            // className={tool === "select" ? "arrow-cursor" : null}
             />
             <label htmlFor="select">Select</label>
             <input
@@ -407,6 +419,7 @@ export default function Whiteboard2() {
             id="line"
             checked={tool === "line"}
             onChange={() => setTool("line")}
+            className={tool === "line" ? "shape-cursor" : null}
             />
             <label htmlFor="line">Line</label>
             <input
@@ -414,6 +427,7 @@ export default function Whiteboard2() {
             id="pencil"
             checked={tool === "pencil"}
             onChange={() => setTool("pencil")}
+            className={tool === "pencil" ? "freehand-cursor" : null}
             />
             <label htmlFor="pencil">Pencil</label>
             <input
@@ -421,6 +435,7 @@ export default function Whiteboard2() {
             id="square"
             checked={tool === "square"}
             onChange={() => setTool("square")}
+            className={tool === "square" ? "shape-cursor" : null}
             />
             <label htmlFor="square">Square</label>
             <input
@@ -429,6 +444,7 @@ export default function Whiteboard2() {
             disabled={true}
             checked={tool === "circle"}
             onChange={() => setTool("circle")}
+            className={tool === "circle" ? "shape-cursor" : null}
             />
             <label htmlFor="circle">Circle</label>
             <button
@@ -448,6 +464,36 @@ export default function Whiteboard2() {
               }}
             >
               -
+            </button>
+            <button
+              title="White background"
+              id="white"
+              onClick={() => {
+                setBackground("#ffffff");
+              }}
+              className={background === "#ffffff" ? "#canvas" : null}
+            >
+              White Background
+            </button>
+            <button
+              title="Lined background"
+              id="lined"
+              onClick={() => {
+                setBackground(Lined);
+              }}
+              className={background === "lined" ? "lined-background" : null}
+            >
+              Lined Background
+            </button>
+            <button
+              title="Grid background"
+              id="grid"
+              onClick={() => {
+                setBackground(Grid);
+              }}
+              className={background === "grid" ? "grid-background" : null}
+            >
+              Grid Background
             </button>
             <button
               title="Colour"
@@ -479,12 +525,17 @@ export default function Whiteboard2() {
                 <button onClick={redo}>Redo</button>
             </div>
         <canvas 
-        id="canvas" 
+        id="canvas"
+        className={background === "lined" ? "lined-background" : null} 
         width={window.innerWidth} 
-        height={window.innerWidth}
+        height={window.innerHeight}
+        style={{  
+            backgroundImage: `url(${background})`
+          }}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={finishDrawing}>
+            
             Canvas
         </canvas>
     </div>
