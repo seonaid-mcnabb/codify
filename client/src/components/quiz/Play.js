@@ -40,14 +40,14 @@ const Play = (props) => {
     }
   }
 
-  function previousQuestion(event) {
-    event.preventDefault();
-    if (currentQuestion == 1) {
-      console.log("First Question");
-    } else {
-      setCurrentQuestion(currentQuestion - 1);
-    }
-  }
+  // function previousQuestion(event) {
+  //   event.preventDefault();
+  //   if (currentQuestion == 1) {
+  //     console.log("First Question");
+  //   } else {
+  //     setCurrentQuestion(currentQuestion - 1);
+  //   }
+  // }
 
   return (
     <div>
@@ -192,7 +192,7 @@ const Play = (props) => {
               )}
               {/* conditionally render a finish quiz button that takes you to a results page and hide submit button if the currentQuestion == props.length */}
               <br />
-              {currentQuestion == 1 ? (
+              {/* {currentQuestion == 1 ? (
                 ""
               ) : (
                 <input
@@ -200,7 +200,7 @@ const Play = (props) => {
                   value="Back"
                   onClick={(e) => previousQuestion(e)}
                 />
-              )}
+              )} */}
 
               {currentQuestion < props.length ? (
                 <input type="submit" value="Next" />
