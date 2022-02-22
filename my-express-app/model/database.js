@@ -70,5 +70,13 @@ con.connect(function (err) {
     console.log("Closing...");
   });
 
+  //Create the tags table
+  let tagsSQL =
+    "DROP TABLE if exists tags; CREATE TABLE tags(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(40));";
+  con.query(qAndAsSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `tags` was successful!");
+    console.log("Closing...");
+  });
   con.end();
 });
