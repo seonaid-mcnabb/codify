@@ -17,7 +17,7 @@ const PencilTool = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.lineCap = "round";
         ctx.strokeStyle = "black";
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 3;
         contextRef.current = ctx;
 
         points.forEach((el) => {
@@ -51,10 +51,11 @@ const PencilTool = () => {
 
 
   return (
-    <div>
+    <div className="canvas-container">
         <canvas id="canvas" width={window.innerWidth} height={window.innerWidth} onMouseDown={startDrawing} onMouseMove={draw} onMouseUp={finishDrawing}>
             Canvas
         </canvas>
+        <button>Pencil</button>
     </div>
   )
 }
