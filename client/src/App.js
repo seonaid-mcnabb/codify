@@ -18,6 +18,7 @@ function App() {
   let [topic, setTopic] = useState("HTML");
   let [questions, setQuestions] = useState([]);
   let [userAnswersArray, setUserAnswersArray] = useState([]);
+  let [allAnswers, setAllAnswers] = useState([]);
   let [quizStatus, setQuizStatus] = useState("Playing");
 
   return (
