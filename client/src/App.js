@@ -6,21 +6,21 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Whiteboard2 from "./components/whiteboard/Whiteboard2";
+import Whiteboard from "./components/whiteboard/Whiteboard";
 
 //comment to add push
 function App() {
   return (
     <div className="App">
-      {/* <Header /> */}
+      <Header />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/whiteboard" element={<Whiteboard2 />} />
+        <Route path="/whiteboard" element={<Whiteboard />} />
       </Routes>
 
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
