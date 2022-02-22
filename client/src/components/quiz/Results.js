@@ -22,6 +22,9 @@ const Results = (props) => {
   }
 
   for (let i = 0; i < props.questions.length; i++) {
+    let value = props.questions[i].correct_answers;
+    let correctAnswer = getKeyByValue(value, "true").slice(0, 8);
+    console.log(correctAnswer);
     if (props.userAnswersArray[i] == props.questions[i].correct_answer) {
       points++;
     }
@@ -30,8 +33,8 @@ const Results = (props) => {
         question: props.questions[i].question,
         user_answer: props.userAnswersArray[i],
         formatted_user_answer: props.userAnswersArray[i].slice(-1),
-        correct_answer: props.questions[i].correct_answer,
-        formatted_correct_answer: props.questions[i].correct_answer.slice(-1),
+        correct_answer: correctAnswer,
+        formatted_correct_answer: correctAnswer.slice(-1),
         all_answers: [
           props.questions[i].answers.answer_a,
           props.questions[i].answers.answer_b,
@@ -46,8 +49,8 @@ const Results = (props) => {
         question: props.questions[i].question,
         user_answer: props.userAnswersArray[i],
         formatted_user_answer: props.userAnswersArray[i].slice(-1),
-        correct_answer: props.questions[i].correct_answer,
-        formatted_correct_answer: props.questions[i].correct_answer.slice(-1),
+        correct_answer: correctAnswer,
+        formatted_correct_answer: correctAnswer.slice(-1),
         all_answers: [
           props.questions[i].answers.answer_a,
           props.questions[i].answers.answer_b,
@@ -58,8 +61,6 @@ const Results = (props) => {
         ],
       });
     }
-    console.log(answers[i].all_answers);
-    console.log(answers[i].correct_answer);
   }
 
   score = (points / props.length) * 100;
