@@ -21,9 +21,10 @@ function App() {
   let [allAnswers, setAllAnswers] = useState([]);
   let [quizStatus, setQuizStatus] = useState("Playing");
 
+  const pathname = window.location.pathname;
   return (
     <div className="App">
-      {/* <Header /> */}
+      {pathname == "/whiteboard" ? "" : <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />
