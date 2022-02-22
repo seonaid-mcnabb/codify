@@ -89,12 +89,17 @@ const Results = (props) => {
               <h6>
                 {answer.user_answer == answer.correct_answer ? (
                   <p>
-                    ✅ You got it right! The correct answer was_
+                    ✅ You got it right! The correct answer was{" "}
                     {answer.formatted_correct_answer})
                     <br />
                   </p>
                 ) : (
-                  `❌ You got it wrong. The correct answer was ${answer.formatted_correct_answer}. You answered ${answer.formatted_user_answer})`
+                  <p>
+                    ❌ You got it wrong. The correct answer was{" "}
+                    {answer.formatted_correct_answer}). You answered{" "}
+                    {answer.formatted_user_answer})
+                    <br />
+                  </p>
                 )}
                 {answer.all_answers[0] ? (
                   <h6>a) {answer.all_answers[0]}</h6>
