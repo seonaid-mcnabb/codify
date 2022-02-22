@@ -351,6 +351,7 @@ export default function Whiteboard2() {
             e.target.style.cursor = element ? cursorForPosition(element.position) : "default"; // if cursor within element, returns different cursor style
           }
 
+
         if (action === "drawing") {
             const index = elements.length - 1;
             const { x1, y1 } = elements[index];

@@ -49,9 +49,9 @@ h1 {
     background-color: #FFE0AA;
 }
 
-.arrow-cursor {}
-
-.shape-cursor {}
+.shape-cursor {
+    cursor: crosshair;
+}
 
 .freehand-cursor {}
 
