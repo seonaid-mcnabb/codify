@@ -1,18 +1,45 @@
 #canvas {
-    border: 10px solid black;
-    border-radius: 20px;
+    background-color: white;
+}
+
+input {
+    margin-right: 5px;
+}
+
+.select {
+    margin-left: 5px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+h1 {
+    /* text-align: center; */
+    font-family: 'Shrikhand', cursive;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #F5804E;
 }
 
 .canvas-container {
     position: relative;
     width: 100vw;
     height: 100vh;
+    border: 5px solid #FFE0AA;
+    background-color: #FFE0AA;
+}
+
+.select-drawing {
+    position: absolute;
+    left: 5%;
+    top: 5%;
 }
 
 .line-drawing {
     position: absolute;
-    left: 5%;
-    top: 5%;
+    left: 10%;
+    top: 10%;
 }
 
 .freehand-drawing {
@@ -31,4 +58,35 @@
     position: absolute;
     left: 14.5%;
     top: 5%;
+}
+
+.colour-button {
+    position: absolute;
+    left: 17.5%;
+    top: 5%;
+}
+
+.fill-button {
+    position: absolute;
+    left: 22.75%;
+    top: 5%;
+    color: fillColour;
+}
+
+.popover {
+    position: absolute;
+    top: 150px;
+    left: 270px;
+    width: 600px;
+}
+
+.cover {
+    width: 600px;
+}
+
+.fill-popover {
+    position: absolute;
+    top: 170px;
+    left: 270px;
+    width: 600px;
 }

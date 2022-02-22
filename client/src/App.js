@@ -5,7 +5,6 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
 import Whiteboard from "./components/whiteboard/Whiteboard2.js";
 import Quiz from "./components/quiz/Quiz";
 import Play from "./components/quiz/Play";
