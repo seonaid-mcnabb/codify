@@ -193,7 +193,7 @@ export default function Whiteboard2() {
 
         elements.forEach(element => drawElement(roughCanvas, ctx, element));
 
-    }, [elements])
+    }, [elements, penColour])
 
     useEffect(() => {
 
@@ -288,7 +288,10 @@ export default function Whiteboard2() {
       const handleColourChange = (color) => {
         console.log(color);
         document.getElementById("colour-button").style.backgroundColor = color.hex;
-        setPenColour(color.hex);
+        // setPenColour((prevState) => [...prevState, color.hex]);
+        const newState = color.hex;
+        setPenColour(newState); // adds point in time to history state that we can go back and forth from, overrides any undone steps
+        // setIndex(prevState => prevState + 1);
     }
 
     const handleFillColourChange = (color) => {
