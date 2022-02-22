@@ -1,12 +1,20 @@
 #canvas {
-    background-color: white;
+    background-color: #ffffff;
+}
+
+.lined-background {
+    background-image: url("./images/lined.jpg");
+}
+
+.grid-background {
+    background-image: url('./images/grid.jpg');
 }
 
 input {
     margin-right: 5px;
 }
 
-.select {
+#select {
     margin-left: 5px;
 }
 
@@ -27,10 +35,11 @@ h1 {
     width: 120px;
 }
 
-.header {
+
+/* .header {
     background-color: #FFE0AA;
     width: 100vw;
-}
+} */
 
 .canvas-container {
     position: relative;
@@ -40,48 +49,11 @@ h1 {
     background-color: #FFE0AA;
 }
 
-.select-drawing {
-    position: absolute;
-    left: 5%;
-    top: 5%;
+.shape-cursor {
+    cursor: crosshair;
 }
 
-.line-drawing {
-    position: absolute;
-    left: 10%;
-    top: 10%;
-}
-
-.freehand-drawing {
-    position: absolute;
-    left: 7.5%;
-    top: 5%;
-}
-
-.square-drawing {
-    position: absolute;
-    left: 10.75%;
-    top: 5%;
-}
-
-.circle-drawing {
-    position: absolute;
-    left: 14.5%;
-    top: 5%;
-}
-
-.colour-button {
-    position: absolute;
-    left: 17.5%;
-    top: 5%;
-}
-
-.fill-button {
-    position: absolute;
-    left: 22.75%;
-    top: 5%;
-    color: fillColour;
-}
+.freehand-cursor {}
 
 .popover {
     position: absolute;
@@ -90,9 +62,10 @@ h1 {
     width: 600px;
 }
 
-.cover {
+
+/* .cover {
     width: 600px;
-}
+} */
 
 .fill-popover {
     position: absolute;

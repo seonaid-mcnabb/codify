@@ -1,0 +1,9 @@
+.left-margin-20 {
+  margin-right: 10rem;
+}
+
+.center {
+  text-align: center;
+  display: flex;
+  margin: 0 auto;
+}
