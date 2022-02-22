@@ -165,7 +165,7 @@ const cursorForPosition = position => { // returns cursor style based on positio
 
     const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
-export default function Whiteboard2() {
+export default function Whiteboard() {
 
     const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
     const [action, setAction] = useState("none");
