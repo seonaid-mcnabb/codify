@@ -41,4 +41,8 @@
         ]
     },
     "proxy": "http://localhost:5001"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ee547ada41020c4608ef46d2f7290fb512b6c92e
