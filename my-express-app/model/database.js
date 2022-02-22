@@ -78,5 +78,6 @@ con.connect(function (err) {
     console.log("Table creation `tags` was successful!");
     console.log("Closing...");
   });
+
   con.end();
 });
