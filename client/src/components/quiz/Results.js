@@ -17,6 +17,10 @@ const Results = (props) => {
     },
   ];
 
+  function getKeyByValue(object, value) {
+    return Object.keys(object).find((key) => object[key] === value);
+  }
+
   for (let i = 0; i < props.questions.length; i++) {
     if (props.userAnswersArray[i] == props.questions[i].correct_answer) {
       points++;
@@ -42,6 +46,7 @@ const Results = (props) => {
         question: props.questions[i].question,
         user_answer: props.userAnswersArray[i],
         formatted_user_answer: props.userAnswersArray[i].slice(-1),
+        correct_answer: props.questions[i].correct_answer,
         formatted_correct_answer: props.questions[i].correct_answer.slice(-1),
         all_answers: [
           props.questions[i].answers.answer_a,
