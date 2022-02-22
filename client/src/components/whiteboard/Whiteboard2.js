@@ -4,6 +4,7 @@ import Toolbar from "./toolbar";
 import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from 'perfect-freehand';
 import { HuePicker } from "react-color";
+import Codify from "../Codify.png";
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
 
@@ -117,7 +118,6 @@ const cursorForPosition = position => { // returns cursor style based on positio
   const useHistory = (initialState, elements) => { // custom hook to save history of state changes for undo/redo function
     const [index, setIndex] = useState(0);
     const [history, setHistory] = useState([initialState]);
-    const [penColour, setPenColour] = useState({penColour: "#ffffff"}); 
 
     const setState = (action, overwrite = false) => {
         const newState = typeof action === "function" ? action(history[index]) : action; // prevstate = previous step in drawing
@@ -134,12 +134,10 @@ const cursorForPosition = position => { // returns cursor style based on positio
 
     const undo = () => {
         index > 0 && setIndex(prevState => prevState - 1);
-        index > 0 && setPenColour(prevState => prevState.penColour);
     }
 
     const redo = () => {
         index < history.length - 1 && setIndex(prevState => prevState + 1);
-        index < history.length - 1 && setPenColour(prevState => prevState.penColour);
     }
     return [history[index], setState, undo, redo]; 
   }
@@ -224,7 +222,7 @@ export default function Whiteboard2() {
 
         } else if (type === "square") {
             // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
-            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { roughness: 0.5, fill: fillColour, stroke: penColour, strokeWidth: lineWidth });
+            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: penColour, strokeWidth: lineWidth });
             return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "circle") {
@@ -395,7 +393,7 @@ export default function Whiteboard2() {
     <div className="canvas-container">
         <div style={{position: "fixed"}}>
         {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
-        <h1>Whiteboard</h1>
+        <img src={Codify} className="logo" alt="Codify logo" /><h1>Whiteboard</h1>
         <input
             type="radio"
             id="select"
