@@ -156,7 +156,7 @@ export default function Whiteboard2() {
     const [showColours, setShowColours] = useState(false);
     const [showFillColours, setShowFillColours] = useState(false);
     const [fillColour, setFillColour] = useState("#ffffff");
-    const [lineWidth, setLineWidth] = useState(1);
+    const [lineWidth, setLineWidth] = useState(3);
 
 
     useLayoutEffect(() => {
@@ -248,7 +248,7 @@ export default function Whiteboard2() {
           case "pencil":
               ctx.fillStyle = penColour;
               const stroke = getStroke(element.points, {
-                  size: 3,
+                  size: lineWidth,
                   thinning: 0
               })
               const pathData = getSvgPathFromStroke(stroke);
@@ -388,6 +388,24 @@ export default function Whiteboard2() {
             onChange={() => setTool("circle")}
             />
             <label htmlFor="circle">Circle</label>
+            <button
+              title="Increase"
+              id="increase-thickness"
+              onClick={() => {
+                setLineWidth(prevState => prevState + 1);
+              }}
+            >
+              +
+            </button>
+            <button
+              title="Decrease"
+              id="decrease-thickness"
+              onClick={() => {
+                setLineWidth(prevState => prevState - 1);
+              }}
+            >
+              -
+            </button>
             <button
               title="Colour"
               id="colour-button"
