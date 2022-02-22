@@ -154,6 +154,36 @@ app.delete("/nice2have/:id", (req, res) => {
     });
 });
 
+/*API ROUTES FOR THE Q & A TABLE*/
+//get the full list of q & as
+app.get("/q-and-as-list", (req, res) => {
+  db("select * from q_and_as;")
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err));
+});
+
+//add a new q& a card
+app.post("/q-and-a", (req, res) => {
+  db(
+    `INSERT INTO q_and_as(question, answer, tag_id) VALUES ("${req.body.question}","${req.body.answer}","${req.body.tag_id}");`
+  )
+    .then((result) =>
+      db("SELECT * FROM q_and_as;").then((results) => {
+        res.send(results.data);
+      })
+    )
+    .catch((err) => res.status(500).send(err));
+});
+
+//delete a q & a from the list by id
+app.delete("/q-and-a/:id", (req, res) => {
+  db(`DELETE FROM q_and_as WHERE id=${req.params.id}`)
+    .then((result) => db("SELECT * FROM q_and_as;"))
+    .then((results) => {
+      res.send(results.data);
+    });
+});
+
 module.exports = app;
 
 //WHAT WAS IN THE APP BEFORE I STARTED CHANGING IT

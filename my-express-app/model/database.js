@@ -61,5 +61,14 @@ con.connect(function (err) {
     console.log("Closing...");
   });
 
+  //thisi creates the Q and A table
+  let qAndAsSQL =
+    "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question VARCHAR(400), answer VARCHAR(400), tag_id INT);";
+  con.query(qAndAsSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `q_and_as` was successful!");
+    console.log("Closing...");
+  });
+
   con.end();
 });
