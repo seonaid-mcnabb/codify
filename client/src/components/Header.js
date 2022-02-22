@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Codify from "./Codify.png";
 
 const Header = () => {
   return (
     <div>
-      <img src={Codify} width="100rem" className="center" />
+      <Link to="/">
+        <img src={Codify} width="100rem" className="center" />
+      </Link>
     </div>
   );
 };
