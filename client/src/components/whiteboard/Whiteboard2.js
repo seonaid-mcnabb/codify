@@ -1,5 +1,6 @@
-import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
+import React, { useState, useLayoutEffect, useEffect, useRef, useReducer } from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuid } from 'uuid';
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import Header from "../Header";
@@ -168,9 +169,24 @@ const cursorForPosition = position => { // returns cursor style based on positio
   }
 
 
-    const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
+  const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
+  const initialNoteState = {
+    notes: []
+  }
 
+  const notesReducer = (prevState, action) => {
+  switch(action.type) {
+    case "add_note":
+      const newState = {
+        notes: [...prevState.notes, action.payload]
+      }
+      return newState;
+    default:
+      throw new Error("Not recognised");
+  
+  }
+}
 
 export default function Whiteboard2() {
 
@@ -186,6 +202,9 @@ export default function Whiteboard2() {
     const [background, setBackground] = useState("#ffffff");
     const [backgroundImage, setBackgroundImage] = ("");
     const textAreaRef = useRef();
+    const [showStickyNote, setShowStickyNote] = useState(false);
+    const [noteInput, setNoteInput] = useState("");
+    const [notesState, dispatch] = useReducer(notesReducer, initialNoteState);
     // const [penSelected, setPenSelected] = useState(false);
     // const [pencilSelected, setPencilSelected] = useState(true);
     // const [arrowSelected, setArrowSelected] = useState(false);
@@ -324,6 +343,19 @@ export default function Whiteboard2() {
               throw new Error("Type not recognised")
         }
       }
+
+    const addNote = (e) => {
+      e.preventDefault();
+
+      if (!noteInput) return;
+
+      const newNote = {
+        id: uuid(),
+        text: noteInput
+      }
+
+      dispatch({type: "add_note", payload: newNote});
+    }
 
       const handleColourChange = (color) => {
         console.log(color);
@@ -525,6 +557,23 @@ export default function Whiteboard2() {
               -
             </button>
             <button
+              title="Sticky"
+              id="sticky-notes"
+              onClick={() => {
+                setShowStickyNote(!showStickyNote);
+              }}
+            >
+              Sticky Note
+            </button>
+        { showStickyNote ? (
+          <form className="sticky-note" onSubmit={addNote}>
+            <textArea value={noteInput}
+            onChange={e => setNoteInput(e.target.value)}            
+            placeholder="Add text..."></textArea>
+            <button className="add-note">Add</button>
+          </form>
+        ) : null }
+            <button
               title="White background"
               id="white"
               onClick={() => {
@@ -583,6 +632,7 @@ export default function Whiteboard2() {
                 <button onClick={undo}>Undo</button>
                 <button onClick={redo}>Redo</button>
             </div>
+
         {action === "writing" ?  (
         <textarea ref={textAreaRef} onBlur={handleBlur} 
         style={{
@@ -599,6 +649,15 @@ export default function Whiteboard2() {
           whiteSpace: "pre",
           background: "transparent"
            }} />) : null }
+
+        {notesState
+        .notes
+        .map(note => (
+          <div className="note">
+            <pre className="text">{note.text}</pre>
+          </div>
+        ))
+        }
         <canvas 
         id="canvas"
         className={background === "lined" ? "lined-background" : null} 

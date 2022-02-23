@@ -73,3 +73,55 @@ h1 {
     left: 270px;
     width: 600px;
 }
+
+.sticky-note {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+textarea {
+    font-family: 'Chivo', sans-serif;
+    border: 1px solid black;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100px;
+    padding: 10px;
+    outline: none;
+}
+
+.add-note {
+    width: 100%;
+    background-color: #FFE0AA;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-family: 'Chivo', sans-serif;
+}
+
+.add-note:hover {
+    background-color: #F5804E;
+    color: white;
+}
+
+.note {
+    position: absolute;
+    cursor: pointer;
+    background-color: #F5804E;
+    /* background-image: url(); */
+    background-size: cover;
+    top: 100px;
+    left: 300px;
+    height: 200px;
+    width: 200px;
+    padding: 20px;
+}
+
+.text {
+    font-family: 'Chivo', sans-serif;
+    height: 100%;
+    width: 100%;
+    white-space: pre-wrap;
+    overflow-y: scroll;
+}
