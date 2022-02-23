@@ -108,14 +108,15 @@ textarea {
 .note {
     position: absolute;
     cursor: pointer;
-    background-color: #F5804E;
-    /* background-image: url(); */
+    /* background-color: #F5804E; */
+    background-image: url("./images/post-it.png");
     background-size: cover;
     top: 100px;
     left: 300px;
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     padding: 20px;
+    border-radius: 20px;
 }
 
 .text {
@@ -123,5 +124,5 @@ textarea {
     height: 100%;
     width: 100%;
     white-space: pre-wrap;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
