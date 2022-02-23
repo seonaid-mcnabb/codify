@@ -1,6 +1,8 @@
-import React, { useState, useLayoutEffect, useEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
+import Header from "../Header";
 import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from 'perfect-freehand';
 import { HuePicker } from "react-color";
@@ -51,7 +53,9 @@ const positionWithinElement = (x, y, element) => {
                 if (!nextPoint) return false;
                 return onLine(point.x, point.y, nextPoint.x, nextPoint.y, x, y, 5) !== null;
             })
-            return betweenAnyPoint ? "inside": null;    
+            return betweenAnyPoint ? "inside": null;
+        case "text":
+            return x >= x1 && x <= x2 && y >= y1 && y <= y2 ? "inside" : null;
         default:
             throw new Error("Type not recognised");
 
@@ -172,7 +176,7 @@ export default function Whiteboard2() {
 
     const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
     const [action, setAction] = useState("none");
-    const [tool, setTool] = useState("pencil");
+    const [tool, setTool] = useState("text");
     const [selectedElement, setSelectedElement] = useState(null);
     const [lineColour, setLineColour] = useState("#000000");
     const [showColours, setShowColours] = useState(false);
@@ -181,6 +185,7 @@ export default function Whiteboard2() {
     const [lineWidth, setLineWidth] = useState(3);
     const [background, setBackground] = useState("#ffffff");
     const [backgroundImage, setBackgroundImage] = ("");
+    const textAreaRef = useRef();
     // const [penSelected, setPenSelected] = useState(false);
     // const [pencilSelected, setPencilSelected] = useState(true);
     // const [arrowSelected, setArrowSelected] = useState(false);
@@ -198,10 +203,13 @@ export default function Whiteboard2() {
 
         const roughCanvas = rough.canvas(canvas);
 
-        elements.forEach(element => drawElement(roughCanvas, ctx, element));
+        elements.forEach(element => {
+          if (action === "writing" && selectedElement.id === element.id) return;
+          drawElement(roughCanvas, ctx, element)
+        })
 
 
-    }, [elements, lineColour, background]);
+    }, [elements, lineColour, background, action, selectedElement]);
 
     useEffect(() => {
 
@@ -223,8 +231,17 @@ export default function Whiteboard2() {
         }
     }, [background, undo, redo])
 
+    useEffect(() => {
+      const textArea = textAreaRef.current;
+      if (action === "writing") {
+        textArea.focus(); // allows users to type as soon as mouse is clicked
+        textArea.value = selectedElement.text;
+
+      }
+    }, [action, selectedElement])
+    
+
     const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates based on position of cursor and element to be drawn
-        switch (type) {}
         if (type === "line") {
             // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
             const roughElement = generator.line(x1, y1, x2, y2, {stroke: lineColour, strokeWidth: lineWidth});
@@ -242,14 +259,16 @@ export default function Whiteboard2() {
 
         } else if (type === "pencil") {
             return { id, type, points: [{x: x1, y: y1}], lineColour };
+
+        } else if (type === "text") {
+          return { id, type, x1, y1, x2, y2, text: "" };
         }
     }
 
 
-    const updateElement = (id, x1, y1, x2, y2, type) => {
+    const updateElement = (id, x1, y1, x2, y2, type, options) => {
 
         const elementsCopy = [...elements];
-
 
         switch (type) {
             case "line":
@@ -259,6 +278,14 @@ export default function Whiteboard2() {
                 break;
             case "pencil":
                 elementsCopy[id].points = [...elementsCopy[id].points, {x: x2, y: y2}];
+                break;
+            case "text":
+              const textWidth = document.getElementById("canvas").getContext("2d").measureText(options.text).width;
+              const textHeight = 24;
+                elementsCopy[id] = {
+                  ...createElement(id, x1, y1, x1 + textWidth, y1 + textHeight, type),
+                  text: options.text
+                }
                 break;
             default:
                 throw new Error("Type not recognised");
@@ -288,6 +315,11 @@ export default function Whiteboard2() {
               // const stroke = getSvgPathFromStroke(getStroke(element.points, pencilOptions));
               // ctx.fill(new Path2D(stroke));
               break;
+          case "text":
+              ctx.textBaseline = "middle"; // where text appears against the cursor when you click, and where select tool can grab it
+              ctx.font = "24px Chivo";
+              ctx.fillText(element.text, element.x1, element.y1);
+              break;
           default:
               throw new Error("Type not recognised")
         }
@@ -309,6 +341,7 @@ export default function Whiteboard2() {
     }
 
     const startDrawing = (e) => { // onMouseDown
+      if (action === "writing") return;
         const { clientX, clientY } = e; // mouse coordinates relative to window size
         if (tool === "select") {             
             const element = getElementAtPosition(clientX, clientY, elements);
@@ -338,7 +371,7 @@ export default function Whiteboard2() {
             setElements((prevState) => [...prevState, element]);
             setSelectedElement(element);
 
-            setAction("drawing");
+            setAction(tool === "text" ? "writing" : "drawing");
 
         }
     }
@@ -375,7 +408,8 @@ export default function Whiteboard2() {
                 const height = y2 - y1;
                 const newX1 = clientX - offsetX;
                 const newY1 = clientY - offsetY;
-                updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type); // ensures last coords stored are the ones where the mouse stops moving
+                const options = type === "text" ? {text: selectedElement.text} : {};
+                updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type, options); // ensures last coords stored are the ones where the mouse stops moving
             }
 
 
@@ -386,8 +420,15 @@ export default function Whiteboard2() {
         }
     }
 
-    const finishDrawing = () => { // sets drawing state to false when mouse is released, stores end coords for shape and stroke so the final element is rendered on board
+    const finishDrawing = (e) => { // sets drawing state to false when mouse is released, stores end coords for shape and stroke so the final element is rendered on board
+        const { clientX, clientY } = e;
         if (selectedElement) {
+
+            if (selectedElement.type === "text" && clientX - selectedElement.offsetX === selectedElement.x1 && clientY - selectedElement.offsetY === selectedElement.y1) { // if mouse position hasn't moved - then text can be edited
+              setAction("writing");
+              return;
+            }
+
             const index = selectedElement.id;
             const { id, type } = elements[index];
             if ((action === "drawing" || action === "resizing") && adjustmentRequired(type)) {
@@ -395,8 +436,17 @@ export default function Whiteboard2() {
                 updateElement(id, x1, y1, x2, y2, type);
             }
         }
+        if (action === "writing") return;
+
         setAction("none");
         setSelectedElement(null);
+    }
+
+    const handleBlur = (e) => {
+      const { id, x1, y1, type } = selectedElement;
+      setAction("none");
+      setSelectedElement(null);
+      updateElement(id, x1, y1, null, null, type, {text: e.target.value});
     }
 
 
@@ -404,7 +454,8 @@ export default function Whiteboard2() {
     <div className="canvas-container">
         <div style={{position: "fixed"}}>
         {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
-        <img src={Codify} className="logo" alt="Codify logo" />
+        <Header />
+        {/* <Link to="/"><img src={Codify} className="logo" alt="Codify logo" /></Link> */}
         <h1>Whiteboard</h1>
         <input
             type="radio"
@@ -447,6 +498,14 @@ export default function Whiteboard2() {
             className={tool === "circle" ? "shape-cursor" : null}
             />
             <label htmlFor="circle">Circle</label>
+            <input
+            type="radio"
+            id="text"
+            checked={tool === "text"}
+            onChange={() => setTool("text")}
+            // className={tool === "circle" ? "shape-cursor" : null}
+            />
+            <label htmlFor="text">Text</label>
             <button
               title="Increase"
               id="increase-thickness"
@@ -524,6 +583,22 @@ export default function Whiteboard2() {
                 <button onClick={undo}>Undo</button>
                 <button onClick={redo}>Redo</button>
             </div>
+        {action === "writing" ?  (
+        <textarea ref={textAreaRef} onBlur={handleBlur} 
+        style={{
+          position: "fixed", 
+          top: selectedElement.y1 - 2, // sets height of editing area to exactly where text is
+          left: selectedElement.x1,
+          font: "24px Chivo",
+          margin: 0,
+          padding: 0,
+          border: 0,
+          outline: 0,
+          resize: "auto",
+          overflow: "hidden",
+          whiteSpace: "pre",
+          background: "transparent"
+           }} />) : null }
         <canvas 
         id="canvas"
         className={background === "lined" ? "lined-background" : null} 
