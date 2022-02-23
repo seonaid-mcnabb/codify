@@ -2,13 +2,14 @@
     background-color: #ffffff;
 }
 
-.lined-background {
+
+/* .lined-background {
     background-image: url("./images/lined.jpg");
 }
 
 .grid-background {
     background-image: url('./images/grid.jpg');
-}
+} */
 
 input {
     margin-right: 5px;

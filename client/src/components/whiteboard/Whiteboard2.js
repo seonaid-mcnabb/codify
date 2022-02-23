@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect, useEffect, useRef, useReducer } from "react";
-import { Link } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
@@ -7,7 +6,6 @@ import Header from "../Header";
 import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from 'perfect-freehand';
 import { HuePicker } from "react-color";
-import Codify from "../Codify.png";
 import Lined from "./images/lined.jpg";
 import Grid from "./images/grid.png";
 
@@ -337,6 +335,7 @@ export default function Whiteboard2() {
           case "text":
               ctx.textBaseline = "middle"; // where text appears against the cursor when you click, and where select tool can grab it
               ctx.font = "24px Chivo";
+              ctx.fillStyle = "#000000";
               ctx.fillText(element.text, element.x1, element.y1);
               break;
           default:
