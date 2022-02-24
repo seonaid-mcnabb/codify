@@ -5,13 +5,10 @@ import Toolbar from "./toolbar";
 import Header from "../Header";
 import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from 'perfect-freehand';
-import Lined from "./images/lined.jpg";
-import Grid from "./images/grid.png";
 import Close from "./images/close.png";
 
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
-
 
 const nearPoint = (x, y, x1, y1, name) => { // function checks if mouse is near the corner/end of the shape for resizing
     return Math.abs(x - x1) < 5 && Math.abs(y - y1) < 5 ? name : null; // mouse is subtracting shape sides and checking if they're near each other, < 5 is the offset, .abs deals with positive and negative digits
@@ -61,7 +58,6 @@ const positionWithinElement = (x, y, element) => {
 
     }
 }
-
 
 const distance = (a, b) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 
@@ -148,8 +144,6 @@ const cursorForPosition = position => { // returns cursor style based on positio
     return [history[index], setState, undo, redo]; 
   }
 
-
-
   const getSvgPathFromStroke = (stroke) => { // the function below will turn the points returned by getStroke into SVG path data for rendering
     if (!stroke.length) return '';
 
@@ -165,7 +159,6 @@ const cursorForPosition = position => { // returns cursor style based on positio
     d.push('Z')
     return d.join(' ')
   }
-
 
   const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
@@ -199,19 +192,13 @@ export default function Whiteboard2() {
     const [tool, setTool] = useState("text");
     const [selectedElement, setSelectedElement] = useState(null);
     const [lineColour, setLineColour] = useState("#000000");
-    const [showColours, setShowColours] = useState(false);
-    const [showFillColours, setShowFillColours] = useState(false);
     const [fillColour, setFillColour] = useState("#ffffff");
     const [lineWidth, setLineWidth] = useState(3);
     const [background, setBackground] = useState("#ffffff");
-    const [backgroundImage, setBackgroundImage] = ("");
     const textAreaRef = useRef();
     const [showStickyNote, setShowStickyNote] = useState(false);
     const [noteInput, setNoteInput] = useState("");
     const [notesState, dispatch] = useReducer(notesReducer, initialNoteState);
-    // const [penSelected, setPenSelected] = useState(false);
-    // const [pencilSelected, setPencilSelected] = useState(true);
-    // const [arrowSelected, setArrowSelected] = useState(false);
 
 
     useLayoutEffect(() => {
@@ -555,8 +542,6 @@ export default function Whiteboard2() {
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={finishDrawing}>
-            
-            Canvas
         </canvas>
         {/* </div> */}
     </div>
