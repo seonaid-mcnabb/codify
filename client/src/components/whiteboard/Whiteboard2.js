@@ -1,14 +1,15 @@
-import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useLayoutEffect, useEffect, useRef, useReducer } from "react";
+import { v4 as uuid } from 'uuid';
+import html2canvas from 'html2canvas';
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import Header from "../Header";
 import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from 'perfect-freehand';
 import { HuePicker } from "react-color";
-import Codify from "../Codify.png";
 import Lined from "./images/lined.jpg";
 import Grid from "./images/grid.png";
+import Close from "./images/close.png";
 
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
@@ -168,9 +169,30 @@ const cursorForPosition = position => { // returns cursor style based on positio
   }
 
 
-    const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
+  const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
+  const initialNoteState = {
+    notes: []
+  }
 
+  const notesReducer = (prevState, action) => {
+  switch(action.type) {
+    case "add_note":
+      const newState = {
+        notes: [...prevState.notes, action.payload]
+      }
+      return newState;
+    case "delete_note":
+      const updatedState = {
+        ...prevState,
+        notes: prevState.notes.filter(note => note.id !== action.payload.id)
+      }
+      return updatedState;
+    default:
+      throw new Error("Not recognised");
+  
+  }
+}
 
 export default function Whiteboard2() {
 
@@ -186,6 +208,9 @@ export default function Whiteboard2() {
     const [background, setBackground] = useState("#ffffff");
     const [backgroundImage, setBackgroundImage] = ("");
     const textAreaRef = useRef();
+    const [showStickyNote, setShowStickyNote] = useState(false);
+    const [noteInput, setNoteInput] = useState("");
+    const [notesState, dispatch] = useReducer(notesReducer, initialNoteState);
     // const [penSelected, setPenSelected] = useState(false);
     // const [pencilSelected, setPencilSelected] = useState(true);
     // const [arrowSelected, setArrowSelected] = useState(false);
@@ -244,12 +269,12 @@ export default function Whiteboard2() {
     const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates based on position of cursor and element to be drawn
         if (type === "line") {
             // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
-            const roughElement = generator.line(x1, y1, x2, y2, {stroke: lineColour, strokeWidth: lineWidth});
+            const roughElement = generator.line(x1, y1, x2, y2, {stroke: lineColour});
             return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "square") {
             // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
-            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: lineColour, strokeWidth: lineWidth });
+            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: lineColour });
             return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "circle") {
@@ -318,12 +343,40 @@ export default function Whiteboard2() {
           case "text":
               ctx.textBaseline = "middle"; // where text appears against the cursor when you click, and where select tool can grab it
               ctx.font = "24px Chivo";
+              ctx.fillStyle = "#000000";
               ctx.fillText(element.text, element.x1, element.y1);
               break;
           default:
               throw new Error("Type not recognised")
         }
       }
+
+    const addNote = (e) => {
+      e.preventDefault();
+
+      if (!noteInput) return;
+
+      const newNote = {
+        id: uuid(),
+        text: noteInput,
+      }
+
+      dispatch({type: "add_note", payload: newNote});
+    }
+
+    const dropNote = (e) => {
+      e.target.style.left = `${e.pageX - 50}px`;
+      e.target.style.top = `${e.pageY - 50}px`;
+    }
+
+    const dragOver = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
+    const clear = () => {
+      window.location.reload();
+    }
 
       const handleColourChange = (color) => {
         console.log(color);
@@ -338,6 +391,16 @@ export default function Whiteboard2() {
         console.log(color);
         document.getElementById("fill-button").style.backgroundColor = color.hex;
         setFillColour(color.hex);
+    }
+
+    const saveAsImage = () => {
+      html2canvas(document.getElementById("screenshot")).then((canvas) => {
+        var imageURL = canvas.toDataURL("image/png");
+        let a = document.createElement("a");
+        a.href = imageURL;
+        a.download = imageURL;
+        a.click();
+    });
     }
 
     const startDrawing = (e) => { // onMouseDown
@@ -451,12 +514,13 @@ export default function Whiteboard2() {
 
 
   return (
-    <div className="canvas-container">
+    <div id="screenshot" className="canvas-container" onDragOver={dragOver}>
         <div style={{position: "fixed"}}>
         {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
         <Header />
         {/* <Link to="/"><img src={Codify} className="logo" alt="Codify logo" /></Link> */}
         <h1>Whiteboard</h1>
+        {/* <div id="screenshot"> */}
         <input
             type="radio"
             id="select"
@@ -525,6 +589,23 @@ export default function Whiteboard2() {
               -
             </button>
             <button
+              title="Sticky"
+              id="sticky-notes"
+              onClick={() => {
+                setTool("sticky"); setShowStickyNote(!showStickyNote);
+              }}
+            >
+              Sticky Note
+            </button>
+        { showStickyNote ? (
+          <form className="sticky-note" onSubmit={addNote}>
+            <textArea value={noteInput}
+            onChange={e => setNoteInput(e.target.value)}            
+            placeholder="Add text..."></textArea>
+            <button className="add-note">Add</button>
+          </form>
+        ) : null }
+            <button
               title="White background"
               id="white"
               onClick={() => {
@@ -582,7 +663,10 @@ export default function Whiteboard2() {
             <div style={{position: "fixed", bottom: 0, padding: 10}}>
                 <button onClick={undo}>Undo</button>
                 <button onClick={redo}>Redo</button>
+                <button id="downloader" onClick={() => {saveAsImage()}} download="image.png">Save as Image</button>
+                <button onClick={clear}>Clear</button>
             </div>
+
         {action === "writing" ?  (
         <textarea ref={textAreaRef} onBlur={handleBlur} 
         style={{
@@ -599,6 +683,21 @@ export default function Whiteboard2() {
           whiteSpace: "pre",
           background: "transparent"
            }} />) : null }
+
+        {notesState
+        .notes
+        .map(note => (
+          <div className="note"
+          draggable="true"
+          onDragEnd={dropNote}
+          key={note.id}>
+            <div className="close" onClick={() => dispatch({ type: "delete_note", payload: note })}>
+              <img src={Close} className="close-button" alt="" />
+            </div>
+            <pre className="text">{note.text}</pre>
+          </div>
+        ))
+        }
         <canvas 
         id="canvas"
         className={background === "lined" ? "lined-background" : null} 
@@ -613,6 +712,7 @@ export default function Whiteboard2() {
             
             Canvas
         </canvas>
+        {/* </div> */}
     </div>
   )
 }

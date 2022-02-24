@@ -2,13 +2,14 @@
     background-color: #ffffff;
 }
 
-.lined-background {
+
+/* .lined-background {
     background-image: url("./images/lined.jpg");
 }
 
 .grid-background {
     background-image: url('./images/grid.jpg');
-}
+} */
 
 input {
     margin-right: 5px;
@@ -72,4 +73,73 @@ h1 {
     top: 170px;
     left: 270px;
     width: 600px;
+}
+
+.sticky-note {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    width: 200px;
+    top: 300px;
+    left: 100px;
+}
+
+textarea {
+    font-family: 'Chivo', sans-serif;
+    border: 1px solid #F5804E;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100px;
+    padding: 10px;
+    outline: none;
+}
+
+.add-note {
+    width: 100%;
+    background-color: #FFE0AA;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-family: 'Chivo', sans-serif;
+}
+
+.add-note:hover {
+    background-color: #F5804E;
+    color: white;
+}
+
+.note {
+    position: absolute;
+    cursor: move;
+    /* background-color: #F5804E; */
+    background-image: url("./images/post-it.png");
+    background-size: cover;
+    top: 100px;
+    left: 300px;
+    height: 150px;
+    width: 150px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.text {
+    font-family: 'Chivo', sans-serif;
+    height: 100%;
+    width: 100%;
+    white-space: pre-wrap;
+    /* overflow-y: scroll; */
+}
+
+.close-button {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: 15px;
+    transition: transform .3s ease;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    transform: scale(1.6)
 }
