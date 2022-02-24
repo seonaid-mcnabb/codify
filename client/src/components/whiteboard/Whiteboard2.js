@@ -1,19 +1,14 @@
 import React, { useState, useLayoutEffect, useEffect, useRef, useReducer } from "react";
 import { v4 as uuid } from 'uuid';
-import html2canvas from 'html2canvas';
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import Header from "../Header";
 import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from 'perfect-freehand';
-import { HuePicker } from "react-color";
-import Lined from "./images/lined.jpg";
-import Grid from "./images/grid.png";
 import Close from "./images/close.png";
 
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
-
 
 const nearPoint = (x, y, x1, y1, name) => { // function checks if mouse is near the corner/end of the shape for resizing
     return Math.abs(x - x1) < 5 && Math.abs(y - y1) < 5 ? name : null; // mouse is subtracting shape sides and checking if they're near each other, < 5 is the offset, .abs deals with positive and negative digits
@@ -63,7 +58,6 @@ const positionWithinElement = (x, y, element) => {
 
     }
 }
-
 
 const distance = (a, b) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 
@@ -150,8 +144,6 @@ const cursorForPosition = position => { // returns cursor style based on positio
     return [history[index], setState, undo, redo]; 
   }
 
-
-
   const getSvgPathFromStroke = (stroke) => { // the function below will turn the points returned by getStroke into SVG path data for rendering
     if (!stroke.length) return '';
 
@@ -167,7 +159,6 @@ const cursorForPosition = position => { // returns cursor style based on positio
     d.push('Z')
     return d.join(' ')
   }
-
 
   const adjustmentRequired = (type) => ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
@@ -201,19 +192,13 @@ export default function Whiteboard2() {
     const [tool, setTool] = useState("text");
     const [selectedElement, setSelectedElement] = useState(null);
     const [lineColour, setLineColour] = useState("#000000");
-    const [showColours, setShowColours] = useState(false);
-    const [showFillColours, setShowFillColours] = useState(false);
     const [fillColour, setFillColour] = useState("#ffffff");
     const [lineWidth, setLineWidth] = useState(3);
     const [background, setBackground] = useState("#ffffff");
-    const [backgroundImage, setBackgroundImage] = ("");
     const textAreaRef = useRef();
     const [showStickyNote, setShowStickyNote] = useState(false);
     const [noteInput, setNoteInput] = useState("");
     const [notesState, dispatch] = useReducer(notesReducer, initialNoteState);
-    // const [penSelected, setPenSelected] = useState(false);
-    // const [pencilSelected, setPencilSelected] = useState(true);
-    // const [arrowSelected, setArrowSelected] = useState(false);
 
 
     useLayoutEffect(() => {
@@ -277,7 +262,8 @@ export default function Whiteboard2() {
             const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: lineColour });
             return { id, x1, y1, x2, y2, type, roughElement };
 
-        } else if (type === "circle") {
+        } else if (type === "sticky") {
+            return;
             // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
             // const roughElement = generator.circle(x1, y1, 2 * (x2 - x1 + y2 - y1), { roughness: 0.5, fill: fillColour, stroke: lineColour, strokeWidth: lineWidth });
             // return { id, x1, y1, x2, y2, type, roughElement };
@@ -346,6 +332,8 @@ export default function Whiteboard2() {
               ctx.fillStyle = "#000000";
               ctx.fillText(element.text, element.x1, element.y1);
               break;
+          case "sticky":
+              return;
           default:
               throw new Error("Type not recognised")
         }
@@ -372,35 +360,6 @@ export default function Whiteboard2() {
     const dragOver = (e) => {
         e.stopPropagation();
         e.preventDefault();
-    }
-
-    const clear = () => {
-      window.location.reload();
-    }
-
-      const handleColourChange = (color) => {
-        console.log(color);
-        document.getElementById("colour-button").style.backgroundColor = color.hex;
-        // setLineColour((prevState) => [...prevState, color.hex]);
-        const newState = color.hex;
-        setLineColour(newState); // adds point in time to history state that we can go back and forth from, overrides any undone steps
-        // setIndex(prevState => prevState + 1);
-    }
-
-    const handleFillColourChange = (color) => {
-        console.log(color);
-        document.getElementById("fill-button").style.backgroundColor = color.hex;
-        setFillColour(color.hex);
-    }
-
-    const saveAsImage = () => {
-      html2canvas(document.getElementById("screenshot")).then((canvas) => {
-        var imageURL = canvas.toDataURL("image/png");
-        let a = document.createElement("a");
-        a.href = imageURL;
-        a.download = imageURL;
-        a.click();
-    });
     }
 
     const startDrawing = (e) => { // onMouseDown
@@ -516,87 +475,22 @@ export default function Whiteboard2() {
   return (
     <div id="screenshot" className="canvas-container" onDragOver={dragOver}>
         <div style={{position: "fixed"}}>
-        {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
+        {/* buttons are fixed so canvas isn't offset */}
         <Header />
         {/* <Link to="/"><img src={Codify} className="logo" alt="Codify logo" /></Link> */}
         <h1>Whiteboard</h1>
-        {/* <div id="screenshot"> */}
-        <input
-            type="radio"
-            id="select"
-            checked={tool === "select"}
-            onChange={() => setTool("select")}
-            // className={tool === "select" ? "arrow-cursor" : null}
-            />
-            <label htmlFor="select">Select</label>
-            <input
-            type="radio"
-            id="line"
-            checked={tool === "line"}
-            onChange={() => setTool("line")}
-            className={tool === "line" ? "shape-cursor" : null}
-            />
-            <label htmlFor="line">Line</label>
-            <input
-            type="radio"
-            id="pencil"
-            checked={tool === "pencil"}
-            onChange={() => setTool("pencil")}
-            className={tool === "pencil" ? "freehand-cursor" : null}
-            />
-            <label htmlFor="pencil">Pencil</label>
-            <input
-            type="radio"
-            id="square"
-            checked={tool === "square"}
-            onChange={() => setTool("square")}
-            className={tool === "square" ? "shape-cursor" : null}
-            />
-            <label htmlFor="square">Square</label>
-            <input
-            type="radio"
-            id="circle"
-            disabled={true}
-            checked={tool === "circle"}
-            onChange={() => setTool("circle")}
-            className={tool === "circle" ? "shape-cursor" : null}
-            />
-            <label htmlFor="circle">Circle</label>
-            <input
-            type="radio"
-            id="text"
-            checked={tool === "text"}
-            onChange={() => setTool("text")}
-            // className={tool === "circle" ? "shape-cursor" : null}
-            />
-            <label htmlFor="text">Text</label>
-            <button
-              title="Increase"
-              id="increase-thickness"
-              onClick={() => {
-                setLineWidth(prevState => prevState + 1);
-              }}
-            >
-              +
-            </button>
-            <button
-              title="Decrease"
-              id="decrease-thickness"
-              onClick={() => {
-                setLineWidth(prevState => prevState - 1);
-              }}
-            >
-              -
-            </button>
-            <button
-              title="Sticky"
-              id="sticky-notes"
-              onClick={() => {
-                setTool("sticky"); setShowStickyNote(!showStickyNote);
-              }}
-            >
-              Sticky Note
-            </button>
+        <Toolbar 
+        setTool={setTool} 
+        tool={tool} 
+        showStickyNote={showStickyNote} 
+        setShowStickyNote={setShowStickyNote}
+        setBackground={setBackground}
+        setLineWidth={setLineWidth}
+        setLineColour={setLineColour}
+        setFillColour={setFillColour}
+        undo={undo}
+        redo={redo}
+        />
         { showStickyNote ? (
           <form className="sticky-note" onSubmit={addNote}>
             <textArea value={noteInput}
@@ -605,68 +499,8 @@ export default function Whiteboard2() {
             <button className="add-note">Add</button>
           </form>
         ) : null }
-            <button
-              title="White background"
-              id="white"
-              onClick={() => {
-                setBackground("#ffffff");
-              }}
-              className={background === "#ffffff" ? "#canvas" : null}
-            >
-              White Background
-            </button>
-            <button
-              title="Lined background"
-              id="lined"
-              onClick={() => {
-                setBackground(Lined);
-              }}
-              className={background === "lined" ? "lined-background" : null}
-            >
-              Lined Background
-            </button>
-            <button
-              title="Grid background"
-              id="grid"
-              onClick={() => {
-                setBackground(Grid);
-              }}
-              className={background === "grid" ? "grid-background" : null}
-            >
-              Grid Background
-            </button>
-            <button
-              title="Colour"
-              id="colour-button"
-              onClick={() => {
-                setShowColours(!showColours);
-              }}
-            >
-              Pen Colour
-            </button>
-            { showColours ? <div className="popover">
-          <HuePicker color="#fff" onChange={(color) => handleColourChange(color)}/>
-        </div> : null }
-        <button
-              title="Fill"
-              id="fill-button"
-              onClick={() => {
-                setShowFillColours(!showFillColours);
-              }}
-            >
-              Fill Colour
-            </button>
-        { showFillColours ? <div className="fill-popover">
-          <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)}/>
-        </div> : null }
-        </div>
-            <div style={{position: "fixed", bottom: 0, padding: 10}}>
-                <button onClick={undo}>Undo</button>
-                <button onClick={redo}>Redo</button>
-                <button id="downloader" onClick={() => {saveAsImage()}} download="image.png">Save as Image</button>
-                <button onClick={clear}>Clear</button>
-            </div>
 
+        </div>
         {action === "writing" ?  (
         <textarea ref={textAreaRef} onBlur={handleBlur} 
         style={{
@@ -700,7 +534,6 @@ export default function Whiteboard2() {
         }
         <canvas 
         id="canvas"
-        className={background === "lined" ? "lined-background" : null} 
         width={window.innerWidth} 
         height={window.innerHeight}
         style={{  
@@ -709,8 +542,6 @@ export default function Whiteboard2() {
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={finishDrawing}>
-            
-            Canvas
         </canvas>
         {/* </div> */}
     </div>
