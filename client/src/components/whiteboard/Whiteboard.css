@@ -2,15 +2,6 @@
     background-color: #ffffff;
 }
 
-
-/* .lined-background {
-    background-image: url("./images/lined.jpg");
-}
-
-.grid-background {
-    background-image: url('./images/grid.jpg');
-} */
-
 input {
     margin-right: 5px;
 }
@@ -46,8 +37,8 @@ h1 {
     position: relative;
     width: 100vw;
     height: 100vh;
-    border: 5px solid #FFE0AA;
     background-color: #FFE0AA;
+    border: 5px solid #FFE0AA;
 }
 
 .shape-cursor {
@@ -57,10 +48,8 @@ h1 {
 .freehand-cursor {}
 
 .popover {
-    position: absolute;
-    top: 150px;
-    left: 270px;
-    width: 600px;
+    /* position: absolute; */
+    width: 20px;
 }
 
 
@@ -79,9 +68,9 @@ h1 {
     display: flex;
     position: fixed;
     flex-direction: column;
-    width: 200px;
-    top: 300px;
-    left: 100px;
+    width: 150px;
+    top: 280px;
+    left: 280px;
 }
 
 textarea {
@@ -142,4 +131,203 @@ textarea {
 
 .close-button:hover {
     transform: scale(1.6)
+}
+
+.toolbar-container {
+    background-color: rgba(255, 224, 170, 0.5);
+    margin-left: 10px;
+    padding: 20px;
+    padding-left: 25px;
+    height: 540px;
+    width: 250px;
+    position: fixed;
+    top: 200px;
+}
+
+.toolbar-button {
+    border: none;
+    outline: none;
+    background: none;
+    margin-left: 10px;
+    transition: transform .3s ease;
+}
+
+.toolbar-button-square {
+    border: none;
+    outline: none;
+    background: none;
+    margin-top: 25px;
+    margin-left: 5px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon:hover {
+    transform: scale(1.6);
+}
+
+.toolbar-icon {
+    height: 30px;
+    outline: none;
+    margin-left: 10px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-square {
+    height: 30px;
+    outline: none;
+    margin-left: 9px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-text {
+    height: 33px;
+    outline: none;
+    margin-left: 9px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-square:hover {
+    transform: scale(1.6);
+}
+
+.toolbar-icon-text:hover {
+    transform: scale(1.6);
+}
+
+.white-background {
+    background-color: white;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+    margin-left: 20px;
+    outline: none;
+    border: 2px solid #F5804E;
+    transition: transform .3s ease;
+}
+
+.white-background:hover {
+    transform: scale(1.6);
+}
+
+.lined-background {
+    background-image: url("./images/lined.jpg");
+    background-size: 40%;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+    margin-left: 32px;
+    outline: none;
+    border: 2px solid #F5804E;
+    transition: transform .3s ease;
+}
+
+.lined-background:hover {
+    transform: scale(1.6);
+}
+
+.grid-background {
+    background-image: url("./images/grid.png");
+    background-size: 70%;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+    margin-left: 32px;
+    outline: none;
+    border: 2px solid #F5804E;
+    transition: transform .3s ease;
+}
+
+#colour-button {
+    background-color: black;
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+}
+
+#fill-colour-button {
+    background-color: white;
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+}
+
+.grid-background:hover {
+    transform: scale(1.6);
+}
+
+.toolbar-icon-width {
+    height: 25px;
+    outline: none;
+    margin-left: 35px;
+    margin-top: 20px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-minus {
+    height: 25px;
+    outline: none;
+    margin-left: 20px;
+    margin-top: 20px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-undo {
+    height: 25px;
+    outline: none;
+    margin-left: 35px;
+    margin-top: -20px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-undo:hover {
+    transform: scale(1.6);
+}
+
+.toolbar-icon-redo {
+    height: 25px;
+    outline: none;
+    margin-left: 25px;
+    margin-top: -20px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-redo:hover {
+    transform: scale(1.6);
+}
+
+.toolbar-icon-dl {
+    height: 25px;
+    outline: none;
+    margin-left: 35px;
+    margin-top: 15px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-dl:hover {
+    transform: scale(1.6);
+}
+
+.toolbar-icon-clear {
+    height: 25px;
+    outline: none;
+    margin-left: 25px;
+    margin-top: 15px;
+    transition: transform .3s ease;
+}
+
+.toolbar-icon-clear:hover {
+    transform: scale(1.6);
+}
+
+p {
+    text-align: center;
+    margin: 10px;
+    margin-top: 15px;
+    font-size: 15px;
 }
