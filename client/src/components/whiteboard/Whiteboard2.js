@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect, useRef, useReducer } from "react";
 import { v4 as uuid } from 'uuid';
+import html2canvas from 'html2canvas';
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
 import Header from "../Header";
@@ -373,6 +374,10 @@ export default function Whiteboard2() {
         e.preventDefault();
     }
 
+    const clear = () => {
+      window.location.reload();
+    }
+
       const handleColourChange = (color) => {
         console.log(color);
         document.getElementById("colour-button").style.backgroundColor = color.hex;
@@ -386,6 +391,16 @@ export default function Whiteboard2() {
         console.log(color);
         document.getElementById("fill-button").style.backgroundColor = color.hex;
         setFillColour(color.hex);
+    }
+
+    const saveAsImage = () => {
+      html2canvas(document.getElementById("screenshot")).then((canvas) => {
+        var imageURL = canvas.toDataURL("image/png");
+        let a = document.createElement("a");
+        a.href = imageURL;
+        a.download = imageURL;
+        a.click();
+    });
     }
 
     const startDrawing = (e) => { // onMouseDown
@@ -499,12 +514,13 @@ export default function Whiteboard2() {
 
 
   return (
-    <div className="canvas-container" onDragOver={dragOver}>
+    <div id="screenshot" className="canvas-container" onDragOver={dragOver}>
         <div style={{position: "fixed"}}>
         {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
         <Header />
         {/* <Link to="/"><img src={Codify} className="logo" alt="Codify logo" /></Link> */}
         <h1>Whiteboard</h1>
+        {/* <div id="screenshot"> */}
         <input
             type="radio"
             id="select"
@@ -576,7 +592,7 @@ export default function Whiteboard2() {
               title="Sticky"
               id="sticky-notes"
               onClick={() => {
-                setShowStickyNote(!showStickyNote);
+                setTool("sticky"); setShowStickyNote(!showStickyNote);
               }}
             >
               Sticky Note
@@ -647,6 +663,8 @@ export default function Whiteboard2() {
             <div style={{position: "fixed", bottom: 0, padding: 10}}>
                 <button onClick={undo}>Undo</button>
                 <button onClick={redo}>Redo</button>
+                <button id="downloader" onClick={() => {saveAsImage()}} download="image.png">Save as Image</button>
+                <button onClick={clear}>Clear</button>
             </div>
 
         {action === "writing" ?  (
@@ -694,6 +712,7 @@ export default function Whiteboard2() {
             
             Canvas
         </canvas>
+        {/* </div> */}
     </div>
   )
 }
