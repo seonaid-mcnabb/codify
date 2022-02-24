@@ -25,7 +25,7 @@ const Results = (props) => {
     let value = props.questions[i].correct_answers;
     let correctAnswer = getKeyByValue(value, "true").slice(0, 8);
     console.log(correctAnswer);
-    if (props.userAnswersArray[i] == props.questions[i].correct_answer) {
+    if (props.userAnswersArray[i] == correctAnswer) {
       points++;
     }
     if (i == 0) {
