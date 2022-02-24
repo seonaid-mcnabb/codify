@@ -207,7 +207,14 @@ app.post("/lesson", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-//DELETE AN ENTY
+//DELETE AN ENTRY
+app.delete("/lesson/:id", (req, res) => {
+  db(`DELETE FROM teach_a_topic WHERE id=${req.params.id}`)
+    .then((result) => db("SELECT * FROM teach_a_topic;"))
+    .then((results) => {
+      res.send(results.data);
+    });
+});
 
 module.exports = app;
 
