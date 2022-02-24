@@ -77,13 +77,16 @@ h1 {
 
 .sticky-note {
     display: flex;
+    position: fixed;
     flex-direction: column;
     width: 200px;
+    top: 300px;
+    left: 100px;
 }
 
 textarea {
     font-family: 'Chivo', sans-serif;
-    border: 1px solid black;
+    border: 1px solid #F5804E;
     min-width: 100%;
     max-width: 100%;
     height: 100px;
@@ -108,7 +111,7 @@ textarea {
 
 .note {
     position: absolute;
-    cursor: pointer;
+    cursor: move;
     /* background-color: #F5804E; */
     background-image: url("./images/post-it.png");
     background-size: cover;
@@ -126,4 +129,17 @@ textarea {
     width: 100%;
     white-space: pre-wrap;
     /* overflow-y: scroll; */
+}
+
+.close-button {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: 15px;
+    transition: transform .3s ease;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    transform: scale(1.6)
 }

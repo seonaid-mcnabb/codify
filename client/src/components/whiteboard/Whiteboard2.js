@@ -8,6 +8,7 @@ import { getStroke } from 'perfect-freehand';
 import { HuePicker } from "react-color";
 import Lined from "./images/lined.jpg";
 import Grid from "./images/grid.png";
+import Close from "./images/close.png";
 
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
@@ -180,6 +181,12 @@ const cursorForPosition = position => { // returns cursor style based on positio
         notes: [...prevState.notes, action.payload]
       }
       return newState;
+    case "delete_note":
+      const updatedState = {
+        ...prevState,
+        notes: prevState.notes.filter(note => note.id !== action.payload.id)
+      }
+      return updatedState;
     default:
       throw new Error("Not recognised");
   
@@ -261,12 +268,12 @@ export default function Whiteboard2() {
     const createElement = (id, x1, y1, x2, y2, type) => { // returns coordinates based on position of cursor and element to be drawn
         if (type === "line") {
             // const line = gen.line(400, 500, 600, 500); // (x1, y1, x2, y2)
-            const roughElement = generator.line(x1, y1, x2, y2, {stroke: lineColour, strokeWidth: lineWidth});
+            const roughElement = generator.line(x1, y1, x2, y2, {stroke: lineColour});
             return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "square") {
             // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
-            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: lineColour, strokeWidth: lineWidth });
+            const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, { fill: fillColour, hachureGap: 5, stroke: lineColour });
             return { id, x1, y1, x2, y2, type, roughElement };
 
         } else if (type === "circle") {
@@ -350,10 +357,20 @@ export default function Whiteboard2() {
 
       const newNote = {
         id: uuid(),
-        text: noteInput
+        text: noteInput,
       }
 
       dispatch({type: "add_note", payload: newNote});
+    }
+
+    const dropNote = (e) => {
+      e.target.style.left = `${e.pageX - 50}px`;
+      e.target.style.top = `${e.pageY - 50}px`;
+    }
+
+    const dragOver = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
     }
 
       const handleColourChange = (color) => {
@@ -482,7 +499,7 @@ export default function Whiteboard2() {
 
 
   return (
-    <div className="canvas-container">
+    <div className="canvas-container" onDragOver={dragOver}>
         <div style={{position: "fixed"}}>
         {/* buttons are fixed so canvas isn't offset, add toolbar here? */}
         <Header />
@@ -652,7 +669,13 @@ export default function Whiteboard2() {
         {notesState
         .notes
         .map(note => (
-          <div className="note">
+          <div className="note"
+          draggable="true"
+          onDragEnd={dropNote}
+          key={note.id}>
+            <div className="close" onClick={() => dispatch({ type: "delete_note", payload: note })}>
+              <img src={Close} className="close-button" alt="" />
+            </div>
             <pre className="text">{note.text}</pre>
           </div>
         ))
