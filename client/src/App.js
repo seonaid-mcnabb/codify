@@ -80,7 +80,7 @@ function App() {
         <Route path="/qandas" element={<MyQandAs />} />
       </Routes>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
