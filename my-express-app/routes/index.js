@@ -184,6 +184,31 @@ app.delete("/q-and-a/:id", (req, res) => {
     });
 });
 
+/*API ROUTES FOR THE TEACH A TOPIC TABLE */
+//GET THE LIST OF ENTRIES
+app.get("/lesson-list", (req, res) => {
+  db("select * from teach_a_topic;")
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err));
+});
+
+//ADD A NEW ENTRY
+app.post("/lesson", (req, res) => {
+  db(
+    `INSERT INTO teach_a_topic(date, topic_title, step_by_step, tag_id) VALUES ("${new Date()}","${
+      req.body.topic_title
+    }","${req.body.step_by_step}","${req.body.tag_id}");`
+  )
+    .then((result) =>
+      db("SELECT * FROM teach_a_topic;").then((results) => {
+        res.send(results.data);
+      })
+    )
+    .catch((err) => res.status(500).send(err));
+});
+
+//DELETE AN ENTY
+
 module.exports = app;
 
 //WHAT WAS IN THE APP BEFORE I STARTED CHANGING IT

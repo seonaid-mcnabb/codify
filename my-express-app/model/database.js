@@ -73,9 +73,17 @@ con.connect(function (err) {
   //Create the tags table
   let tagsSQL =
     "DROP TABLE if exists tags; CREATE TABLE tags(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(40));";
-  con.query(qAndAsSQL, function (err, result) {
+  con.query(tagsSQL, function (err, result) {
     if (err) throw err;
     console.log("Table creation `tags` was successful!");
+    console.log("Closing...");
+  });
+
+  let teachATopicSQL =
+    "DROP TABLE if exists teach_a_topic; CREATE TABLE teach_a_topic(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, date VARCHAR(100), topic_title VARCHAR(75), step_by_step VARCHAR(1500), tag_id INT);";
+  con.query(teachATopicSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `teach_a_topic` was successful!");
     console.log("Closing...");
   });
 

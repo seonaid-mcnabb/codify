@@ -77,7 +77,7 @@ function MyQandAs() {
         Learning to code is a lot about asking the right questions, and then
         interpreting the many, many answers available to you in a way that makes
         sense for you. Use this area to build your own collection of Q&As that
-        you can review, re-visit, and search through before you turn to
+        you can review, re-visit, and search through before turning to
         StackOverflow for an answer that you may already have.
       </p>
       <div id="newQandAform">
@@ -100,6 +100,7 @@ function MyQandAs() {
             </div>
             <div class="flip-card-back">
               <h2>{e.answer}</h2>
+              <button>DELETE</button>
             </div>
           </div>
         </div>
