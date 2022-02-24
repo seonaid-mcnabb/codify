@@ -33,15 +33,15 @@ app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
 
-//1. API ROUTES FOR THE MUST-HAVES TABLE
-//Get full must-haves list
+//1. API ROUTES FOR THE MUST-HAVES TABLES
+//GET FULL LIST OF MUST-HAVES
 app.get("/must-haves-list", (req, res) => {
   db("select * from job_must_haves;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
-//add to must-haves list
+//ADD A NEW MUST HAVE
 app.post("/must-have", (req, res) => {
   db(
     `INSERT INTO job_must_haves(must_haves) VALUES ("${req.body.must_haves}");`
@@ -54,7 +54,7 @@ app.post("/must-have", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-//delete from list by id
+//DELETE FROM MUST-HAVES BY ID
 app.delete("/must-have/:id", (req, res) => {
   db(`DELETE FROM job_must_haves WHERE id=${req.params.id}`)
     .then((result) => db("SELECT * FROM job_must_haves;"))
@@ -64,14 +64,14 @@ app.delete("/must-have/:id", (req, res) => {
 });
 
 //2. API ROUTES FOR THE NEGOTIABLES TABLE
-//get the full negotiables list
+//GET FULL LIST OF NEGOTIABLES
 app.get("/negotiables-list", (req, res) => {
   db("select * from job_negotiables;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
-//add to the negotiables
+//ADD TO THE NEGOTIABLES LIST
 app.post("/negotiable", (req, res) => {
   db(
     `INSERT INTO job_negotiables(negotiables) VALUES ("${req.body.negotiables}");`
@@ -84,8 +84,7 @@ app.post("/negotiable", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-//delete from list by id
-
+//DELETE FROM THE NEGOTIABLES LIST BY ID
 app.delete("/negotiable/:id", (req, res) => {
   db(`DELETE FROM job_negotiables WHERE id=${req.params.id}`)
     .then((result) => db("SELECT * FROM job_negotiables;"))
@@ -95,14 +94,14 @@ app.delete("/negotiable/:id", (req, res) => {
 });
 
 //3. API ROUTES FOR THE DEAL-BREAKERS TABLE
-//get full list
+//GET FULL LIST OF DEALBREAKERS
 app.get("/dealbreakers-list", (req, res) => {
   db("select * from job_deal_breakers;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
-//add to list
+//ADD TO DEALBREAKERS LIST
 app.post("/dealbreaker", (req, res) => {
   db(
     `INSERT INTO job_deal_breakers(deal_breakers) VALUES ("${req.body.deal_breakers}");`
@@ -115,7 +114,7 @@ app.post("/dealbreaker", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-//delete from list by id
+//DELETE FROM DEALBREAKERS LIST BY ID
 app.delete("/dealbreaker/:id", (req, res) => {
   db(`DELETE FROM job_deal_breakers WHERE id=${req.params.id}`)
     .then((result) => db("SELECT * FROM job_deal_breakers;"))
@@ -125,13 +124,14 @@ app.delete("/dealbreaker/:id", (req, res) => {
 });
 
 //4. API ROUTES FOR THE NICE2HAVES TABLE
-//get full list
+//GET FULL LIST OF NICE2HAVES
 app.get("/nice2haves-list", (req, res) => {
   db("select * from job_nice2haves;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
-//add to list
+
+//ADD TO NICE2HAVES LIST
 app.post("/nice2have", (req, res) => {
   db(
     `INSERT INTO job_nice2haves(nice_to_have) VALUES ("${req.body.nice_to_have}");`
@@ -144,8 +144,7 @@ app.post("/nice2have", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-//delete from list by id
-
+//DELETE FROM NICE2HAVES LIST BY ID
 app.delete("/nice2have/:id", (req, res) => {
   db(`DELETE FROM job_nice2haves WHERE id=${req.params.id}`)
     .then((result) => db("SELECT * FROM job_nice2haves;"))
@@ -155,14 +154,14 @@ app.delete("/nice2have/:id", (req, res) => {
 });
 
 /*API ROUTES FOR THE Q & A TABLE*/
-//get the full list of q & as
+//GET THE FULL LIST OF Q & As
 app.get("/q-and-as-list", (req, res) => {
   db("select * from q_and_as;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
-//add a new q& a card
+//ADD A NEW Q&A CARD
 app.post("/q-and-a", (req, res) => {
   db(
     `INSERT INTO q_and_as(question, answer, tag_id) VALUES ("${req.body.question}","${req.body.answer}","${req.body.tag_id}");`
@@ -175,7 +174,7 @@ app.post("/q-and-a", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-//delete a q & a from the list by id
+//DELETE A Q&A FROM THE LIST BY ID
 app.delete("/q-and-a/:id", (req, res) => {
   db(`DELETE FROM q_and_as WHERE id=${req.params.id}`)
     .then((result) => db("SELECT * FROM q_and_as;"))
@@ -185,14 +184,14 @@ app.delete("/q-and-a/:id", (req, res) => {
 });
 
 /*API ROUTES FOR THE TEACH A TOPIC TABLE */
-//GET THE LIST OF ENTRIES
+//GET THE FULL LIST OF TOPIC ENTRIES
 app.get("/lesson-list", (req, res) => {
   db("select * from teach_a_topic;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
-//ADD A NEW ENTRY
+//ADD A NEW LESSON ENTRY
 app.post("/lesson", (req, res) => {
   db(
     `INSERT INTO teach_a_topic(date, topic_title, step_by_step, tag_id) VALUES ("${new Date()}","${
@@ -207,7 +206,7 @@ app.post("/lesson", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-//DELETE AN ENTRY
+//DELETE A LESSON BY ID
 app.delete("/lesson/:id", (req, res) => {
   db(`DELETE FROM teach_a_topic WHERE id=${req.params.id}`)
     .then((result) => db("SELECT * FROM teach_a_topic;"))
