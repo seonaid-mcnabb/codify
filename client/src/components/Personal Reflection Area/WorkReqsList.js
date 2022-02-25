@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./WorkReqsList.css";
+import Header from "../Header.js";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { MdOutlineDelete } from "react-icons/md";
 
 function WorkReqsList() {
   const [mustHaves, setMustHaves] = useState([]);
@@ -96,6 +99,94 @@ function WorkReqsList() {
     }
   };
 
+  //delete a must-have
+  const deleteMustHave = (e) => {
+    fetch(`http://localhost:5001/must-have/${e.id}`, {
+      method: "delete",
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(e.id);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setMustHaves(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //delete a negotiable
+  const deleteNegotiable = (e) => {
+    fetch(`http://localhost:5001/negotiable/${e.id}`, {
+      method: "delete",
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(e.id);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setNegotiables(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //delete a deal-breaker
+
+  const deleteDealbreaker = (e) => {
+    fetch(`http://localhost:5001/dealbreaker/${e.id}`, {
+      method: "delete",
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(e.id);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setDealBreakers(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  //delete a nice2have
+  const deleteNice2have = (e) => {
+    fetch(`http://localhost:5001/nice2have/${e.id}`, {
+      method: "delete",
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(e.id);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setNicetoHaves(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   //get all niceToHaves from backEnd
   useEffect(() => {
     fetch("http://localhost:5001/nice2haves-list")
@@ -178,6 +269,7 @@ function WorkReqsList() {
 
   return (
     <div>
+      <Header></Header>
       <h1 id="professional-priorities-title">Professional Priorities</h1>
       <p>
         TO-DO: add description of the purpose of this component -Think about
@@ -186,10 +278,9 @@ function WorkReqsList() {
         personalized advice--ie.keep looking, seems like a good fit?
       </p>
 
-      <div id="add-to-list">
+      <div className="add-to-list">
         <h1 id="addNew-title">Add a new priority</h1>
-
-        <form onSubmit={handleSubmit}>
+        <form className="add-priorities-form">
           <h2>Select Type:</h2>
           <select
             onChange={handleInputSelection}
@@ -208,37 +299,91 @@ function WorkReqsList() {
           ></input>
           <br />{" "}
           {/*<--remove this later by styling so that submit button is on next line */}
-          <button id="submit-priority-button">SUBMIT</button>
+          <Button
+            onClick={handleSubmit}
+            id="submit-priority-button"
+            color="#0090C3"
+            variant="solid"
+          >
+            SUBMIT
+          </Button>
         </form>
       </div>
 
-      <h1 id="my-list">My List</h1>
-      <ul id="must-haves-list">
-        <h2 id="must-haves-title">MUST-HAVES</h2>
-        {mustHaves.map((e) => (
-          <li> {e.must_haves} </li>
-        ))}
-      </ul>
+      <div className="priorities-list">
+        <h1 id="my-list">My List</h1>
+        <ul id="must-haves-list">
+          <h2 id="must-haves-title">MUST-HAVES</h2>
+          {mustHaves.map((e) => (
+            <li>
+              {" "}
+              {e.must_haves}{" "}
+              <Button
+                onClick={() => deleteMustHave(e)}
+                leftIcon={<MdOutlineDelete />}
+                color="#0090C3"
+                size="md"
+                variant="ghost"
+              >
+                {" "}
+              </Button>
+            </li>
+          ))}
+        </ul>
 
-      <ul id="negotiables-list">
-        <h2 id="negotiables-title">NEGOTIABLES</h2>
-        {negotiables.map((e) => (
-          <li>{e.negotiables}</li>
-        ))}
-      </ul>
+        <ul id="negotiables-list">
+          <h2 id="negotiables-title">NEGOTIABLES</h2>
+          {negotiables.map((e) => (
+            <li>
+              {e.negotiables}
+              <Button
+                onClick={() => deleteNegotiable(e)}
+                leftIcon={<MdOutlineDelete />}
+                color="#0090C3"
+                size="md"
+                variant="ghost"
+              >
+                {" "}
+              </Button>
+            </li>
+          ))}
+        </ul>
 
-      <ul id="dealbreakers-list">
-        <h2 id="dealbreakers-title">DEAL-BREAKERS</h2>
-        {dealBreakers.map((e) => (
-          <li>{e.deal_breakers}</li>
-        ))}
-      </ul>
-      <ul id="nice2have-list">
-        <h2 id="nice2have-title">NICE TO HAVE</h2>
-        {niceToHaves.map((e) => (
-          <li>{e.nice_to_have}</li>
-        ))}
-      </ul>
+        <ul id="dealbreakers-list">
+          <h2 id="dealbreakers-title">DEAL-BREAKERS</h2>
+          {dealBreakers.map((e) => (
+            <li>
+              {e.deal_breakers}{" "}
+              <Button
+                onClick={() => deleteDealbreaker(e)}
+                leftIcon={<MdOutlineDelete />}
+                color="#0090C3"
+                size="md"
+                variant="ghost"
+              >
+                {" "}
+              </Button>
+            </li>
+          ))}
+        </ul>
+        <ul id="nice2have-list">
+          <h2 id="nice2have-title">NICE TO HAVE</h2>
+          {niceToHaves.map((e) => (
+            <li>
+              {e.nice_to_have}{" "}
+              <Button
+                onClick={() => deleteNice2have(e)}
+                leftIcon={<MdOutlineDelete />}
+                color="#0090C3"
+                size="md"
+                variant="ghost"
+              >
+                {" "}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

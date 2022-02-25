@@ -12,3 +12,11 @@ h2 {
   font-weight: 200;
   letter-spacing: 250;
 }
+
+.priorities-list {
+  text-align: center;
+}
+
+.add-to-list {
+  text-align: center;
+}

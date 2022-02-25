@@ -4,6 +4,7 @@
     "dom-to-image": "^2.6.0",
     "html2canvas": "^1.4.1",
     "mysql": "^2.18.1",
+    "react-icons": "^4.3.1",
     "roughjs": "^4.5.2",
     "uuid": "^8.3.2"
   },
