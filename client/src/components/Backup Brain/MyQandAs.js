@@ -2,6 +2,7 @@ import e from "cors";
 import React, { useState, useEffect } from "react";
 import "./MyQandAs.css";
 import Header from "../Header.js";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
 //This component should:
 //Have filter by tag search functionality
@@ -29,6 +30,7 @@ function MyQandAs() {
     setNewAnswer(answer);
   };
 
+  //add a new q&a to the list
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:5001/q-and-a", {
@@ -45,6 +47,28 @@ function MyQandAs() {
       .then((res) => res.json()) //First transform the JSON to a Javascript object
       .then((json) => {
         setQuestionsAndAnswers(json); //update the list
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //delete a q&a card
+  const deleteQA = (e) => {
+    fetch(`http://localhost:5001/q-and-a/${e.id}`, {
+      method: "delete",
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(e.id);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setQuestionsAndAnswers(json);
       })
       .catch((error) => {
         console.log(error);
@@ -111,7 +135,7 @@ function MyQandAs() {
             </div>
             <div class="flip-card-back">
               <h2>{e.answer}</h2>
-              <button>DELETE</button>
+              <Button onClick={() => deleteQA(e)}> DELETE</Button>
             </div>
           </div>
         </div>

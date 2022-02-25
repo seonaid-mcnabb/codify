@@ -1,6 +1,7 @@
-h1 {
+.priorities-title {
   font-family: Shrikhand, cursive;
   color: #f5804e;
+  font-size: 35px;
 }
 
 p {
@@ -19,4 +20,9 @@ h2 {
 
 .add-to-list {
   text-align: center;
+}
+
+.priorities-input {
+  border-color: #0090c3;
+  border-width: 2px;
 }

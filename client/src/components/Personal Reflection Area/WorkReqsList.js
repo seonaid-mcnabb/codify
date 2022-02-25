@@ -270,7 +270,9 @@ function WorkReqsList() {
   return (
     <div>
       <Header></Header>
-      <h1 id="professional-priorities-title">Professional Priorities</h1>
+      <h1 className="priorities-title" id="professional-priorities-title">
+        Professional Priorities
+      </h1>
       <p>
         TO-DO: add description of the purpose of this component -Think about
         making an interactive checklist Element -When user is applying /
@@ -294,6 +296,7 @@ function WorkReqsList() {
           </select>
           <h2>Add a description:</h2>
           <input
+            className="priorities-input"
             id="priority-description-input"
             onChange={handleInputChange}
           ></input>
