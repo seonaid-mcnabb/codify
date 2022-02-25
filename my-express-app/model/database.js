@@ -70,7 +70,7 @@ con.connect(function (err) {
     console.log("Closing...");
   });
 
-  //this creates the Q and A table
+  //Create the q & as table
   let qAndAsSQL =
     "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question TEXT, answer TEXT, tag_id INT);";
   con.query(qAndAsSQL, function (err, result) {
@@ -79,6 +79,7 @@ con.connect(function (err) {
     console.log("Closing...");
   });
 
+  //This creates the teachatopic table
   let teachATopicSQL =
     "DROP TABLE if exists teach_a_topic; CREATE TABLE teach_a_topic(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, date VARCHAR(100), topic_title VARCHAR(75), step_by_step TEXT, tag_id INT);";
   con.query(teachATopicSQL, function (err, result) {
