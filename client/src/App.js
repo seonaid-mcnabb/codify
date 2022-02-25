@@ -24,7 +24,7 @@ function App() {
   const pathname = window.location.pathname;
   return (
     <div className="App">
-      {pathname == "/whiteboard" ? "" : <Header />}
+      {/* {pathname == "/whiteboard" ? "" : <Header />} */}
 
       <Routes>
         <Route path="/" element={<Home />} />

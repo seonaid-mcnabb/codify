@@ -1,6 +1,7 @@
 import e from "cors";
 import React, { useState, useEffect } from "react";
 import "./MyQandAs.css";
+import Header from "../Header.js";
 
 //This component should:
 //Have filter by tag search functionality
@@ -72,6 +73,7 @@ function MyQandAs() {
 
   return (
     <div>
+      <Header> </Header>
       <h1>Q & As</h1>
       <p>
         Learning to code is a lot about asking the right questions, and then
