@@ -12,7 +12,7 @@ const Header = () => {
       <header className="center">
         <nav className="margin">
           {/* styling info for tabs is here: https://chakra-ui.com/docs/disclosure/tabs && https://chakra-ui.com/docs/disclosure/tabs#make-a-tab-initially-active */}
-          <Tabs isFitted variant="enclosed">
+          <Tabs isFitted variant="enclosed-colored" size="sm">
             <TabList mb="1em">
               <Tab>
                 <NavLink className="padded" to="/">
