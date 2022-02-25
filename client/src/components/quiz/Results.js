@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import Header from "../Header";
 const Results = (props) => {
   let points = 0;
   let result = "";
@@ -85,6 +85,8 @@ const Results = (props) => {
 
   return (
     <div>
+      <Header />
+
       <h1>Results</h1>
       <p>{result}</p>
       <h6>Check your answers ⬇️</h6>

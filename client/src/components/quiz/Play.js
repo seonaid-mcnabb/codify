@@ -1,7 +1,7 @@
 import React, { useDebugValue, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Quiz.css";
-
+import Header from "../Header";
 const Play = (props) => {
   useEffect(() => {
     startQuiz();
@@ -51,6 +51,8 @@ const Play = (props) => {
 
   return (
     <div>
+      <Header />
+
       <h1>Quiz</h1>
 
       {props.quizStatus == "Playing" ? (

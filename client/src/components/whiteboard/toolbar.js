@@ -1,6 +1,6 @@
 import React from "react";
 import { HuePicker } from "react-color";
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
 import Select from "./images/selection.png";
 import Line from "./images/line.png";
 import Pencil from "./images/pencil.png";
@@ -16,9 +16,18 @@ import Redo from "./images/redo.png";
 import Download from "./images/download-arrow.png";
 import Clear from "./images/cross.png";
 
-
-export default function Toolbar({ setTool, tool, setShowStickyNote, showStickyNote, setBackground, setLineWidth, setLineColour, setFillColour, undo, redo }) {
-
+export default function Toolbar({
+  setTool,
+  tool,
+  setShowStickyNote,
+  showStickyNote,
+  setBackground,
+  setLineWidth,
+  setLineColour,
+  setFillColour,
+  undo,
+  redo,
+}) {
   const handleColourChange = (color) => {
     console.log(color);
     document.getElementById("colour-button").style.backgroundColor = color.hex;
@@ -26,37 +35,39 @@ export default function Toolbar({ setTool, tool, setShowStickyNote, showStickyNo
     const newState = color.hex;
     setLineColour(newState); // adds point in time to history state that we can go back and forth from, overrides any undone steps
     // setIndex(prevState => prevState + 1);
-}
+  };
 
-const handleFillColourChange = (color) => {
-  console.log(color);
-  document.getElementById("fill-colour-button").style.backgroundColor = color.hex;
-  setFillColour(color.hex);
-}
+  const handleFillColourChange = (color) => {
+    console.log(color);
+    document.getElementById("fill-colour-button").style.backgroundColor =
+      color.hex;
+    setFillColour(color.hex);
+  };
 
-const saveAsImage = () => {
-  html2canvas(document.getElementById("screenshot")).then((canvas) => {
-    var imageURL = canvas.toDataURL("image/png");
-    let a = document.createElement("a");
-    a.href = imageURL;
-    a.download = imageURL;
-    a.click();
-});
-}
+  const saveAsImage = () => {
+    html2canvas(document.getElementById("screenshot")).then((canvas) => {
+      var imageURL = canvas.toDataURL("image/png");
+      let a = document.createElement("a");
+      a.href = imageURL;
+      a.download = imageURL;
+      a.click();
+    });
+  };
 
-const clear = () => {
-  window.location.reload();
-}
+  const clear = () => {
+    window.location.reload();
+  };
 
   return (
     <div>
       <div className="toolbar-container">
         <p>Current tool: {tool}</p>
 
-        <button 
+        <button
           id="select"
           onClick={() => setTool("select")}
-          className="toolbar-button">
+          className="toolbar-button"
+        >
           <img src={Select} className="toolbar-icon" alt="Select arrow" />
         </button>
 
@@ -65,7 +76,7 @@ const clear = () => {
           onClick={() => setTool("line")}
           className="toolbar-button"
         >
-        <img src={Line} className="toolbar-icon" alt="Line tool" />
+          <img src={Line} className="toolbar-icon" alt="Line tool" />
         </button>
 
         <button
@@ -73,15 +84,15 @@ const clear = () => {
           onClick={() => setTool("pencil")}
           className="toolbar-button"
         >
-        <img src={Pencil} className="toolbar-icon" alt="Pencil tool" />
+          <img src={Pencil} className="toolbar-icon" alt="Pencil tool" />
         </button>
-<br/>
+        <br />
         <button
           id="square"
           onClick={() => setTool("square")}
           className="toolbar-button-square"
         >
-        <img src={Square} className="toolbar-icon-square" alt="Square tool" />
+          <img src={Square} className="toolbar-icon-square" alt="Square tool" />
         </button>
 
         {/* <button
@@ -97,115 +108,146 @@ const clear = () => {
           onClick={() => setTool("text")}
           className="toolbar-button"
         >
-        <img src={Text} className="toolbar-icon-text" alt="Text tool" />
+          <img src={Text} className="toolbar-icon-text" alt="Text tool" />
         </button>
 
         <button
           id="sticky"
           onClick={() => {
-            setTool("sticky"); setShowStickyNote(!showStickyNote);
+            setTool("sticky");
+            setShowStickyNote(!showStickyNote);
           }}
           className="toolbar-button"
         >
-        <img src={Sticky} className="toolbar-icon-text" alt="Sticky notes" />
+          <img src={Sticky} className="toolbar-icon-text" alt="Sticky notes" />
         </button>
-<br />
-          <p>Select background:</p>
+        <br />
+        <p>Select background:</p>
 
-          <button 
+        {/* <button 
             id="white"
             className="white-background"
             onClick={() => {
               setBackground("#ffffff");
             }}
-            ></button>
+            ></button> */}
+          
 
-          <button 
-            id="lined"
-            className="lined-background"
-            onClick={() => {
-              setBackground(Lined);
-            }}
-            ></button>
+        <button
+          id="lined"
+          className="lined-background"
+          onClick={() => {
+            setBackground(Lined);
+          }}
+        ></button>
 
-          <button 
-            id="grid"
-            className="grid-background"
-            onClick={() => {
-              setBackground(Grid);
-            }}
-            ></button>
-            <br />
+        <button
+          id="grid"
+          className="grid-background"
+          onClick={() => {
+            setBackground(Grid);
+          }}
+        ></button>
+        <br />
 
-            <button
-              title="Increase"
-              id="increase-thickness"
-              className="toolbar-button"
-              onClick={() => {
-                setLineWidth(prevState => prevState + 1);
-              }}
-            >
-            <img src={Plus} className="toolbar-icon-width" alt="Increase pen thickness" />
-            </button>
+        <button
+          title="Increase"
+          id="increase-thickness"
+          className="toolbar-button"
+          onClick={() => {
+            setLineWidth((prevState) => prevState + 1);
+          }}
+        >
+          <img
+            src={Plus}
+            className="toolbar-icon-width"
+            alt="Increase pen thickness"
+          />
+        </button>
 
-            <button
-              title="Decrease"
-              id="decrease-thickness"
-              className="toolbar-button"
-              onClick={() => {
-                setLineWidth(prevState => prevState - 1);
-              }}
-            >
-            <img src={Minus} className="toolbar-icon-minus" alt="Decrease pen thickness" />
-            </button>
-            <br />
+        <button
+          title="Decrease"
+          id="decrease-thickness"
+          className="toolbar-button"
+          onClick={() => {
+            setLineWidth((prevState) => prevState - 1);
+          }}
+        >
+          <img
+            src={Minus}
+            className="toolbar-icon-minus"
+            alt="Decrease pen thickness"
+          />
+        </button>
+        <br />
 
-            <p>Pen Colour: <button id="colour-button"></button></p>
-          <HuePicker color="#fff" onChange={(color) => handleColourChange(color)} width="200px" />
+        <p>
+          Pen Colour: <button id="colour-button"></button>
+        </p>
+        <HuePicker
+          color="#fff"
+          onChange={(color) => handleColourChange(color)}
+          width="200px"
+        />
 
-          <p>Fill Colour: <button id="fill-colour-button"></button></p>
-          <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)} width="200px" />
-          <br />
+        <p>
+          Fill Colour: <button id="fill-colour-button"></button>
+        </p>
+        <HuePicker
+          color="#fff"
+          onChange={(color) => handleFillColourChange(color)}
+          width="200px"
+        />
+        <br />
 
-          <button
-              title="Undo"
-              id="undo-button"
-              className="toolbar-button"
-              onClick={undo}
-            >
-            <img src={Undo} className="toolbar-icon-undo" alt="Undo button" />
-            </button>
+        <button
+          title="Undo"
+          id="undo-button"
+          className="toolbar-button"
+          onClick={undo}
+        >
+          <img src={Undo} className="toolbar-icon-undo" alt="Undo button" />
+        </button>
 
-            <button
-              title="Redo"
-              id="redo-button"
-              className="toolbar-button"
-              onClick={redo}
-            >
-            <img src={Redo} className="toolbar-icon-redo" alt="Redo button" />
-            </button>
-            <br />
+        <button
+          title="Redo"
+          id="redo-button"
+          className="toolbar-button"
+          onClick={redo}
+        >
+          <img src={Redo} className="toolbar-icon-redo" alt="Redo button" />
+        </button>
+        <br />
 
-            <button
-              title="Download"
-              id="screenshot"
-              className="toolbar-button"
-              onClick={() => {saveAsImage()}} 
-              download="image.png"
-            >
-            <img src={Download} className="toolbar-icon-dl" alt="Download button" />
-            </button>
+        <button
+          title="Download"
+          id="screenshot"
+          className="toolbar-button"
+          onClick={() => {
+            saveAsImage();
+          }}
+          download="image.png"
+        >
+          <img
+            src={Download}
+            className="toolbar-icon-dl"
+            alt="Download button"
+          />
+        </button>
 
-            <button
-              title="Clear"
-              id="clear-button"
-              className="toolbar-button"
-              onClick={clear}
-            >
-            <img src={Clear} className="toolbar-icon-clear" alt="Clear canvas button" />
-            </button>
-            <br />
-
+        <button
+          title="Clear"
+          id="clear-button"
+          className="toolbar-button"
+          onClick={clear}
+        >
+          <img
+            src={Clear}
+            className="toolbar-icon-clear"
+            alt="Clear canvas button"
+          />
+        </button>
+        <br />
       </div>
     </div>
   );
