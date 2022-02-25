@@ -12,8 +12,8 @@ const Header = () => {
         <a className="left-margin-20">
           <Link to="/">Home</Link>
         </a>
-        <a className="left-margin-20" href="http://localhost:3000/whiteboard">
-          Whiteboard
+        <a className="left-margin-20">
+          <Link to="/whiteboard">Whiteboard</Link>
         </a>
         <a className="left-margin-20">
           <Link to="/quiz">Quiz</Link>

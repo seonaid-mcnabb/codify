@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Quiz.css";
+import Header from "../Header";
 
 const StartQuiz = (props) => {
   // useEffect(startQuiz());
@@ -8,6 +9,7 @@ const StartQuiz = (props) => {
 
   return (
     <div>
+      <Header />
       <h1>I want to ace a quiz on:</h1>
       <form>
         <div className="Topic">
