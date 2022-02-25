@@ -153,6 +153,26 @@ app.delete("/nice2have/:id", (req, res) => {
     });
 });
 
+/*API ROUTES FOR THE TAGS TABLE*/
+
+//GET THE FULL LIST OF TAGS
+app.get("/tags-list", (req, res) => {
+  db("select * from tags;")
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err));
+});
+
+//ADD A TAG
+app.post("/tag", (req, res) => {
+  db(`INSERT INTO tags(tag_name) VALUES ("${req.body.tag_name}");`)
+    .then((result) =>
+      db("SELECT * FROM tags;").then((results) => {
+        res.send(results.data);
+      })
+    )
+    .catch((err) => res.status(500).send(err));
+});
+
 /*API ROUTES FOR THE Q & A TABLE*/
 //GET THE FULL LIST OF Q & As
 app.get("/q-and-as-list", (req, res) => {

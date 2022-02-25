@@ -87,11 +87,20 @@ function MyQandAs() {
           <input name="question" onChange={handleNewQuestion}></input>
           <h2> Answer: </h2>
           <input name="answer" onChange={handleNewAnswer}></input>
+          <h2>Tag: </h2>
+          <input name="tag"></input>
           <button onClick={handleSubmit}>Add to my collection</button>
         </form>
       </div>
 
+      <div id="searchBar">
+        <h1> Search previous questions </h1>
+        <input name="search" value="enter your search terms"></input>{" "}
+        <button> search</button>
+      </div>
+
       {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
+      <h1 class="card-title">Q&A Collection</h1>
       {questionsAndAnswers.map((e) => (
         <div class="flip-card">
           <div class="flip-card-inner">

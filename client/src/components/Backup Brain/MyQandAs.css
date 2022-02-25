@@ -36,13 +36,18 @@
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
-  background-color: dodgerblue;
+  background-color: #f5804e;
   color: white;
 }
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
+  background-color: #feb800;
   color: white;
   transform: rotateY(180deg);
+}
+
+.card-title {
+  color: dodgerblue;
+  text-align: center;
 }
