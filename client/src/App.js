@@ -22,13 +22,19 @@ function App() {
   let [userAnswersArray, setUserAnswersArray] = useState([]);
   let [allAnswers, setAllAnswers] = useState([]);
   let [quizStatus, setQuizStatus] = useState("Playing");
+  let [loginStatus, setLoginStatus] = useState(false);
 
   const pathname = window.location.pathname;
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={
+            <Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+          }
+        />
         <Route path="/whiteboard" element={<Whiteboard />} />
         <Route
           path="/quiz"
@@ -41,6 +47,8 @@ function App() {
               setLevel={setLevel}
               setLength={setLength}
               setTopic={setTopic}
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
             />
           }
         />

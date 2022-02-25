@@ -2,17 +2,16 @@ import { chakra, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 
-const Login = (props) => {
+const Logout = (props) => {
   return (
     <div>
-      <Header />
       <form>
-        <Button onClick={() => props.setLoginStatus(!props.loginStatus)}>
-          Login
+        <Button onClick={}>
+          Logout
         </Button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Logout;
