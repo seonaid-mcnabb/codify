@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../Header";
+import Footer from "../Footer";
+
 const Results = (props) => {
   let points = 0;
   let result = "";
@@ -143,6 +145,7 @@ const Results = (props) => {
             </div>
           ))
         : ""}
+      <Footer />
     </div>
   );
 };

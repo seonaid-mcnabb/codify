@@ -1,9 +1,17 @@
-.left-margin-20 {
-  margin-right: 10rem;
+.center {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
 }
 
-.center {
-  text-align: center;
-  display: flex;
-  margin: 0 auto;
+.inline {
+  display: inline;
+}
+
+.margin {
+  margin: 1rem auto;
+}
+
+.padded {
+  padding: 1rem;
 }

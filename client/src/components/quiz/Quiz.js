@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Quiz.css";
 import Header from "../Header";
+import Footer from "../Footer";
+
 import {
   Slider,
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
+  Center,
+  Radio,
+  RadioGroup,
+  Stack,
+  Button,
 } from "@chakra-ui/react";
 
 const StartQuiz = (props) => {
@@ -17,106 +24,81 @@ const StartQuiz = (props) => {
   return (
     <div>
       <Header />
-      <h1>I want to ace a quiz on:</h1>
-      <form>
-        <div className="Topic">
-          <label for="Topic">Topic:</label>
+      <Center color="orange">
+        <form>
+          <h1>Time to ace a quiz!</h1>
+          <div className="Topic">
+            <h1>Topic:</h1>
+            <RadioGroup onChange={props.setTopic} value={props.topic}>
+              <Stack>
+                <Radio
+                  name="topc"
+                  colorScheme="orange"
+                  value="HTML"
+                  defaultChecked
+                >
+                  HTML
+                </Radio>
+                <Radio name="topc" colorScheme="orange" value="JavaScript">
+                  JavaScript
+                </Radio>
+                <Radio name="topc" colorScheme="orange" value="MySQL">
+                  MySQL
+                </Radio>
+              </Stack>
+            </RadioGroup>
+          </div>
           <br />
-          <input
-            type="radio"
-            id="HTML"
-            name="Topic"
-            value="HTML"
-            onClick={(e) => props.setTopic(e.target.value)}
-          />
-          <label for="html">HTML</label>
-          <br />
-          <input
-            type="radio"
-            id="JavaScript"
-            name="Topic"
-            value="JavaScript"
-            onClick={(e) => props.setTopic(e.target.value)}
-          />
-          <label for="javascript">JavaScript</label>
-          <br />
-          <input
-            type="radio"
-            id="MySQL"
-            name="Topic"
-            value="MySQL"
-            onClick={(e) => props.setTopic(e.target.value)}
-          />
-          <label for="MySQL">MySQL</label>
-          <br />
-        </div>
-        <br />
-        <div className="Level">
-          <label for="Level">Level:</label>
-          <br />
-          <input
-            type="radio"
-            id="Easy"
-            name="Level"
-            value="Easy"
-            onClick={(e) => props.setLevel(e.target.value)}
-          />
-          <label for="Easy">Easy</label>
-          <br />
-          <input
-            type="radio"
-            id="Medium"
-            name="Level"
-            value="Medium"
-            onClick={(e) => props.setLevel(e.target.value)}
-          />
-          <label for="Medium">Medium</label>
-          <br />
-          <input
-            type="radio"
-            id="Hard"
-            name="Level"
-            value="Hard"
-            onClick={(e) => props.setLevel(e.target.value)}
-          />
-          <label for="Hard">Hard</label>
-          <br />
-        </div>
-        <br />
-        <div className="Length">
-          <label for="Length">Number of Questions</label>
-          <br />
-          {/* <Slider
-            defaultValue={20}
-            min={5}
-            max={20}
-            id="Length"
-            name="Length"
-            onChange={(e) => props.setLength(e.target.value)}
-          /> */}
-          <Slider
-            defaultValue={20}
-            min={5}
-            max={20}
-            step={5}
-            id="Length"
-            name="Length"
-            aria-label="Number of quiz questions"
-            colorScheme="orange"
-            onChangeEnd={(value) => props.setLength(value)}
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
+          <h1>Level:</h1>
 
-          <p>{props.length} questions</p>
-        </div>
-      </form>
-      <Link to="/quiz/play">
-        <input type="submit" value="Quiz Me" />
-      </Link>
+          <RadioGroup onChange={props.setLevel} value={props.level}>
+            <Stack>
+              <Radio
+                name="level"
+                colorScheme="orange"
+                value="Easy"
+                defaultChecked
+              >
+                Easy
+              </Radio>
+              <Radio name="level" colorScheme="orange" value="Medium">
+                Medium
+              </Radio>
+              <Radio name="level" colorScheme="orange" value="Hard">
+                Hard
+              </Radio>
+            </Stack>
+          </RadioGroup>
+          <br />
+          <div className="Length">
+            <h1>Number of questions:</h1>
+            <Slider
+              defaultValue={20}
+              min={5}
+              max={20}
+              step={5}
+              id="Length"
+              name="Length"
+              aria-label="Number of quiz questions"
+              colorScheme="orange"
+              onChangeEnd={(value) => props.setLength(value)}
+              maxWidth="80%"
+              alignContent="center"
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb />
+            </Slider>
+          </div>
+          <Link to="/quiz/play">
+            <Button type="submit" value="Quiz Me">
+              Quiz Me
+            </Button>
+          </Link>
+        </form>
+      </Center>
+      <Footer />
     </div>
   );
 };
