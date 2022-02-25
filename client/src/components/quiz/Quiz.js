@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Quiz.css";
 import Header from "../Header";
+import {
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
+} from "@chakra-ui/react";
 
 const StartQuiz = (props) => {
   // useEffect(startQuiz());
@@ -79,15 +86,30 @@ const StartQuiz = (props) => {
         <div className="Length">
           <label for="Length">Number of Questions</label>
           <br />
-          <input
-            type="range"
+          {/* <Slider
+            defaultValue={20}
+            min={5}
+            max={20}
             id="Length"
             name="Length"
-            min="5"
-            max="20"
-            step="5"
             onChange={(e) => props.setLength(e.target.value)}
-          />
+          /> */}
+          <Slider
+            defaultValue={20}
+            min={5}
+            max={20}
+            step={5}
+            id="Length"
+            name="Length"
+            aria-label="Number of quiz questions"
+            colorScheme="orange"
+            onChangeEnd={(value) => props.setLength(value)}
+          >
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
 
           <p>{props.length} questions</p>
         </div>
