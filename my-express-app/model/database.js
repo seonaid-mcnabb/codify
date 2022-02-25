@@ -72,7 +72,7 @@ con.connect(function (err) {
 
   //Create the q & as table
   let qAndAsSQL =
-    "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question TEXT, answer TEXT, tag_id INT);";
+    "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question TEXT, answer TEXT, tag_id INT, FULLTEXT(question, answer ));";
   con.query(qAndAsSQL, function (err, result) {
     if (err) throw err;
     console.log("Table creation `q_and_as` was successful!");
