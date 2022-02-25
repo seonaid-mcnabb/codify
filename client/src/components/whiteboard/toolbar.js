@@ -61,6 +61,8 @@ export default function Toolbar({
   return (
     <div>
       <div className="toolbar-container">
+        <h1>Whiteboard</h1>
+
         <p>Current tool: {tool}</p>
 
         <button
@@ -131,7 +133,6 @@ export default function Toolbar({
               setBackground("#ffffff");
             }}
             ></button> */}
-          
 
         <button
           id="lined"

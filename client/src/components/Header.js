@@ -4,27 +4,29 @@ import Codify from "./Codify.png";
 
 const Header = () => {
   return (
-    <div>
+    <div width="100%">
       <Link to="/">
-        <img src={Codify} width="100rem" className="center" />
+        <img src={Codify} width="100rem" className="center margin" />
       </Link>
-      <div className="center">
-        <a className="left-margin-20">
-          <Link to="/">Home</Link>
-        </a>
-        <a className="left-margin-20">
-          <Link to="/whiteboard">Whiteboard</Link>
-        </a>
-        <a className="left-margin-20">
-          <Link to="/quiz">Quiz</Link>
-        </a>
-        <a className="left-margin-20">
-          <Link to="/joblist">Job List</Link>
-        </a>
-        <a className="left-margin-20">
-          <Link to="/qandas">Q&As</Link>
-        </a>
-      </div>
+      <header className="center">
+        <nav className="margin">
+          <Link className="padded" to="/">
+            Home
+          </Link>
+          <Link className="padded" to="/whiteboard">
+            Whiteboard
+          </Link>
+          <Link className="padded" to="/quiz">
+            Quiz
+          </Link>
+          <Link className="padded" to="/joblist">
+            Job List
+          </Link>
+          <Link className="padded" to="/qandas">
+            Q&As
+          </Link>
+        </nav>
+      </header>
     </div>
   );
 };

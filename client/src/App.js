@@ -79,8 +79,6 @@ function App() {
         <Route path="/joblist" element={<WorkReqsList />} />
         <Route path="/qandas" element={<MyQandAs />} />
       </Routes>
-
-      {pathname == "/whiteboard" ? "" : <Footer />}
     </div>
   );
 }

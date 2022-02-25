@@ -2,6 +2,8 @@ import React, { useDebugValue, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Quiz.css";
 import Header from "../Header";
+import Footer from "../Footer";
+
 const Play = (props) => {
   useEffect(() => {
     startQuiz();
@@ -215,6 +217,7 @@ const Play = (props) => {
       ) : (
         <Link to="/quiz/results">Get my results!</Link>
       )}
+      <Footer />
     </div>
   );
 };
