@@ -153,22 +153,33 @@ function MyQandAs() {
       </p>
       <div id="newQandAform">
         <h1>Add a new Q & A:</h1>
-        <form>
+        <form className="newQandAform">
           <h2> Question: </h2>
-          <input name="question" onChange={handleNewQuestion}></input>
+          <input
+            className="q-a-input"
+            name="question"
+            onChange={handleNewQuestion}
+          ></input>
           <h2> Answer: </h2>
-          <input name="answer" onChange={handleNewAnswer}></input>
-          <h2>Tag: </h2>
-          <input name="tag"></input>
-          <button onClick={handleSubmit}>Add to my collection</button>
+          <input
+            className="q-a-input"
+            name="answer"
+            onChange={handleNewAnswer}
+          ></input>{" "}
+          <br></br>
+          <Button onClick={handleSubmit}>Add to my collection</Button>
         </form>
       </div>
 
-      <div id="searchBar">
+      <div className="newQandAform" id="searchBar">
         <h1> Search previous questions </h1>
-        <input name="search" onChange={handleSearch}></input>{" "}
-        <button onClick={showSearchResults}> search</button>
-        <button onClick={showFullList}>show all cards</button>
+        <input
+          className="q-a-input"
+          name="search"
+          onChange={handleSearch}
+        ></input>{" "}
+        <Button onClick={showSearchResults}> search</Button>
+        <Button onClick={showFullList}>show all cards</Button>
       </div>
 
       {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}

@@ -55,3 +55,12 @@
 .deleteQa:hover {
   color: #0090c3;
 }
+
+.newQandAform {
+  text-align: center;
+}
+
+.q-a-input {
+  border-color: #0090c3;
+  border-width: 2px;
+}
