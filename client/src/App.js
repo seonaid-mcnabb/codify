@@ -12,6 +12,8 @@ import WorkReqsList from "./components/Personal Reflection Area/WorkReqsList";
 import MyQandAs from "./components/Backup Brain/MyQandAs";
 import Results from "./components/quiz/Results";
 import { ChakraProvider } from "@chakra-ui/react";
+import DocumentationHomePage from "./components/Backup Brain/DocumentationHomePage";
+import ReflectionAreaHomePage from "./components/Backup Brain/ReflectionAreaHomePage";
 
 //comment to add push
 function App() {
@@ -83,8 +85,21 @@ function App() {
             />
           }
         />
-        {/*Seonaids Component Routes--For Testing Purposes */}
+
+        {/*Routes to links on nav bar Seonaid's components*/}
+        <Route
+          path="/documentation-navigation"
+          element={<DocumentationHomePage />}
+        />
+        <Route
+          path="/reflection-area-navigation"
+          element={<ReflectionAreaHomePage />}
+        />
+
+        {/*Seonaids Component Routes--For The Documentation Area */}
         <Route path="/joblist" element={<WorkReqsList />} />
+
+        {/*Seonaids Component Routes--For The Reflection Area */}
         <Route path="/qandas" element={<MyQandAs />} />
       </Routes>
     </div>

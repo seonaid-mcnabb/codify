@@ -30,13 +30,13 @@ const Header = () => {
                 </NavLink>
               </Tab>
               <Tab>
-                <NavLink className="padded" to="/joblist">
-                  Job List
+                <NavLink className="padded" to="/reflection-area-navigation">
+                  Reflection Area
                 </NavLink>
               </Tab>
               <Tab>
-                <NavLink className="padded" to="/qandas">
-                  Q&As
+                <NavLink className="padded" to="/documentation-navigation">
+                  Personal Documentation
                 </NavLink>
               </Tab>
             </TabList>
