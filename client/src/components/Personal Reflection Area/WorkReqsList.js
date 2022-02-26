@@ -273,119 +273,124 @@ function WorkReqsList() {
       <h1 className="priorities-title" id="professional-priorities-title">
         Professional Priorities
       </h1>
-      <p>
-        TO-DO: add description of the purpose of this component -Think about
-        making an interactive checklist Element -When user is applying /
-        considering jobs, could submit how many boxes it checks and receive
-        personalized advice--ie.keep looking, seems like a good fit?
-      </p>
-
-      <div className="add-to-list">
-        <h1 id="addNew-title">Add a new priority</h1>
-        <form className="add-priorities-form">
-          <h2>Select Type:</h2>
-          <select
-            onChange={handleInputSelection}
-            name="priority-type"
-            id="select-type-dropdown-menu"
-          >
-            <option value="must-have">must-have</option>
-            <option value="negotiable">negotiable</option>
-            <option value="deal-breaker">deal-breaker</option>
-            <option value="nice-to-have">nice to have</option>
-          </select>
-          <h2>Add a description:</h2>
-          <input
-            className="priorities-input"
-            id="priority-description-input"
-            onChange={handleInputChange}
-          ></input>
-          <br />{" "}
-          {/*<--remove this later by styling so that submit button is on next line */}
-          <Button
-            onClick={handleSubmit}
-            id="submit-priority-button"
-            color="#0090C3"
-            variant="solid"
-          >
-            SUBMIT
-          </Button>
-        </form>
+      <div className="priorities-menu">
+        <div className="add-to-list">
+          <h1 id="addNew-title">Add a new priority</h1>
+          <form className="add-priorities-form">
+            <h2>Select Type:</h2>
+            <select
+              onChange={handleInputSelection}
+              name="priority-type"
+              id="select-type-dropdown-menu"
+            >
+              <option value="must-have">must-have</option>
+              <option value="negotiable">negotiable</option>
+              <option value="deal-breaker">deal-breaker</option>
+              <option value="nice-to-have">nice to have</option>
+            </select>
+            <h2>Add a description:</h2>
+            <input
+              className="priorities-input"
+              id="priority-description-input"
+              onChange={handleInputChange}
+            ></input>
+            <br />{" "}
+            {/*<--remove this later by styling so that submit button is on next line */}
+            <Button
+              onClick={handleSubmit}
+              id="submit-priority-button"
+              color="#0090C3"
+              variant="solid"
+            >
+              SUBMIT
+            </Button>
+          </form>
+        </div>
       </div>
 
-      <div className="priorities-list">
-        <h1 id="my-list">My List</h1>
-        <ul id="must-haves-list">
-          <h2 id="must-haves-title">MUST-HAVES</h2>
-          {mustHaves.map((e) => (
-            <li>
-              {" "}
-              {e.must_haves}{" "}
-              <Button
-                onClick={() => deleteMustHave(e)}
-                leftIcon={<MdOutlineDelete />}
-                color="#0090C3"
-                size="md"
-                variant="ghost"
-              >
+      <div className="priorities-main">
+        <div className="priorities-list">
+          <h1 className="my-list-title">My List</h1>
+          <ul id="must-haves-list">
+            <h2 className="list-header" id="must-haves-title">
+              MUST-HAVES
+            </h2>
+            {mustHaves.map((e) => (
+              <li>
                 {" "}
-              </Button>
-            </li>
-          ))}
-        </ul>
+                {e.must_haves}{" "}
+                <Button
+                  onClick={() => deleteMustHave(e)}
+                  leftIcon={<MdOutlineDelete />}
+                  color="#0090C3"
+                  size="md"
+                  variant="ghost"
+                >
+                  {" "}
+                </Button>
+              </li>
+            ))}
+          </ul>
 
-        <ul id="negotiables-list">
-          <h2 id="negotiables-title">NEGOTIABLES</h2>
-          {negotiables.map((e) => (
-            <li>
-              {e.negotiables}
-              <Button
-                onClick={() => deleteNegotiable(e)}
-                leftIcon={<MdOutlineDelete />}
-                color="#0090C3"
-                size="md"
-                variant="ghost"
-              >
-                {" "}
-              </Button>
-            </li>
-          ))}
-        </ul>
+          <ul id="negotiables-list">
+            <h2 className="list-header" id="negotiables-title">
+              NEGOTIABLES
+            </h2>
+            {negotiables.map((e) => (
+              <li>
+                {e.negotiables}
+                <Button
+                  onClick={() => deleteNegotiable(e)}
+                  leftIcon={<MdOutlineDelete />}
+                  color="#0090C3"
+                  size="md"
+                  variant="ghost"
+                >
+                  {" "}
+                </Button>
+              </li>
+            ))}
+          </ul>
 
-        <ul id="dealbreakers-list">
-          <h2 id="dealbreakers-title">DEAL-BREAKERS</h2>
-          {dealBreakers.map((e) => (
-            <li>
-              {e.deal_breakers}{" "}
-              <Button
-                onClick={() => deleteDealbreaker(e)}
-                leftIcon={<MdOutlineDelete />}
-                color="#0090C3"
-                size="md"
-                variant="ghost"
-              >
-                {" "}
-              </Button>
-            </li>
-          ))}
-        </ul>
-        <ul id="nice2have-list">
-          <h2 id="nice2have-title">NICE TO HAVE</h2>
-          {niceToHaves.map((e) => (
-            <li>
-              {e.nice_to_have}{" "}
-              <Button
-                onClick={() => deleteNice2have(e)}
-                leftIcon={<MdOutlineDelete />}
-                color="#0090C3"
-                size="md"
-                variant="ghost"
-              >
-                {" "}
-              </Button>
-            </li>
-          ))}
-        </ul>
+          <ul id="dealbreakers-list">
+            <h2 className="list-header" id="dealbreakers-title">
+              DEAL-BREAKERS
+            </h2>
+            {dealBreakers.map((e) => (
+              <li>
+                {e.deal_breakers}{" "}
+                <Button
+                  onClick={() => deleteDealbreaker(e)}
+                  leftIcon={<MdOutlineDelete />}
+                  color="#0090C3"
+                  size="md"
+                  variant="ghost"
+                >
+                  {" "}
+                </Button>
+              </li>
+            ))}
+          </ul>
+          <ul id="nice2have-list">
+            <h2 className="list-header" id="nice2have-title">
+              NICE TO HAVE
+            </h2>
+            {niceToHaves.map((e) => (
+              <li>
+                {e.nice_to_have}{" "}
+                <Button
+                  onClick={() => deleteNice2have(e)}
+                  leftIcon={<MdOutlineDelete />}
+                  color="#0090C3"
+                  size="md"
+                  variant="ghost"
+                >
+                  {" "}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

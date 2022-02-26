@@ -2,6 +2,7 @@
   font-family: Shrikhand, cursive;
   color: #f5804e;
   font-size: 35px;
+  text-align: center;
 }
 
 p {
@@ -15,7 +16,7 @@ h2 {
 }
 
 .priorities-list {
-  text-align: center;
+  text-align: left;
 }
 
 .add-to-list {
@@ -25,4 +26,23 @@ h2 {
 .priorities-input {
   border-color: #0090c3;
   border-width: 2px;
+}
+
+.priorities-menu {
+  width: 25%;
+  float: left;
+}
+.priorities-main {
+  width: 75%;
+  float: left;
+  padding-left: 10px;
+}
+
+.my-list-title {
+  text-align: left;
+}
+
+.list-header {
+  font-size: 30px;
+  text-decoration: underline;
 }
