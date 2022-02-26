@@ -38,7 +38,6 @@ h1 {
     width: 100vw;
     height: 100vh;
     background-color: #FFE0AA;
-    border: 5px solid #FFE0AA;
 }
 
 .shape-cursor {
@@ -133,15 +132,37 @@ textarea {
     transform: scale(1.6)
 }
 
-.toolbar-container {
-    background-color: rgba(255, 224, 170, 0.5);
-    margin-left: 10px;
-    padding: 20px;
-    padding-left: 25px;
+.toolbar-buttons {
+    margin-top: 10px;
+    margin-left: 40px;
+    /* padding: 20px; */
+    /* padding-left: 25px; */
     height: 540px;
     width: 250px;
     position: fixed;
-    top: 200px;
+    top: 220px;
+}
+
+.toolbar-buttons-design {
+    background-color: #F5804E;
+    color: white;
+    font-size: 13px;
+    margin: 3px;
+    padding: 5px;
+    font-family: 'Chivo', sans-serif;
+    border-radius: 10px;
+}
+
+.toolbar-container {
+    background-color: rgba(255, 224, 170, 0.5);
+    margin-top: 10px;
+    margin-left: 15px;
+    padding: 20px;
+    padding-left: 25px;
+    height: 540px;
+    width: 300px;
+    position: fixed;
+    top: 270px;
 }
 
 .toolbar-button {
@@ -168,14 +189,18 @@ textarea {
 .toolbar-icon {
     height: 30px;
     outline: none;
+    margin-top: 5px;
     margin-left: 10px;
+    margin-right: 15px;
     transition: transform .3s ease;
 }
 
 .toolbar-icon-square {
     height: 30px;
     outline: none;
-    margin-left: 9px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 15px;
     transition: transform .3s ease;
 }
 
@@ -183,6 +208,7 @@ textarea {
     height: 33px;
     outline: none;
     margin-left: 9px;
+    margin-right: 15px;
     transition: transform .3s ease;
 }
 
@@ -323,6 +349,16 @@ textarea {
 
 .toolbar-icon-clear:hover {
     transform: scale(1.6);
+}
+
+.uploaded-image {
+    position: fixed;
+    top: 500px;
+}
+
+.upload-image {
+    font-size: 13px;
+    margin: 0 auto;
 }
 
 p {

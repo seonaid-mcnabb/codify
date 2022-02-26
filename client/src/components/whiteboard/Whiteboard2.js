@@ -211,11 +211,12 @@ export default function Whiteboard2() {
   const [lineColour, setLineColour] = useState("#000000");
   const [fillColour, setFillColour] = useState("#ffffff");
   const [lineWidth, setLineWidth] = useState(3);
-  const [background, setBackground] = useState("#ffffff");
+  const [backgroundImage, setBackgroundImage] = useState("#ffffff");
   const textAreaRef = useRef();
   const [showStickyNote, setShowStickyNote] = useState(false);
   const [noteInput, setNoteInput] = useState("");
   const [notesState, dispatch] = useReducer(notesReducer, initialNoteState);
+  const [imageUpload, setImageUpload] = useState([]);
 
   useLayoutEffect(() => {
     const canvas = document.getElementById("canvas");
@@ -233,7 +234,7 @@ export default function Whiteboard2() {
       if (action === "writing" && selectedElement.id === element.id) return;
       drawElement(roughCanvas, ctx, element);
     });
-  }, [elements, lineColour, background, action, selectedElement]);
+  }, [elements, lineColour, backgroundImage, action, selectedElement]);
 
   useEffect(() => {
     const undoRedoFunction = (e) => {
@@ -257,7 +258,7 @@ export default function Whiteboard2() {
     return () => {
       document.removeEventListener("keydown", undoRedoFunction);
     };
-  }, [background, undo, redo]);
+  }, [backgroundImage, undo, redo]);
 
   useEffect(() => {
     const textArea = textAreaRef.current;
@@ -540,14 +541,32 @@ export default function Whiteboard2() {
             tool={tool}
             showStickyNote={showStickyNote}
             setShowStickyNote={setShowStickyNote}
-            setBackground={setBackground}
+            setBackgroundImage={setBackgroundImage}
             setLineWidth={setLineWidth}
             setLineColour={setLineColour}
             setFillColour={setFillColour}
             undo={undo}
             redo={redo}
+            setImageUpload={setImageUpload}
           />
         </div>
+
+        <img 
+        src={imageUpload}
+        className="uploaded-image" 
+        alt=""
+        draggable="true"
+        onDragEnd={dropNote} />
+
+        {/* {imageUpload.length > 0 && imageUpload.map((image) => (
+          <div
+          className="uploaded-image"
+          draggable="true"
+          onDragEnd={dropNote}
+        >{image}
+          </div>
+        ))} */}
+
         {showStickyNote ? (
           <form className="sticky-note" onSubmit={addNote}>
             <textArea
@@ -601,7 +620,7 @@ export default function Whiteboard2() {
         width={window.innerWidth}
         height={window.innerHeight}
         style={{
-          backgroundImage: `url(${background})`,
+          backgroundImage: `url(${backgroundImage})`,
         }}
         onMouseDown={startDrawing}
         onMouseMove={draw}
