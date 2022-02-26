@@ -47,7 +47,7 @@ function HowTos() {
             <div class="card">
               <h2 className="how-to-headings">{howTo.topic_title}</h2>
               <h5 className="how-to-date">
-                <b>POSTED ON:</b> {howTo.date.toString().slice(0, 10)}{" "}
+                <b>POSTED:</b> {howTo.date.toString().slice(0, 10)}{" "}
               </h5>
               <p className="how-to-post">{howTo.step_by_step}</p>
             </div>
