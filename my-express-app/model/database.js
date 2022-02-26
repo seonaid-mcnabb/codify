@@ -81,7 +81,7 @@ con.connect(function (err) {
 
   //This creates the teachatopic table
   let teachATopicSQL =
-    "DROP TABLE if exists teach_a_topic; CREATE TABLE teach_a_topic(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, date VARCHAR(100), topic_title VARCHAR(75), step_by_step TEXT, tag_id INT);";
+    "DROP TABLE if exists teach_a_topic; CREATE TABLE teach_a_topic(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, date VARCHAR(100), topic_title VARCHAR(75), step_by_step TEXT, tag_id INT, FULLTEXT(topic_title));";
   con.query(teachATopicSQL, function (err, result) {
     if (err) throw err;
     console.log("Table creation `teach_a_topic` was successful!");

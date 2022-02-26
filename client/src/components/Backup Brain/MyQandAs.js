@@ -14,6 +14,7 @@ function MyQandAs() {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([
     { question: "hello", answer: "goodbye" },
   ]);
+
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
   const [tag, setTag] = useState("");
@@ -133,6 +134,7 @@ function MyQandAs() {
       })
       .then((json) => {
         setQuestionsAndAnswers(json);
+        //(json);
         console.log(json);
       })
       .catch((error) => {
