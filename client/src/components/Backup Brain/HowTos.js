@@ -37,7 +37,36 @@ function HowTos() {
   return (
     <div>
       <Header></Header>
-      <p>this is a how to component</p>
+      <div className="header">
+        <h2 className="how-to-header-text">My Lessons</h2>
+      </div>
+
+      <div class="row">
+        <div class="leftcolumn">
+          <div class="card">
+            <h2 className="how-to-headings">TITLE HEADING</h2>
+            <h5 className="how-to-date"> Dec 7, 2017</h5>
+            <p>Some text..</p>
+          </div>
+        </div>
+        <div class="rightcolumn">
+          <div class="card">
+            <h2>Learn something new today?</h2>
+            <Button>Add a post</Button>
+            <div style={{ height: "150px" }}>
+              <img
+                alt="robot"
+                src="https://www.ingeniovirtual.com/wp-content/uploads/machine-learning-en-marketing.jpg"
+              ></img>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Find a past lesson:</h3>
+            <input></input>
+            <Button>Search</Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
