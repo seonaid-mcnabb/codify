@@ -526,8 +526,8 @@ export default function Whiteboard2() {
       <div
         style={{
           position: "fixed",
-          left: "1%",
-          right: "1%",
+          left: "0%",
+          right: "0%",
         }}
       >
         {/* buttons are fixed so canvas isn't offset */}

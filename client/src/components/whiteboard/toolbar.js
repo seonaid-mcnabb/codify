@@ -30,7 +30,7 @@ export default function Toolbar({
   setImageUpload
 }) {
 
-  const [showToolbar, setShowToolbar] = useState(false);
+  const [showToolbar, setShowToolbar] = useState(true);
 
   const handleColourChange = (color) => {
     console.log(color);
