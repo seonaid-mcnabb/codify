@@ -5,10 +5,11 @@ import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { MdOutlineDelete } from "react-icons/md";
 //external package for text editor
+import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState, ContentState, convertToRaw } from "draft-js";
 import { convertToHTML } from "draft-convert";
+import DOMPurify from "dompurify";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 //This component:
 //focuses on "teaching to learn"
@@ -38,14 +39,29 @@ function HowTos() {
 
   const [howToTitle, setHowToTitle] = useState("");
   const [stepByStep, setStepByStep] = useState([]);
+  const [showTextEditor, setShowTextEditor] = useState(false);
 
   //EXPERIMENTING WITH EDITOR PACKAGE HERE//
-  let _contentState = ContentState.createFromText("Add a new post");
-  const raw = convertToRaw(_contentState);
-  const [contentState, setContentState] = useState(raw); // ContentState JSON
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [convertedContent, setConvertedContent] = useState(null);
+  const handleEditorChange = (state) => {
+    setEditorState(state);
+    convertContentToHTML();
+  };
+  const convertContentToHTML = () => {
+    let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+    setConvertedContent(currentContentAsHTML);
+  };
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
 
-  const addPost = () => {
-    setStepByStep(contentState);
+  const handleAddPost = () => {
+    setShowTextEditor(!showTextEditor);
   };
 
   return (
@@ -69,21 +85,23 @@ function HowTos() {
         </div>
       </div>
 
-      <div class="row">
-        <div class="leftcolumn">
+      {showTextEditor === true ? (
+        <div className="leftcolumn">
           <div className="add-a-post">
             <h2 className="how-to-headings">Add a title:</h2>
             <input name="title"></input>
             <Editor
-              defaultContentState={contentState}
-              onContentStateChange={setContentState}
+              editorState={editorState}
+              onEditorStateChange={handleEditorChange}
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
             />
-            <Button onClick={addPost}>ADD POST</Button>
+            <Button>ADD POST</Button>
           </div>
-
+        </div>
+      ) : (
+        <div class="leftcolumn">
           {howToPost.map((howTo) => (
             <div class="card">
               <h2 className="how-to-headings">{howTo.topic_title}</h2>
@@ -94,23 +112,23 @@ function HowTos() {
             </div>
           ))}
         </div>
+      )}
 
-        <div class="rightcolumn">
-          <div class="card">
-            <h2>Learn something new today?</h2>
-            <Button>Add a post</Button>
-            <div style={{ height: "150px" }}>
-              <img
-                alt="robot"
-                src="https://www.ingeniovirtual.com/wp-content/uploads/machine-learning-en-marketing.jpg"
-              ></img>
-            </div>
+      <div class="rightcolumn">
+        <div class="card">
+          <h2>Learn something new today?</h2>
+          <Button onClick={handleAddPost}>Add a post</Button>
+          <div style={{ height: "150px" }}>
+            <img
+              alt="robot"
+              src="https://www.ingeniovirtual.com/wp-content/uploads/machine-learning-en-marketing.jpg"
+            ></img>
           </div>
-          <div class="card">
-            <h3>Find a past lesson:</h3>
-            <input></input>
-            <Button>Search</Button>
-          </div>
+        </div>
+        <div class="card">
+          <h3>Find a past lesson:</h3>
+          <input></input>
+          <Button>Search</Button>
         </div>
       </div>
     </div>
