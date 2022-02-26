@@ -116,8 +116,22 @@ function HowTos() {
 
       <div class="rightcolumn">
         <div class="card">
-          <h2>Learn something new today?</h2>
-          <Button onClick={handleAddPost}>Add a post</Button>
+          {showTextEditor ? (
+            <h2 className="how-to-menu-title">
+              {" "}
+              Need some inspiration? Take a look:
+            </h2>
+          ) : (
+            <h2 className="how-to-menu-title">
+              Learn something new today? Go on:
+            </h2>
+          )}
+
+          {showTextEditor ? (
+            <Button onClick={handleAddPost}> See old posts </Button>
+          ) : (
+            <Button onClick={handleAddPost}> Add a post</Button>
+          )}
           <div style={{ height: "150px" }}>
             <img
               alt="robot"
@@ -126,7 +140,7 @@ function HowTos() {
           </div>
         </div>
         <div class="card">
-          <h3>Find a past lesson:</h3>
+          <h2 className="how-to-menu-title">Find a past lesson:</h2>
           <input></input>
           <Button>Search</Button>
         </div>
