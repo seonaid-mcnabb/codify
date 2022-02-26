@@ -50,7 +50,7 @@ function HowTos() {
         <div className="title-quote">
           <h1 className="title-quote-animation">
             {" "}
-            "To teach is to learn twice- Joseph Joubert"
+            "To teach is to learn twice" - Joseph Joubert
           </h1>
         </div>
       </div>
