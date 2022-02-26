@@ -134,7 +134,7 @@ textarea {
 
 .toolbar-buttons {
     margin-top: 10px;
-    margin-left: 40px;
+    margin-left: 45px;
     /* padding: 20px; */
     /* padding-left: 25px; */
     height: 540px;
@@ -146,11 +146,10 @@ textarea {
 .toolbar-buttons-design {
     background-color: #F5804E;
     color: white;
-    font-size: 13px;
+    font-size: 12px;
     margin: 3px;
     padding: 5px;
     font-family: 'Chivo', sans-serif;
-    border-radius: 10px;
 }
 
 .toolbar-container {
