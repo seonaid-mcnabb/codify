@@ -203,6 +203,17 @@ app.delete("/q-and-a/:id", (req, res) => {
     });
 });
 
+//FULL TEXT SEARCH THROUGH THE Q & A CARDS
+app.get("/q-and-as-list-search/:searchTerms", (req, res) => {
+  db(
+    `SELECT * FROM q_and_as WHERE MATCH(question) AGAINST ("${req.params.searchTerms}");`
+  )
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => res.status(500).send(err));
+});
+
 /*API ROUTES FOR THE TEACH A TOPIC TABLE */
 //GET THE FULL LIST OF TOPIC ENTRIES
 app.get("/lesson-list", (req, res) => {

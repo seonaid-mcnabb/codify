@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./MyQandAs.css";
 import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
+import { MdOutlineDelete } from "react-icons/md";
 
 //This component should:
 //Have filter by tag search functionality
@@ -16,18 +17,48 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 //associate tags with tag table ids
 
 function MyQandAs() {
-  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([
+    { question: "hello", answer: "goodbye" },
+  ]);
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
   const [tag, setTag] = useState("");
+  const [searchTerms, setSearchTerms] = useState("");
 
+  //set the user questions
   const handleNewQuestion = (e) => {
     let question = e.target.value;
     setNewQuestion(question);
   };
+
+  //set the user answer
   const handleNewAnswer = (e) => {
     let answer = e.target.value;
     setNewAnswer(answer);
+  };
+
+  //set the user-input search term
+  const handleSearch = (e) => {
+    let searchTerm = e.target.value;
+    setSearchTerms(searchTerm);
+  };
+
+  //show the results of the users search
+  const showSearchResults = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5001/q-and-as-list-search/${searchTerms}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json() /*res.json()*/) //First transform the JSON to a Javascript object
+      .then((json) => {
+        setQuestionsAndAnswers(json); //update the list
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   //add a new q&a to the list
@@ -41,7 +72,7 @@ function MyQandAs() {
       body: JSON.stringify({
         question: newQuestion,
         answer: newAnswer,
-        tag_id: "1",
+        tag_id: 1,
       }),
     })
       .then((res) => res.json()) //First transform the JSON to a Javascript object
@@ -121,8 +152,8 @@ function MyQandAs() {
 
       <div id="searchBar">
         <h1> Search previous questions </h1>
-        <input name="search" value="enter your search terms"></input>{" "}
-        <button> search</button>
+        <input name="search" onChange={handleSearch}></input>{" "}
+        <button onClick={showSearchResults}> search</button>
       </div>
 
       {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
@@ -135,7 +166,16 @@ function MyQandAs() {
             </div>
             <div class="flip-card-back">
               <h2>{e.answer}</h2>
-              <Button onClick={() => deleteQA(e)}> DELETE</Button>
+              <Button
+                className="deleteQa"
+                leftIcon={<MdOutlineDelete />}
+                color="white"
+                size="md"
+                variant="ghost"
+                onClick={() => deleteQA(e)}
+              >
+                {" "}
+              </Button>
             </div>
           </div>
         </div>

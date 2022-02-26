@@ -51,3 +51,7 @@
   color: dodgerblue;
   text-align: center;
 }
+
+.deleteQa:hover {
+  color: #0090c3;
+}
