@@ -4,6 +4,11 @@ import "./HowTos.css";
 import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { MdOutlineDelete } from "react-icons/md";
+//external package for text editor
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import { convertToHTML } from "draft-convert";
 
 //This component:
 //focuses on "teaching to learn"
@@ -32,7 +37,16 @@ function HowTos() {
   ]);
 
   const [howToTitle, setHowToTitle] = useState("");
-  const [stepByStep, setStepByStep] = useState("");
+  const [stepByStep, setStepByStep] = useState([]);
+
+  //EXPERIMENTING WITH EDITOR PACKAGE HERE//
+  let _contentState = ContentState.createFromText("Add a new post");
+  const raw = convertToRaw(_contentState);
+  const [contentState, setContentState] = useState(raw); // ContentState JSON
+
+  const addPost = () => {
+    setStepByStep(contentState);
+  };
 
   return (
     <div>
@@ -57,6 +71,19 @@ function HowTos() {
 
       <div class="row">
         <div class="leftcolumn">
+          <div className="add-a-post">
+            <h2 className="how-to-headings">Add a title:</h2>
+            <input name="title"></input>
+            <Editor
+              defaultContentState={contentState}
+              onContentStateChange={setContentState}
+              wrapperClassName="wrapper-class"
+              editorClassName="editor-class"
+              toolbarClassName="toolbar-class"
+            />
+            <Button onClick={addPost}>ADD POST</Button>
+          </div>
+
           {howToPost.map((howTo) => (
             <div class="card">
               <h2 className="how-to-headings">{howTo.topic_title}</h2>

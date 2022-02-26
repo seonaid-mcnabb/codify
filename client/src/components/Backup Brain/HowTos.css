@@ -103,7 +103,7 @@ body {
 }
 
 .title-quote-animation {
-  background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+  background-image: url(https://media.giphy.com/media/t2aAdTgnU9Ie6jvG0W/giphy.gif);
   background-size: cover;
   color: transparent;
   -moz-background-clip: text;
@@ -112,4 +112,19 @@ body {
   font-size: 25px;
   line-height: 0.75;
   margin: 10px 0;
+}
+
+/*STYLING OF RICH TEXT EDITOR*/
+
+.wrapper-class {
+  padding: 1rem;
+  border: 1px solid #bfe8f3;
+}
+.editor-class {
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #bfe8f3;
+}
+.toolbar-class {
+  border: 1px solid #bfe8f3;
 }
