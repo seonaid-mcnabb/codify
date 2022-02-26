@@ -67,6 +67,15 @@ body {
   font-size: 20px;
   font-weight: 200;
   letter-spacing: 250;
+  padding-top: 10px;
+}
+
+.how-to-post {
+  font-family: "Chivo", sans-serif;
+  color: black;
+  font-size: 17px;
+  text-align: left;
+  padding-top: 20px;
 }
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */

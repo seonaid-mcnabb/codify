@@ -43,12 +43,17 @@ function HowTos() {
 
       <div class="row">
         <div class="leftcolumn">
-          <div class="card">
-            <h2 className="how-to-headings">TITLE HEADING</h2>
-            <h5 className="how-to-date"> Dec 7, 2017</h5>
-            <p>Some text..</p>
-          </div>
+          {howToPost.map((howTo) => (
+            <div class="card">
+              <h2 className="how-to-headings">{howTo.topic_title}</h2>
+              <h5 className="how-to-date">
+                <b>POSTED ON:</b> {howTo.date.toString().slice(0, 10)}{" "}
+              </h5>
+              <p className="how-to-post">{howTo.step_by_step}</p>
+            </div>
+          ))}
         </div>
+
         <div class="rightcolumn">
           <div class="card">
             <h2>Learn something new today?</h2>
