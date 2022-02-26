@@ -6,15 +6,9 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import { MdOutlineDelete } from "react-icons/md";
 
 //This component should:
-//Have filter by tag search functionality
 //Have full text searchability
 //Display your own q&as visually on cards: question on front, on click displays answer
 //have an input form that accepts question, answer, and tag
-
-//TODO
-//Fix display of flipcards
-//Add tag input area
-//associate tags with tag table ids
 
 function MyQandAs() {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([
@@ -106,7 +100,27 @@ function MyQandAs() {
       });
   };
 
-  //Get all the q&as from back-end
+  //return to full list view
+  const showFullList = () => {
+    fetch("http://localhost:5001/q-and-as-list")
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setQuestionsAndAnswers(json);
+        console.log(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //Get all the q&as from back-end on load
   useEffect(() => {
     fetch("http://localhost:5001/q-and-as-list")
       .then((res) => {
@@ -154,6 +168,7 @@ function MyQandAs() {
         <h1> Search previous questions </h1>
         <input name="search" onChange={handleSearch}></input>{" "}
         <button onClick={showSearchResults}> search</button>
+        <button onClick={showFullList}>show all cards</button>
       </div>
 
       {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}

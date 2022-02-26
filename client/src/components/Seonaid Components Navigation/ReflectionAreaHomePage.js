@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
+import "./ReflectionAreaHomePage.css";
 
 //this is a tab on the main page that contains links to all the "personal refelection" related components
 function ReflectionAreaHomePage() {
   return (
-    <div>
-      <Header> </Header>;
-      <NavLink className="padded" to="/joblist">
+    <div className="reflection-nav">
+      <Header> </Header>
+      <NavLink className="job-reflection-link" to="/joblist">
         Job Priorities
       </NavLink>
     </div>
