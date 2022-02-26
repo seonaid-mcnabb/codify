@@ -10,6 +10,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { convertToHTML } from "draft-convert";
 import DOMPurify from "dompurify";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { NEWDATE } from "mysql/lib/protocol/constants/types";
 
 //This component:
 //focuses on "teaching to learn"
@@ -38,7 +39,6 @@ function HowTos() {
   ]);
 
   const [howToTitle, setHowToTitle] = useState("");
-  const [stepByStep, setStepByStep] = useState([]);
   const [showTextEditor, setShowTextEditor] = useState(false);
 
   //EXPERIMENTING WITH EDITOR PACKAGE HERE//
@@ -62,6 +62,36 @@ function HowTos() {
 
   const handleAddPost = () => {
     setShowTextEditor(!showTextEditor);
+  };
+
+  //sets the title for the new post
+  const handleNewTitle = (e) => {
+    let newTitle = e.target.value;
+    setHowToTitle(newTitle);
+  };
+
+  //handles the new post submission
+  const handleNewPost = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:5001/lesson", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        topic_title: howToTitle,
+        step_by_step: convertedContent,
+        tag_id: 1,
+      }),
+    })
+      .then((res) => res.json()) //First transform the JSON to a Javascript object
+      .then((json) => {
+        setHowToPost(json); //update the list
+        setShowTextEditor(!showTextEditor);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -89,7 +119,7 @@ function HowTos() {
         <div className="leftcolumn">
           <div className="add-a-post">
             <h2 className="how-to-headings">Add a title:</h2>
-            <input name="title"></input>
+            <input name="title" onChange={handleNewTitle}></input>
             <Editor
               editorState={editorState}
               onEditorStateChange={handleEditorChange}
@@ -97,7 +127,7 @@ function HowTos() {
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
             />
-            <Button>ADD POST</Button>
+            <Button onClick={handleNewPost}>ADD POST</Button>
           </div>
         </div>
       ) : (
@@ -108,7 +138,8 @@ function HowTos() {
               <h5 className="how-to-date">
                 <b>POSTED:</b> {howTo.date.toString().slice(0, 10)}{" "}
               </h5>
-              <p className="how-to-post">{howTo.step_by_step}</p>
+              {/*<p className="how-to-post"> {howTo.step_by_step}</p>*/}
+              {howTo.step_by_step}
             </div>
           ))}
         </div>
