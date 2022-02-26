@@ -39,6 +39,20 @@ function HowTos() {
       <Header></Header>
       <div className="header">
         <h2 className="how-to-header-text">My Lessons</h2>
+        {/*
+        <div class="w3-panel w3-leftbar w3-light-grey">
+          <p class="w3-xlarge w3-serif">
+            <i>"To teach is to learn twice."</i>
+          </p>
+          <p>Joseph Joubert</p>
+        </div>
+        */}
+        <div className="title-quote">
+          <h1 className="title-quote-animation">
+            {" "}
+            "To teach is to learn twice- Joseph Joubert"
+          </h1>
+        </div>
       </div>
 
       <div class="row">
