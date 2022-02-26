@@ -4,7 +4,8 @@ import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
-import MyQandAs from "./MyQandAs";
+//This is a tab in the header that, onClick, contains links to all of the personal
+//coding documentation resources
 
 function DocumentationHomePage() {
   return (

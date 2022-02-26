@@ -12,8 +12,8 @@ import WorkReqsList from "./components/Personal Reflection Area/WorkReqsList";
 import MyQandAs from "./components/Backup Brain/MyQandAs";
 import Results from "./components/quiz/Results";
 import { ChakraProvider } from "@chakra-ui/react";
-import DocumentationHomePage from "./components/Backup Brain/DocumentationHomePage";
-import ReflectionAreaHomePage from "./components/Backup Brain/ReflectionAreaHomePage";
+import DocumentationHomePage from "./components/Seonaid Components Navigation/DocumentationHomePage";
+import ReflectionAreaHomePage from "./components/Seonaid Components Navigation/ReflectionAreaHomePage";
 
 //comment to add push
 function App() {

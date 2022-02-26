@@ -4,6 +4,7 @@ import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
+//this is a tab on the main page that contains links to all the "personal refelection" related components
 function ReflectionAreaHomePage() {
   return (
     <div>
