@@ -145,69 +145,66 @@ function MyQandAs() {
   return (
     <div>
       <Header> </Header>
-      <h1>Q & As</h1>
-      <p>
-        Learning to code is a lot about asking the right questions, and then
-        interpreting the many, many answers available to you in a way that makes
-        sense for you. Use this area to build your own collection of Q&As that
-        you can review, re-visit, and search through before turning to
-        StackOverflow for an answer that you may already have.
-      </p>
-      <div id="newQandAform">
-        <h1>Add a new Q & A:</h1>
-        <form className="newQandAform">
-          <h2> Question: </h2>
+      <div className="q-and-a-menu">
+        <h1>Q & As</h1>
+        <div id="newQandAform">
+          <h1>Add a new Q & A:</h1>
+          <form className="newQandAform">
+            <h2> Question: </h2>
+            <input
+              className="q-a-input"
+              name="question"
+              onChange={handleNewQuestion}
+            ></input>
+            <h2> Answer: </h2>
+            <input
+              className="q-a-input"
+              name="answer"
+              onChange={handleNewAnswer}
+            ></input>{" "}
+            <br></br>
+            <Button onClick={handleSubmit}>Add to my collection</Button>
+          </form>
+        </div>
+      </div>
+
+      <div className="q-and-a-main">
+        <div className="newQandAform" id="searchBar">
+          <h1> Search previous questions </h1>
           <input
             className="q-a-input"
-            name="question"
-            onChange={handleNewQuestion}
-          ></input>
-          <h2> Answer: </h2>
-          <input
-            className="q-a-input"
-            name="answer"
-            onChange={handleNewAnswer}
+            name="search"
+            onChange={handleSearch}
           ></input>{" "}
-          <br></br>
-          <Button onClick={handleSubmit}>Add to my collection</Button>
-        </form>
-      </div>
+          <Button onClick={showSearchResults}> search</Button>
+          <Button onClick={showFullList}>show all cards</Button>
+        </div>
 
-      <div className="newQandAform" id="searchBar">
-        <h1> Search previous questions </h1>
-        <input
-          className="q-a-input"
-          name="search"
-          onChange={handleSearch}
-        ></input>{" "}
-        <Button onClick={showSearchResults}> search</Button>
-        <Button onClick={showFullList}>show all cards</Button>
-      </div>
-
-      {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
-      <h1 class="card-title">Q&A Collection</h1>
-      {questionsAndAnswers.map((e) => (
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <h2>{e.question}</h2>
-            </div>
-            <div class="flip-card-back">
-              <h2>{e.answer}</h2>
-              <Button
-                className="deleteQa"
-                leftIcon={<MdOutlineDelete />}
-                color="white"
-                size="md"
-                variant="ghost"
-                onClick={() => deleteQA(e)}
-              >
-                {" "}
-              </Button>
+        {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
+        <h1 class="card-title">Q&A Collection</h1>
+        {questionsAndAnswers.map((e) => (
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h2>{e.question}</h2>
+              </div>
+              <div class="flip-card-back">
+                <h2>{e.answer}</h2>
+                <Button
+                  className="deleteQa"
+                  leftIcon={<MdOutlineDelete />}
+                  color="#0090C3"
+                  size="md"
+                  variant="ghost"
+                  onClick={() => deleteQA(e)}
+                >
+                  {" "}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
