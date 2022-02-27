@@ -30,7 +30,8 @@ function HowTos() {
   const [howToTitle, setHowToTitle] = useState("");
   //toggles based on user clicking to display rich text editor
   const [showTextEditor, setShowTextEditor] = useState(false);
-
+  //holds search terms
+  const [postSearchTerms, setPostSearchTerms] = useState("");
   // EDITOR PACKAGE - DRAFT JS//
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
@@ -104,6 +105,51 @@ function HowTos() {
       })
       .then((json) => {
         setHowToPost(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //handles search term input
+  const handlePostSearchTerms = (e) => {
+    let searchTerms = e.target.value;
+    setPostSearchTerms(searchTerms);
+  };
+
+  //handles displaying search results
+  const handleSearchPost = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5001/lesson-list/${postSearchTerms}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json() /*res.json()*/) //First transform the JSON to a Javascript object
+      .then((json) => {
+        setPostSearchTerms("");
+        setHowToPost(json); //update the list
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //displays all posts again
+  const showAllPosts = () => {
+    fetch("http://localhost:5001/lesson-list")
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setHowToPost(json);
+        console.log(json);
       })
       .catch((error) => {
         console.log(error);
@@ -227,8 +273,12 @@ function HowTos() {
         </div>
         <div class="card">
           <h2 className="how-to-menu-title">Find a past lesson:</h2>
-          <input></input>
-          <Button>Search</Button>
+          <input
+            value={postSearchTerms}
+            onChange={handlePostSearchTerms}
+          ></input>
+          <Button onClick={handleSearchPost}>Search</Button>
+          <Button onClick={showAllPosts}>Show all posts again</Button>
         </div>
       </div>
     </div>
