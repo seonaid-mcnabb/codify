@@ -61,21 +61,30 @@ con.connect(function (err) {
     console.log("Closing...");
   });
 
-  //thisi creates the Q and A table
+  //Create the tags table
+  let tagsSQL =
+    "DROP TABLE if exists tags; CREATE TABLE tags(tag_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tag_name VARCHAR(40));";
+  con.query(tagsSQL, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `tags` was successful!");
+    console.log("Closing...");
+  });
+
+  //Create the q & as table
   let qAndAsSQL =
-    "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question VARCHAR(400), answer VARCHAR(400), tag_id INT);";
+    "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question TEXT, answer TEXT, tag_id INT, FULLTEXT(question));";
   con.query(qAndAsSQL, function (err, result) {
     if (err) throw err;
     console.log("Table creation `q_and_as` was successful!");
     console.log("Closing...");
   });
 
-  //Create the tags table
-  let tagsSQL =
-    "DROP TABLE if exists tags; CREATE TABLE tags(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(40));";
-  con.query(qAndAsSQL, function (err, result) {
+  //This creates the teachatopic table
+  let teachATopicSQL =
+    "DROP TABLE if exists teach_a_topic; CREATE TABLE teach_a_topic(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, date VARCHAR(100), topic_title VARCHAR(75), step_by_step TEXT, tag_id INT, FULLTEXT(topic_title));";
+  con.query(teachATopicSQL, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `tags` was successful!");
+    console.log("Table creation `teach_a_topic` was successful!");
     console.log("Closing...");
   });
 

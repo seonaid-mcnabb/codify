@@ -1,33 +1,62 @@
 import e from "cors";
 import React, { useState, useEffect } from "react";
 import "./MyQandAs.css";
+import Header from "../Header.js";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { MdOutlineDelete } from "react-icons/md";
 
 //This component should:
-//Have filter by tag search functionality
 //Have full text searchability
 //Display your own q&as visually on cards: question on front, on click displays answer
 //have an input form that accepts question, answer, and tag
 
-//TODO
-//Fix display of flipcards
-//Add tag input area
-//associate tags with tag table ids
-
 function MyQandAs() {
-  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([
+    { question: "hello", answer: "goodbye" },
+  ]);
+
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
   const [tag, setTag] = useState("");
+  const [searchTerms, setSearchTerms] = useState("");
 
+  //set the user questions
   const handleNewQuestion = (e) => {
     let question = e.target.value;
     setNewQuestion(question);
   };
+
+  //set the user answer
   const handleNewAnswer = (e) => {
     let answer = e.target.value;
     setNewAnswer(answer);
   };
 
+  //set the user-input search term
+  const handleSearch = (e) => {
+    let searchTerm = e.target.value;
+    setSearchTerms(searchTerm);
+  };
+
+  //show the results of the users search
+  const showSearchResults = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5001/q-and-as-list-search/${searchTerms}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json() /*res.json()*/) //First transform the JSON to a Javascript object
+      .then((json) => {
+        setQuestionsAndAnswers(json); //update the list
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //add a new q&a to the list
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:5001/q-and-a", {
@@ -38,7 +67,7 @@ function MyQandAs() {
       body: JSON.stringify({
         question: newQuestion,
         answer: newAnswer,
-        tag_id: "1",
+        tag_id: 1,
       }),
     })
       .then((res) => res.json()) //First transform the JSON to a Javascript object
@@ -50,8 +79,30 @@ function MyQandAs() {
       });
   };
 
-  //Get all the q&as from back-end
-  useEffect(() => {
+  //delete a q&a card
+  const deleteQA = (e) => {
+    fetch(`http://localhost:5001/q-and-a/${e.id}`, {
+      method: "delete",
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(e.id);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setQuestionsAndAnswers(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //return to full list view
+  const showFullList = () => {
     fetch("http://localhost:5001/q-and-as-list")
       .then((res) => {
         if (res.ok) {
@@ -68,42 +119,92 @@ function MyQandAs() {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  //Get all the q&as from back-end on load
+  useEffect(() => {
+    fetch("http://localhost:5001/q-and-as-list")
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setQuestionsAndAnswers(json);
+        //(json);
+        console.log(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
     <div>
-      <h1>Q & As</h1>
-      <p>
-        Learning to code is a lot about asking the right questions, and then
-        interpreting the many, many answers available to you in a way that makes
-        sense for you. Use this area to build your own collection of Q&As that
-        you can review, re-visit, and search through before you turn to
-        StackOverflow for an answer that you may already have.
-      </p>
-      <div id="newQandAform">
-        <h1>Add a new Q & A:</h1>
-        <form>
-          <h2> Question: </h2>
-          <input name="question" onChange={handleNewQuestion}></input>
-          <h2> Answer: </h2>
-          <input name="answer" onChange={handleNewAnswer}></input>
-          <button onClick={handleSubmit}>Add to my collection</button>
-        </form>
+      <Header> </Header>
+      <div className="q-and-a-menu">
+        <h1>Q & As</h1>
+        <div id="newQandAform">
+          <h1>Add a new Q & A:</h1>
+          <form className="newQandAform">
+            <h2> Question: </h2>
+            <input
+              className="q-a-input"
+              name="question"
+              onChange={handleNewQuestion}
+            ></input>
+            <h2> Answer: </h2>
+            <input
+              className="q-a-input"
+              name="answer"
+              onChange={handleNewAnswer}
+            ></input>{" "}
+            <br></br>
+            <Button onClick={handleSubmit}>Add to my collection</Button>
+          </form>
+        </div>
       </div>
 
-      {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
-      {questionsAndAnswers.map((e) => (
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <h2>{e.question}</h2>
-            </div>
-            <div class="flip-card-back">
-              <h2>{e.answer}</h2>
+      <div className="q-and-a-main">
+        <div className="newQandAform" id="searchBar">
+          <h1> Search previous questions </h1>
+          <input
+            className="q-a-input"
+            name="search"
+            onChange={handleSearch}
+          ></input>{" "}
+          <Button onClick={showSearchResults}> search</Button>
+          <Button onClick={showFullList}>show all cards</Button>
+        </div>
+
+        {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
+        <h1 class="card-title">Q&A Collection</h1>
+        {questionsAndAnswers.map((e) => (
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <h2>{e.question}</h2>
+              </div>
+              <div class="flip-card-back">
+                <h2>{e.answer}</h2>
+                <Button
+                  className="deleteQa"
+                  leftIcon={<MdOutlineDelete />}
+                  color="#0090C3"
+                  size="md"
+                  variant="ghost"
+                  onClick={() => deleteQA(e)}
+                >
+                  {" "}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

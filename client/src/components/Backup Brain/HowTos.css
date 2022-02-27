@@ -1,0 +1,183 @@
+body {
+  padding: 20px;
+  background: #ffffff;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+.how-to-header-text {
+  font-family: "Shrikhand", sans-serif;
+  color: #feb800;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-color: #f5804e;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*TITLE HEADINGS*/
+
+.how-to-headings {
+  font-family: "Chivo", sans-serif;
+  font-weight: 800;
+  font-size: 25px;
+  color: #f5804e;
+  letter-spacing: 250;
+}
+
+.how-to-date {
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 250;
+  padding-top: 10px;
+}
+
+.how-to-post {
+  font-family: "Chivo", sans-serif;
+  color: black;
+  font-size: 17px;
+  text-align: left;
+  padding-top: 20px;
+}
+
+.how-to-menu-title {
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #feb800;
+  padding-bottom: 10px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn,
+  .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+/*experimenting with CSS*/
+
+.title-quote {
+  font-family: "Montserrat";
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  letter-spacing: 2px;
+  padding-bottom: 0px;
+}
+
+.title-quote-animation {
+  background-image: url(https://media.giphy.com/media/t2aAdTgnU9Ie6jvG0W/giphy.gif);
+  background-size: cover;
+  color: transparent;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  text-transform: uppercase;
+  font-size: 25px;
+  line-height: 0.75;
+  margin: 10px 0;
+}
+
+/*STYLING OF RICH TEXT EDITOR*/
+
+.wrapper-class {
+  padding: 1rem;
+  border: 1.2px solid #f5804e;
+}
+.editor-class {
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.toolbar-class {
+  border: 1px solid #ccc;
+}
+
+.post-content {
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+/*edits the post text*/
+p {
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
+  text-align: left;
+}
+
+/*change alignment of bullet points*/
+li {
+  margin-left: 30px;
+}
+
+.delete-post-button {
+  margin-top: 20px;
+  float: none;
+}
+
+/*edit the title inputs*/
+.title-input {
+  border: 1px solid #f5804e;
+  border-bottom: white;
+  font-family: "Shrikhand", sans-serif;
+  font-size: 25px;
+  width: 500px;
+}
+
+.title-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #f5804e;
+  opacity: 0.5; /* Firefox */
+}
+
+.title-input:focus {
+  border: 1px solid #f5804e;
+  color: #f5804e;
+  opacity: 0.5; /* Firefox */
+}

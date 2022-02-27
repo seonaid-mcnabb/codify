@@ -1,11 +1,26 @@
+/*added in order to make responsive design?*/
+* {
+  box-sizing: border-box;
+}
+.q-and-a-menu {
+  width: 25%;
+  float: left;
+}
+.q-and-a-main {
+  width: 75%;
+  float: left;
+  padding-left: 10px;
+}
+
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   background-color: transparent;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   display: inline-block;
+  padding-right: 5px;
 }
 
 /* This container is needed to position the front and back side */
@@ -36,13 +51,35 @@
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
-  background-color: dodgerblue;
+  background-color: #0090c3;
   color: white;
+  font-size: 20px;
+  padding-top: 75px;
 }
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
-  color: white;
+  background-color: #bfe8f3;
+  color: darkblue;
+  font-size: 20px;
+  padding-top: 75px;
   transform: rotateY(180deg);
+}
+
+.card-title {
+  color: dodgerblue;
+  text-align: center;
+}
+
+.deleteQa:hover {
+  color: #0090c3;
+}
+
+.newQandAform {
+  text-align: center;
+}
+
+.q-a-input {
+  border-color: #0090c3;
+  border-width: 2px;
 }

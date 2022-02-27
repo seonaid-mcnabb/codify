@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { HuePicker } from "react-color";
 import html2canvas from "html2canvas";
 import Select from "./images/selection.png";
@@ -21,13 +21,17 @@ export default function Toolbar({
   tool,
   setShowStickyNote,
   showStickyNote,
-  setBackground,
+  setBackgroundImage,
   setLineWidth,
   setLineColour,
   setFillColour,
   undo,
   redo,
+  setImageUpload
 }) {
+
+  const [showToolbar, setShowToolbar] = useState(true);
+
   const handleColourChange = (color) => {
     console.log(color);
     document.getElementById("colour-button").style.backgroundColor = color.hex;
@@ -54,12 +58,36 @@ export default function Toolbar({
     });
   };
 
+  const uploadImage = (e) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(e.target.files[0]);
+    setImageUpload(prevState => [...prevState, img.src]);
+    // img.onload = function() {
+    //   // setImageUpload(img.src);
+    //   console.log("img uploaded");
+    //   ctx.drawImage(img, 0, 0);
+    // }
+  }
+
   const clear = () => {
     window.location.reload();
   };
 
   return (
     <div>
+      <div className="toolbar-buttons">
+      <button className="toolbar-buttons-design" onClick={() => setShowToolbar(!showToolbar)}>Show/hide toolbar</button>
+      <button 
+      title="Download"
+          id="screenshot"
+          className="toolbar-buttons-design"
+          onClick={() => {
+            saveAsImage();
+          }}
+          download="image.png">Download image</button>      
+      </div>
+
+      {showToolbar && (
       <div className="toolbar-container">
         <h1>Whiteboard</h1>
 
@@ -126,19 +154,19 @@ export default function Toolbar({
         <br />
         <p>Select background:</p>
 
-        {/* <button 
+        <button 
             id="white"
             className="white-background"
             onClick={() => {
-              setBackground("#ffffff");
+              setBackgroundImage(`#ffffff`);
             }}
-            ></button> */}
+            ></button>
 
         <button
           id="lined"
           className="lined-background"
           onClick={() => {
-            setBackground(Lined);
+            setBackgroundImage(`${Lined}`);
           }}
         ></button>
 
@@ -146,10 +174,14 @@ export default function Toolbar({
           id="grid"
           className="grid-background"
           onClick={() => {
-            setBackground(Grid);
+            setBackgroundImage(`${Grid}`);
           }}
         ></button>
         <br />
+        <p>Upload image:</p>
+        
+        <input type="file" className="upload-image" onChange={uploadImage}/>
+
 
         <button
           title="Increase"
@@ -250,6 +282,7 @@ export default function Toolbar({
         </button>
         <br />
       </div>
-    </div>
+      )}
+      </div>
   );
 }

@@ -1,0 +1,21 @@
+.documentation-nav {
+  text-align: center;
+}
+
+.q-and-a-link {
+  display: inline-block;
+  padding: 50px;
+  background-color: #fff1a0;
+  border-radius: 20px;
+  margin-top: 50px;
+  color: #f5804e;
+}
+
+.q-and-a-link:hover {
+  display: inline-block;
+  padding: 50px;
+  background-color: #0090c3;
+  border-radius: 20px;
+  margin-top: 50px;
+  color: #bfe8f3;
+}
