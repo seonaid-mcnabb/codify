@@ -1,6 +1,13 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { NavLink, Link as ReactLink } from "react-router-dom";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Link,
+} from "@chakra-ui/react";
 import Codify from "./Codify.png";
 
 const Header = () => {
@@ -12,10 +19,10 @@ const Header = () => {
       <header className="center">
         <nav className="margin">
           {/* styling info for tabs is here: https://chakra-ui.com/docs/disclosure/tabs && https://chakra-ui.com/docs/disclosure/tabs#make-a-tab-initially-active */}
-          <Tabs isFitted variant="enclosed-colored" size="sm">
-            <TabList mb="1em">
+          <Tabs isFitted variant="enclosed-colored" size="xs" maxWidth="100%">
+            <TabList mb="2em">
               <Tab>
-                <NavLink className="padded" to="/">
+                <NavLink className="padded" to="/home">
                   Home
                 </NavLink>
               </Tab>

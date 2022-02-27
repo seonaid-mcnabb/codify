@@ -1,9 +1,10 @@
 import React from "react";
+import "../App.css";
 
 const Footer = () => {
   return (
-    <div>
-      <p>Keep learning!</p>
+    <div className="page">
+      <p className="center margin">Keep learning!</p>
     </div>
   );
 };
