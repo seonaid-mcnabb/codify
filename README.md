@@ -2,7 +2,19 @@
 <img src="./client/src/components/Codify.png" width="250"/>
 </p>
 
-Codify a collaborative project by <a href="https://github.com/AlexJackson01">Alex Jackson</a>, <a href="https://github.com/minoi001"> Imogen Minoli </a>, and <a href="https://github.com/seonaid-mcnabb/"> Seonaid McNabb </a>.
+Codify is a collaborative project by <a href="https://github.com/AlexJackson01">Alex Jackson</a>, <a href="https://github.com/minoi001"> Imogen Minoli </a>, and <a href="https://github.com/seonaid-mcnabb/"> Seonaid McNabb </a>.
+
+No matter your background, learning to program requires discipline and dedication, along with the ability to evaluate your own errors, learn from your mistakes, and sift through massive amounts of information in order to find code solutions that work for your needs.
+
+We designed Codify with our own experience as bootcamp students in mind, hoping to provide tools to answer some of the practical, organizational needs of programmers, as well as to implement features that encourage active learning.
+
+In its current iteration, Codify has the following features:
+
+- A quiz that students can use to regularly test their knowledge of popular programming languages
+- An interactive whiteboard that can be used to visualize programming concepts, take, and save notes
+- A personalized, searchable Q&A feature that encourages students to document their own questions and answers throughout their learning process, which can be reviewed regularly
+- A searchable How-To blog where programmers can build a collection of their own instructions/tutorials related to coding tasks
+- A customizable work priorities list (particularly geared towards career-changers) where students can reflect on and add to a priorities list
 
 # Technologies used
 
