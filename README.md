@@ -14,7 +14,7 @@ In its current iteration, Codify has the following features:
 - An interactive whiteboard that can be used to visualize programming concepts, take, and save notes
 - A personalized, searchable Q&A feature that encourages students to document their own questions and answers throughout their learning process, which can be reviewed regularly
 - A searchable How-To blog where programmers can build a collection of their own instructions/tutorials related to coding tasks
-- A customizable work priorities list (particularly geared towards career-changers) where students can reflect on and add to a priorities list
+- A customizable work priorities list (particularly geared towards career-changers)
 
 # Technologies used
 
