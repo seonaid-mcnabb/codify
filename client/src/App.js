@@ -26,6 +26,7 @@ function App() {
   let [allAnswers, setAllAnswers] = useState([]);
   let [quizStatus, setQuizStatus] = useState("Playing");
   let [loginStatus, setLoginStatus] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const pathname = window.location.pathname;
   return (
@@ -52,6 +53,8 @@ function App() {
               setTopic={setTopic}
               loginStatus={loginStatus}
               setLoginStatus={setLoginStatus}
+              setTabIndex={setTabIndex}
+              tabIndex={tabIndex}
             />
           }
         />
@@ -103,6 +106,7 @@ function App() {
         {/*Seonaids Component Routes--For The Documentation Area */}
         <Route path="/qandas" element={<MyQandAs />} />
         <Route path="/how-tos" element={<HowTos />} />
+        <Route path="/header" element={<Header tabIndex={tabIndex} />} />
       </Routes>
     </div>
   );

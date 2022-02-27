@@ -20,8 +20,9 @@ import {
 } from "@chakra-ui/react";
 
 const StartQuiz = (props) => {
-  // useEffect(startQuiz());
-  // useEffect errors, I want questions to generate when page first loads based on default states, how do I do this?
+  useEffect(() => {
+    props.setTabIndex(3);
+  }, props);
 
   return (
     <div>
