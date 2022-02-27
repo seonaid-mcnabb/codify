@@ -10,8 +10,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { convertToHTML } from "draft-convert";
 import DOMPurify from "dompurify";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { NEWDATE } from "mysql/lib/protocol/constants/types";
-
+const he = require("he");
 //This component:
 //focuses on "teaching to learn"
 
@@ -22,21 +21,7 @@ import { NEWDATE } from "mysql/lib/protocol/constants/types";
 //search through how-tos later
 
 function HowTos() {
-  const [howToPost, setHowToPost] = useState([
-    {
-      date: new Date(),
-      topic_title: "How To Loop Through an Array",
-      step_by_step: "1. Do this. 2. Then do that. 3. Then do another thing.",
-      tag_id: 1,
-    },
-    {
-      date: new Date(),
-      topic_title: "How To Merge On Github",
-      step_by_step:
-        "1. First do this. 2. Then do that. 3. Then do another thing.",
-      tag_id: 1,
-    },
-  ]);
+  const [howToPost, setHowToPost] = useState([]);
 
   const [howToTitle, setHowToTitle] = useState("");
   const [showTextEditor, setShowTextEditor] = useState(false);
@@ -94,19 +79,54 @@ function HowTos() {
       });
   };
 
+  //handles post deletion
+  const handleDeletePost = (howTo) => {
+    console.log(howTo.id);
+    fetch(`http://localhost:5001/lesson/${howTo.id}`, {
+      method: "delete",
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(howTo.id);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setHowToPost(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:5001/lesson-list")
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+          return res.json();
+        } else {
+          throw new Error("Not 2xx response");
+        }
+      })
+      .then((json) => {
+        setHowToPost(json);
+        //(json);
+        console.log(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div>
       <Header></Header>
       <div className="header">
         <h2 className="how-to-header-text">My Lessons</h2>
-        {/*
-        <div class="w3-panel w3-leftbar w3-light-grey">
-          <p class="w3-xlarge w3-serif">
-            <i>"To teach is to learn twice."</i>
-          </p>
-          <p>Joseph Joubert</p>
-        </div>
-        */}
         <div className="title-quote">
           <h1 className="title-quote-animation">
             {" "}
@@ -114,7 +134,6 @@ function HowTos() {
           </h1>
         </div>
       </div>
-
       {showTextEditor === true ? (
         <div className="leftcolumn">
           <div className="add-a-post">
@@ -140,11 +159,13 @@ function HowTos() {
               </h5>
               {/*<p className="how-to-post"> {howTo.step_by_step}</p>*/}
               {howTo.step_by_step}
+              <Button onClick={() => handleDeletePost(howTo)}>
+                Delete this post{" "}
+              </Button>
             </div>
           ))}
         </div>
       )}
-
       <div class="rightcolumn">
         <div class="card">
           {showTextEditor ? (
