@@ -73,4 +73,15 @@ This project uses Jest and Enzyme for testing. Jest is a Javascript testing fram
 
 ## Next steps
 
+Ideas for how we'd like to develop the project include:
+
+- Adding a student and instructor log-in
+- Adding a public "classroom" area where students can share information and resources, and contribute to a collaborative cheat-sheet
+- A reflection blog area where students can regularly upload entries reflecting on what they've learned, what strategies worked for them, and set future learning goals
+- A coding resource collection where students can upload tutorials, videos, articles, and links to resources
+- An "unrelated" resources board, where students can upload articles, videos, etc. of concepts not directly related to programming, but which have deepened or expanded their understanding of programming
+- Linking back-end tables with tags in order to facilitate a global search of all resources and student entries
+-An area to save frequqently used code snippets and templates
+- More advanced styling and search methods
+
 _This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._
