@@ -6,7 +6,7 @@ Codify is a collaborative project by <a href="https://github.com/AlexJackson01">
 
 No matter your background, learning to program requires discipline and dedication, along with the ability to evaluate your own errors, learn from your mistakes, and sift through massive amounts of information in order to find code solutions that work for your needs.
 
-We designed Codify with our own experience as bootcamp students in mind, hoping to provide tools to answer some of the practical, organizational needs of programmers, as well as to implement features that encourage active learning.
+We designed Codify with our own experience as bootcamp students in mind, hoping to provide tools to facilitate some of the practical, organizational needs of programmers, as well as to provide spaces that encourage active learning.
 
 In its current iteration, Codify has the following features:
 
