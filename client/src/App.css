@@ -1,17 +1,37 @@
 .center {
-  margin: 0 auto;
-  display: block;
-  text-align: center;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
 }
 
 .inline {
-  display: inline;
+    display: inline;
 }
 
 .margin {
-  margin: 1rem auto;
+    margin: 1rem auto;
 }
 
 .padded {
-  padding: 1rem;
+    padding: 1rem;
+}
+
+.landing-page {
+    background-color: #FFE0AA;
+    height: 100vh;
+}
+
+.landing-logo {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    height: 300px;
+}
+
+.landing-header {
+    font-family: 'Shrikhand', cursive;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: 50px;
+    color: #F5804E;
 }
