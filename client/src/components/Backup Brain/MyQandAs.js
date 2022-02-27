@@ -154,19 +154,19 @@ function MyQandAs() {
           <h1>Add a new Q & A:</h1>
           <form className="newQandAform">
             <h2> Question: </h2>
-            <input
+            <textarea
               className="q-a-input"
               name="question"
               value={newQuestion}
               onChange={handleNewQuestion}
-            ></input>
+            ></textarea>
             <h2> Answer: </h2>
-            <input
+            <textarea
               className="q-a-input"
               name="answer"
               value={newAnswer}
               onChange={handleNewAnswer}
-            ></input>{" "}
+            ></textarea>{" "}
             <br></br>
             <Button onClick={handleSubmit}>Add to my collection</Button>
           </form>
