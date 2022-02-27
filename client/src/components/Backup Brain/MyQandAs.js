@@ -49,6 +49,7 @@ function MyQandAs() {
     })
       .then((res) => res.json() /*res.json()*/) //First transform the JSON to a Javascript object
       .then((json) => {
+        setSearchTerms("");
         setQuestionsAndAnswers(json); //update the list
       })
       .catch((error) => {
@@ -72,6 +73,8 @@ function MyQandAs() {
     })
       .then((res) => res.json()) //First transform the JSON to a Javascript object
       .then((json) => {
+        setNewQuestion("");
+        setNewAnswer("");
         setQuestionsAndAnswers(json); //update the list
       })
       .catch((error) => {
@@ -154,12 +157,14 @@ function MyQandAs() {
             <input
               className="q-a-input"
               name="question"
+              value={newQuestion}
               onChange={handleNewQuestion}
             ></input>
             <h2> Answer: </h2>
             <input
               className="q-a-input"
               name="answer"
+              value={newAnswer}
               onChange={handleNewAnswer}
             ></input>{" "}
             <br></br>
@@ -174,6 +179,7 @@ function MyQandAs() {
           <input
             className="q-a-input"
             name="search"
+            value={searchTerms}
             onChange={handleSearch}
           ></input>{" "}
           <Button onClick={showSearchResults}> search</Button>
