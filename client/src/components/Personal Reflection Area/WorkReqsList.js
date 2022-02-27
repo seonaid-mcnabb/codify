@@ -40,6 +40,7 @@ function WorkReqsList() {
       })
         .then((res) => res.json()) //First transform the JSON to a Javascript object
         .then((json) => {
+          setDescription("");
           setMustHaves(json); //update the list
         })
         .catch((error) => {
@@ -57,6 +58,7 @@ function WorkReqsList() {
       })
         .then((res) => res.json()) //First transform the JSON to a Javascript object
         .then((json) => {
+          setDescription("");
           setNegotiables(json); //update the list
         })
         .catch((error) => {
@@ -74,6 +76,7 @@ function WorkReqsList() {
       })
         .then((res) => res.json()) //First transform the JSON to a Javascript object
         .then((json) => {
+          setDescription("");
           setDealBreakers(json); //update the list
         })
         .catch((error) => {
@@ -91,6 +94,7 @@ function WorkReqsList() {
       })
         .then((res) => res.json()) //First transform the JSON to a Javascript object
         .then((json) => {
+          setDescription("");
           setNicetoHaves(json); //update the list
         })
         .catch((error) => {
@@ -292,6 +296,7 @@ function WorkReqsList() {
             <input
               className="priorities-input"
               id="priority-description-input"
+              value={description}
               onChange={handleInputChange}
             ></input>
             <br />{" "}
