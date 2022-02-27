@@ -138,6 +138,24 @@ body {
 }
 
 .post-content {
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+/*edits the post text*/
+p {
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
   text-align: left;
-  font-size: 600;
+}
+
+/*change alignment of bullet points*/
+li {
+  margin-left: 30px;
+}
+
+.delete-post-button {
+  margin-top: 20px;
 }

@@ -151,6 +151,18 @@ function HowTos() {
             <Editor
               editorState={editorState}
               onEditorStateChange={handleEditorChange}
+              toolbar={{
+                options: ["inline", "blockType", "list", "colorPicker"],
+                inline: { inDropdown: false, options: ["bold", "italic"] },
+                list: { options: ["unordered"] },
+                blockType: {
+                  inDropdown: true,
+                  options: ["Normal", "H1", "H2", "H3", "H4", "H5", "H6"],
+                  className: undefined,
+                  component: undefined,
+                  dropdownClassName: undefined,
+                },
+              }}
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
@@ -168,7 +180,10 @@ function HowTos() {
               </h5>
               {/*<p className="how-to-post"> {howTo.step_by_step}</p>*/}
               {<div className="post-content">{parse(howTo.step_by_step)}</div>}
-              <Button onClick={() => handleDeletePost(howTo)}>
+              <Button
+                className="delete-post-button"
+                onClick={() => handleDeletePost(howTo)}
+              >
                 Delete this post{" "}
               </Button>
             </div>
