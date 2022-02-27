@@ -146,11 +146,21 @@ function HowTos() {
       {showTextEditor === true ? (
         <div className="leftcolumn">
           <div className="add-a-post">
-            <h2 className="how-to-headings">Add a title:</h2>
-            <input name="title" onChange={handleNewTitle}></input>
+            <span>
+              <input
+                type="text"
+                className="title-input"
+                name="title-input"
+                placeholder="Add a title"
+                onChange={handleNewTitle}
+              ></input>
+            </span>
             <Editor
               editorState={editorState}
               onEditorStateChange={handleEditorChange}
+              wrapperClassName="wrapper-class"
+              toolbarClassName="toolbar-class"
+              editorClassName="editor-class"
               toolbar={{
                 options: ["inline", "blockType", "list"],
                 inline: { inDropdown: false, options: ["bold", "italic"] },
@@ -163,9 +173,6 @@ function HowTos() {
                   dropdownClassName: undefined,
                 },
               }}
-              wrapperClassName="wrapper-class"
-              editorClassName="editor-class"
-              toolbarClassName="toolbar-class"
             />
             <Button onClick={handleNewPost}>ADD POST</Button>
           </div>
@@ -180,12 +187,15 @@ function HowTos() {
               </h5>
               {/*<p className="how-to-post"> {howTo.step_by_step}</p>*/}
               {<div className="post-content">{parse(howTo.step_by_step)}</div>}
-              <Button
-                className="delete-post-button"
-                onClick={() => handleDeletePost(howTo)}
-              >
-                Delete this post{" "}
-              </Button>
+              <span>
+                {" "}
+                <Button
+                  className="delete-post-button"
+                  onClick={() => handleDeletePost(howTo)}
+                >
+                  Delete this post{" "}
+                </Button>{" "}
+              </span>
             </div>
           ))}
         </div>
@@ -211,7 +221,7 @@ function HowTos() {
           <div style={{ height: "150px" }}>
             <img
               alt="robot"
-              src="https://www.ingeniovirtual.com/wp-content/uploads/machine-learning-en-marketing.jpg"
+              src="https://cdni.iconscout.com/illustration/premium/thumb/easy-online-learning-1946855-1648374.png"
             ></img>
           </div>
         </div>

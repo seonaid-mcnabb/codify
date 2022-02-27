@@ -56,9 +56,9 @@ body {
 
 .how-to-headings {
   font-family: "Chivo", sans-serif;
-  font-weight: 500;
-  font-size: 35px;
-  color: #0090c3;
+  font-weight: 800;
+  font-size: 25px;
+  color: #f5804e;
   letter-spacing: 250;
 }
 
@@ -126,15 +126,15 @@ body {
 
 .wrapper-class {
   padding: 1rem;
-  border: 1px solid #bfe8f3;
+  border: 1.2px solid #f5804e;
 }
 .editor-class {
   background-color: white;
   padding: 1rem;
-  border: 1px solid #bfe8f3;
+  border: 1px solid #ccc;
 }
 .toolbar-class {
-  border: 1px solid #bfe8f3;
+  border: 1px solid #ccc;
 }
 
 .post-content {
@@ -158,4 +158,26 @@ li {
 
 .delete-post-button {
   margin-top: 20px;
+  float: none;
+}
+
+/*edit the title inputs*/
+.title-input {
+  border: 1px solid #f5804e;
+  border-bottom: white;
+  font-family: "Shrikhand", sans-serif;
+  font-size: 25px;
+  width: 500px;
+}
+
+.title-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #f5804e;
+  opacity: 0.5; /* Firefox */
+}
+
+.title-input:focus {
+  border: 1px solid #f5804e;
+  color: #f5804e;
+  opacity: 0.5; /* Firefox */
 }
