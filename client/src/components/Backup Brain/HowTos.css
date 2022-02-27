@@ -136,3 +136,8 @@ body {
 .toolbar-class {
   border: 1px solid #bfe8f3;
 }
+
+.post-content {
+  text-align: left;
+  font-size: 600;
+}

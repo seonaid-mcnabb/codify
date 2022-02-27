@@ -10,7 +10,10 @@ import { Editor } from "react-draft-wysiwyg";
 import { convertToHTML } from "draft-convert";
 import DOMPurify from "dompurify";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import parse from "html-react-parser";
+
 const he = require("he");
+
 //This component:
 //focuses on "teaching to learn"
 
@@ -21,12 +24,14 @@ const he = require("he");
 //search through how-tos later
 
 function HowTos() {
+  //to store all of the posts
   const [howToPost, setHowToPost] = useState([]);
-
+  //to set a new post title
   const [howToTitle, setHowToTitle] = useState("");
+  //toggles based on user clicking to display rich text editor
   const [showTextEditor, setShowTextEditor] = useState(false);
 
-  //EXPERIMENTING WITH EDITOR PACKAGE HERE//
+  // EDITOR PACKAGE - DRAFT JS//
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -45,10 +50,12 @@ function HowTos() {
     };
   };
 
+  //TOGGLES TEXT EDITOR WHEN USER CLICKS
   const handleAddPost = () => {
     setShowTextEditor(!showTextEditor);
   };
 
+  //EDITING STATES
   //sets the title for the new post
   const handleNewTitle = (e) => {
     let newTitle = e.target.value;
@@ -65,14 +72,15 @@ function HowTos() {
       },
       body: JSON.stringify({
         topic_title: howToTitle,
-        step_by_step: convertedContent,
+        step_by_step: convertedContent, //send the html content encoded with the he packageto the step by step area
         tag_id: 1,
       }),
     })
       .then((res) => res.json()) //First transform the JSON to a Javascript object
       .then((json) => {
         setHowToPost(json); //update the list
-        setShowTextEditor(!showTextEditor);
+        setShowTextEditor(!showTextEditor); //close the text editor and show updated post list
+        setEditorState(EditorState.createEmpty()); //Set editor back to empty
       })
       .catch((error) => {
         console.log(error);
@@ -102,6 +110,7 @@ function HowTos() {
       });
   };
 
+  //gets all posts stored in the back-end on load
   useEffect(() => {
     fetch("http://localhost:5001/lesson-list")
       .then((res) => {
@@ -158,7 +167,7 @@ function HowTos() {
                 <b>POSTED:</b> {howTo.date.toString().slice(0, 10)}{" "}
               </h5>
               {/*<p className="how-to-post"> {howTo.step_by_step}</p>*/}
-              {howTo.step_by_step}
+              {<div className="post-content">{parse(howTo.step_by_step)}</div>}
               <Button onClick={() => handleDeletePost(howTo)}>
                 Delete this post{" "}
               </Button>
