@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Codify from "./Codify.png";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <div width="100%">
       <NavLink to="/">
@@ -19,10 +19,16 @@ const Header = () => {
       <header className="center">
         <nav className="margin">
           {/* styling info for tabs is here: https://chakra-ui.com/docs/disclosure/tabs && https://chakra-ui.com/docs/disclosure/tabs#make-a-tab-initially-active */}
-          <Tabs isFitted variant="enclosed-colored" size="xs" maxWidth="100%">
+          <Tabs
+            defaultIndex={props.tabIndex}
+            isFitted
+            variant="enclosed-colored"
+            size="xs"
+            maxWidth="100%"
+          >
             <TabList mb="2em">
               <Tab>
-                <NavLink className="padded" to="/home">
+                <NavLink className="padded" to="/">
                   Home
                 </NavLink>
               </Tab>
