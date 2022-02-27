@@ -1,212 +1,287 @@
 .body {
-    padding: 20px;
-    background: #ffffff;
+  padding: 20px;
+  background: #ffffff;
 }
-
 
 /* Header/Blog Title */
 
 .header {
-    padding: 30px;
-    font-size: 40px;
-    text-align: center;
-    background: white;
+  padding-top: 15px;
+  padding-bottom: 0px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
 }
 
 .how-to-header-text {
-    font-family: "Shrikhand", sans-serif;
-    color: #feb800;
+  font-family: "Shrikhand", sans-serif;
+  color: #feb800;
 }
 
-
 /* Create two unequal columns that floats next to each other */
-
 
 /* Left column */
 
 .leftcolumn {
-    float: left;
-    width: 75%;
+  float: left;
+  width: 75%;
 }
-
 
 /* Right column */
 
 .rightcolumn {
-    float: left;
-    width: 25%;
-    padding-left: 20px;
+  float: left;
+  width: 25%;
+  padding-left: 20px;
 }
-
 
 /* Fake image */
 
 .fakeimg {
-    background-color: #aaa;
-    width: 100%;
-    padding: 20px;
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
 }
-
 
 /* Add a card effect for articles */
 
 .card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-    border-color: #f5804e;
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-color: #f5804e;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
 }
-
+.post-card {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: rgb(191, 232, 243, 0.01);
+  border: 1px solid #f5804e;
+  box-shadow: 0 12x 12px 0 rgba(0, 0, 0, 0.2);
+}
 
 /* Clear floats after the columns */
 
 .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
-
 
 /*TITLE HEADINGS*/
 
 .how-to-headings {
-    font-family: "Chivo", sans-serif;
-    font-weight: 800;
-    font-size: 25px;
-    color: #f5804e;
-    letter-spacing: 250;
+  font-family: "Chivo", sans-serif;
+  font-weight: 800;
+  font-size: 25px;
+  color: #f5804e;
+  letter-spacing: 250;
 }
 
 .how-to-date {
-    font-family: "Chivo", sans-serif;
-    font-size: 20px;
-    font-weight: 200;
-    letter-spacing: 250;
-    padding-top: 10px;
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 250;
+  padding-top: 10px;
 }
 
 .how-to-post {
-    font-family: "Chivo", sans-serif;
-    color: black;
-    font-size: 17px;
-    text-align: left;
-    padding-top: 20px;
+  font-family: "Chivo", sans-serif;
+  color: black;
+  font-size: 17px;
+  text-align: left;
+  padding-top: 20px;
 }
 
 .how-to-menu-title {
-    font-family: "Chivo", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: #feb800;
-    padding-bottom: 10px;
+  font-family: "Chivo", sans-serif;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #feb800;
+  padding-bottom: 10px;
 }
-
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
 
 @media screen and (max-width: 800px) {
-    .leftcolumn,
-    .rightcolumn {
-        width: 100%;
-        padding: 0;
-    }
+  .leftcolumn,
+  .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
 }
-
 
 /*experimenting with CSS*/
 
 .title-quote {
-    font-family: "Montserrat";
-    text-align: center;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 10vh;
-    letter-spacing: 2px;
-    padding-bottom: 0px;
+  font-family: "Montserrat";
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  letter-spacing: 2px;
+  padding-bottom: 0px;
 }
 
 .title-quote-animation {
-    background-image: url(https://media.giphy.com/media/t2aAdTgnU9Ie6jvG0W/giphy.gif);
-    background-size: cover;
-    color: transparent;
-    -moz-background-clip: text;
-    -webkit-background-clip: text;
-    text-transform: uppercase;
-    font-size: 25px;
-    line-height: 0.75;
-    margin: 10px 0;
+  background-image: url(https://media.giphy.com/media/t2aAdTgnU9Ie6jvG0W/giphy.gif);
+  background-size: cover;
+  color: transparent;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  text-transform: uppercase;
+  font-size: 25px;
+  line-height: 0.75;
+  margin: 10px 0;
 }
-
 
 /*STYLING OF RICH TEXT EDITOR*/
 
 .wrapper-class {
-    padding: 1rem;
-    border: 1.2px solid #f5804e;
+  padding: 1rem;
+  border: 1.2px solid #f5804e;
 }
 
 .editor-class {
-    background-color: white;
-    padding: 1rem;
-    border: 1px solid #ccc;
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ccc;
 }
 
 .toolbar-class {
-    border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 .post-content {
-    font-family: "Chivo", sans-serif;
-    font-size: 20px;
-    margin-left: 10px;
-    margin-top: 20px;
+  font-family: "Chivo", sans-serif;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-top: 20px;
 }
-
 
 /*edits the post text*/
 
 p {
-    font-family: "Chivo", sans-serif;
-    font-size: 16px;
-    text-align: left;
+  font-family: "Chivo", sans-serif;
+  font-size: 16px;
+  text-align: left;
 }
-
 
 /*change alignment of bullet points*/
 
 li {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
-.delete-post-button {
-    margin-top: 20px;
-    float: none;
+/*add style to buttons*/
+.how-to-button {
+  border: black;
+  margin-top: 15px;
+  padding: 5px;
+  outline: none;
+  color: #000;
+  background: #0090c3;
+  cursor: pointer;
+  border-radius: 15px;
+  font-family: "Chivo", sans-serif;
+  font-size: 18px;
+  transform: translate(-0%, -0%);
 }
 
+.how-to-button:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #c20098
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.how-to-button:active {
+  color: #0090c3;
+}
+
+.how-to-button:active:after {
+  background: transparent;
+}
+
+.how-to-button:hover:before {
+  opacity: 1;
+}
+
+.how-to-button:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #bfe8f3;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
 
 /*edit the title inputs*/
 
 .title-input {
-    border: 1px solid #f5804e;
-    border-bottom: white;
-    font-family: "Shrikhand", sans-serif;
-    font-size: 25px;
-    width: 500px;
+  border: 1px solid #f5804e;
+  border-bottom: white;
+  font-family: "Shrikhand", sans-serif;
+  font-size: 25px;
+  width: 500px;
 }
 
 .title-input::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #f5804e;
-    opacity: 0.5;
-    /* Firefox */
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #f5804e;
+  opacity: 0.5;
+  /* Firefox */
 }
 
 .title-input:focus {
-    border: 1px solid #f5804e;
-    color: #f5804e;
-    opacity: 0.5;
-    /* Firefox */
+  border: 1px solid #f5804e;
+  color: #f5804e;
+  opacity: 0.5;
+  /* Firefox */
+}
+
+.post-container {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
 }

@@ -181,7 +181,7 @@ function HowTos() {
     <div className="body">
       <Header></Header>
       <div className="header">
-        <h2 className="how-to-header-text">My Lessons</h2>
+        {/*<h2 className="how-to-header-text">My Lessons</h2>*/}
         <div className="title-quote">
           <h1 className="title-quote-animation">
             {" "}
@@ -220,13 +220,15 @@ function HowTos() {
                 },
               }}
             />
-            <Button onClick={handleNewPost}>ADD POST</Button>
+            <button className="how-to-button" onClick={handleNewPost}>
+              ADD POST
+            </button>
           </div>
         </div>
       ) : (
         <div class="leftcolumn">
           {howToPost.map((howTo) => (
-            <div class="card">
+            <div className="post-card">
               <h2 className="how-to-headings">{howTo.topic_title}</h2>
               <h5 className="how-to-date">
                 <b>POSTED:</b> {howTo.date.toString().slice(0, 10)}{" "}
@@ -235,12 +237,12 @@ function HowTos() {
               {<div className="post-content">{parse(howTo.step_by_step)}</div>}
               <span>
                 {" "}
-                <Button
-                  className="delete-post-button"
+                <button
+                  className="how-to-button"
                   onClick={() => handleDeletePost(howTo)}
                 >
                   Delete this post{" "}
-                </Button>{" "}
+                </button>{" "}
               </span>
             </div>
           ))}
@@ -249,20 +251,21 @@ function HowTos() {
       <div class="rightcolumn">
         <div class="card">
           {showTextEditor ? (
-            <h2 className="how-to-menu-title">
-              {" "}
-              Need some inspiration? Take a look:
-            </h2>
+            <h2 className="how-to-menu-title"> My How-Tos</h2>
           ) : (
-            <h2 className="how-to-menu-title">
-              Learn something new today? Go on:
-            </h2>
+            <h2 className="how-to-menu-title">My How-Tos </h2>
           )}
 
           {showTextEditor ? (
-            <Button onClick={handleAddPost}> See old posts </Button>
+            <button className="how-to-button" onClick={handleAddPost}>
+              {" "}
+              See old posts{" "}
+            </button>
           ) : (
-            <Button onClick={handleAddPost}> Add a post</Button>
+            <button className="how-to-button" onClick={handleAddPost}>
+              {" "}
+              Add a post
+            </button>
           )}
           <div style={{ height: "150px" }}>
             <img
@@ -277,8 +280,12 @@ function HowTos() {
             value={postSearchTerms}
             onChange={handlePostSearchTerms}
           ></input>
-          <Button onClick={handleSearchPost}>Search</Button>
-          <Button onClick={showAllPosts}>Show all posts again</Button>
+          <button className="how-to-button" onClick={handleSearchPost}>
+            Search
+          </button>
+          <button className="how-to-button" onClick={showAllPosts}>
+            Show all posts again
+          </button>
         </div>
       </div>
     </div>
