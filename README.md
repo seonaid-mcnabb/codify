@@ -2,8 +2,7 @@
 <img src="./client/src/components/Codify.png" width="250"/>
 </p>
 
-Add the description here
-***
+Codify a collaborative project by <a href="https://github.com/AlexJackson01">Alex Jackson</a>, <a href="https://github.com/minoi001"> Imogen Minoli </a>, and <a href="https://github.com/seonaid-mcnabb/"> Seonaid McNabb </a>.
 
 # Technologies used
 
