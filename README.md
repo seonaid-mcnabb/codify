@@ -10,6 +10,17 @@ Add the description here
 Front end:
 
 - React
+- React Router
+- React-icons
+- CSS / Chakra UI
+- Figma for design mock-up
+- Canva for logo
+- HTML5 Canvas for whiteboard
+- Roughjs, Perfect Freehand, React color, and Flaticon for drawing tools
+- Quiz API for quiz questions
+- Draft-js, DOMPurify, and html-react-parser for text editor
+- Jest
+- Enzyme
 
 Backend:
 
@@ -37,11 +48,11 @@ Start the front-end
 - ```npm install```
 - ```npm start```
 
-The app will run on ```http://localhost:3000``` as the default port.
+The app will run on ```http://localhost:3000``` as the default port and the back-end will run on ```http://localhost:5001```.
 
 # API keys
 
-TODO: add description of API key set-up
+TODO: add description of API key set-up for QuizAPI
 
 ### **The API calls should now work as expected!**
 
