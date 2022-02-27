@@ -20,15 +20,12 @@
 
 .landing-body {
     background-color: #BFE8F3;
-    margin: -20px;
 }
 
 .landing-page {
     background-color: #FFE0AA;
     background-size: cover;
     height: 100vh;
-    margin: -20px;
-    padding: 50px;
     margin-left: 70px;
     margin-right: 70px;
 }
@@ -39,6 +36,7 @@
     text-align: center;
     height: 250px;
     padding-bottom: 30px;
+    padding-top: 20px;
 }
 
 .landing-header {
@@ -57,12 +55,15 @@
     color: #000;
     background: #F5804E;
     cursor: pointer;
-    position: relative;
     z-index: 0;
     border-radius: 10px;
     font-family: 'Chivo', sans-serif;
     font-size: 20px;
-    margin-top: 30px;
+    margin: 0 auto;
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .glow-on-hover:before {
@@ -118,13 +119,6 @@
     }
 }
 
-.middle {
-    position: absolute;
-    top: 75%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .type {
     display: inline-block;
     position: fixed;
@@ -132,7 +126,7 @@
     transform: translateX(-50%);
     vertical-align: bottom;
     font-family: 'Chivo', sans-serif;
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 10px;
 }
 
@@ -181,11 +175,8 @@
 
 .typing {
     position: absolute;
-    /* left: 37%; */
     margin: 0 auto;
     display: block;
-    /* text-align: center; */
     margin-left: 0;
     margin-right: 0;
-    /* text-align: center; */
 }

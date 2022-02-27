@@ -15,7 +15,7 @@ label {
 }
 
 h1 {
-    /* text-align: center; */
+    text-align: center;
     font-family: 'Shrikhand', cursive;
     padding-top: 10px;
     padding-bottom: 20px;
@@ -37,7 +37,7 @@ h1 {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-color: #FFE0AA;
+    /* background-color: #FFE0AA; */
 }
 
 .shape-cursor {
@@ -48,11 +48,6 @@ h1 {
     /* position: absolute; */
     width: 20px;
 }
-
-
-/* .cover {
-    width: 600px;
-} */
 
 .fill-popover {
     position: absolute;
@@ -132,8 +127,8 @@ textarea {
 
 .toolbar-buttons {
     margin-top: 10px;
-    margin-left: 45px;
-    /* padding: 20px; */
+    /* margin-left: 45px; */
+    padding: 20px;
     /* padding-left: 25px; */
     height: 540px;
     width: 250px;
@@ -144,7 +139,7 @@ textarea {
 .toolbar-buttons-design {
     background-color: #F5804E;
     color: white;
-    font-size: 12px;
+    font-size: 10px;
     margin: 3px;
     padding: 5px;
     font-family: 'Chivo', sans-serif;

@@ -21,9 +21,7 @@ const Home = () => {
     </span>
     </div>
     <br />
-    <div className="middle">
     <Link to="/login"><button className="glow-on-hover">Start Codifying</button></Link>
-    </div>
   </div>
   </div>
   );

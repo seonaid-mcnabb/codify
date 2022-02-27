@@ -178,7 +178,7 @@ function HowTos() {
   }, []);
 
   return (
-    <div>
+    <div className="body">
       <Header></Header>
       <div className="header">
         <h2 className="how-to-header-text">My Lessons</h2>
