@@ -152,7 +152,7 @@ function HowTos() {
               editorState={editorState}
               onEditorStateChange={handleEditorChange}
               toolbar={{
-                options: ["inline", "blockType", "list", "colorPicker"],
+                options: ["inline", "blockType", "list"],
                 inline: { inDropdown: false, options: ["bold", "italic"] },
                 list: { options: ["unordered"] },
                 blockType: {
