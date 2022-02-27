@@ -2,6 +2,8 @@
     margin: 0 auto;
     display: block;
     text-align: center;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .inline {

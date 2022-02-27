@@ -17,6 +17,9 @@ function DocumentationHomePage() {
         <NavLink className="q-and-a-link" to="/qandas">
           Q&As
         </NavLink>
+        <NavLink className="q-and-a-link" to="/how-tos">
+          My How To's
+        </NavLink>
       </container>
     </div>
   );

@@ -246,6 +246,17 @@ app.delete("/lesson/:id", (req, res) => {
     });
 });
 
+//FULL TEXT SEARCH FOR A LESSON (CURRENTLY ONLY IMPLEMENETED FOR SEARCHING TITLES)
+app.get("/lesson-list/:searchTerms", (req, res) => {
+  db(
+    `SELECT * FROM teach_a_topic WHERE MATCH(topic_title) AGAINST ("${req.params.searchTerms}");`
+  )
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => res.status(500).send(err));
+});
+
 module.exports = app;
 
 //WHAT WAS IN THE APP BEFORE I STARTED CHANGING IT
