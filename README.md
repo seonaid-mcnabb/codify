@@ -47,6 +47,7 @@ Backend:
 
 Start the back-end:
 
+- Navigate to your MySQL command line and run: ```mysql -u root -p``` ```create database codify```
 - ```cd my-express-app```
 - ```npm install```
 - ```npm run migrate``` (only necessry the first time you run the project)
