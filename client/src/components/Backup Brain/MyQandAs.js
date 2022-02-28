@@ -2,59 +2,42 @@ import e from "cors";
 import React, { useState, useEffect } from "react";
 import "./MyQandAs.css";
 import Header from "../Header.js";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { MdOutlineDelete } from "react-icons/md";
 
 //This component should:
 //Have full text searchability
-//Display your own q&as visually on cards: question on front, on click displays answer
+//Display your own q&as visually on cards: question on front, displays on back
 //have an input form that accepts question, answer, and tag
 
 function MyQandAs() {
-  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([
-    { question: "hello", answer: "goodbye" },
-  ]);
-
+  //sets and stores all the Q&As
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+  //sets a user input question
   const [newQuestion, setNewQuestion] = useState("");
+  //sets user input answer
   const [newAnswer, setNewAnswer] = useState("");
-  const [tag, setTag] = useState("");
+  //sets user input search terms
   const [searchTerms, setSearchTerms] = useState("");
+  //state to manipulate whether search results are being shown or not
+  const [displaySearchResults, setDisplaySearchesults] = useState(false);
 
-  //set the user questions
+  //handles user input questions
   const handleNewQuestion = (e) => {
     let question = e.target.value;
     setNewQuestion(question);
   };
 
-  //set the user answer
+  //handles user-input answer
   const handleNewAnswer = (e) => {
     let answer = e.target.value;
     setNewAnswer(answer);
   };
 
-  //set the user-input search term
+  //handles user input search terms
   const handleSearch = (e) => {
     let searchTerm = e.target.value;
     setSearchTerms(searchTerm);
-  };
-
-  //show the results of the users search
-  const showSearchResults = (e) => {
-    e.preventDefault();
-    fetch(`http://localhost:5001/q-and-as-list-search/${searchTerms}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json() /*res.json()*/) //First transform the JSON to a Javascript object
-      .then((json) => {
-        setSearchTerms("");
-        setQuestionsAndAnswers(json); //update the list
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   //add a new q&a to the list
@@ -104,7 +87,26 @@ function MyQandAs() {
       });
   };
 
-  //return to full list view
+  //show the results of the users search
+  const showSearchResults = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5001/q-and-as-list-search/${searchTerms}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setSearchTerms("");
+        setQuestionsAndAnswers(json); //update the list
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //go back to the full list view
   const showFullList = () => {
     fetch("http://localhost:5001/q-and-as-list")
       .then((res) => {
@@ -148,6 +150,7 @@ function MyQandAs() {
   return (
     <div>
       <Header> </Header>
+      {/*Sidebar menu and input forms for new q&as*/}
       <div className="q-and-a-menu">
         <div id="newQandAform">
           <form className="newQandAform">
@@ -171,6 +174,8 @@ function MyQandAs() {
             </button>
           </form>
         </div>
+
+        {/*Sidebar menu search form*/}
         <div className="newQandAform" id="searchBar">
           <h1 className="q-a-input-title"> Search: </h1>
           <input
@@ -189,9 +194,9 @@ function MyQandAs() {
         </div>
       </div>
 
+      {/*My cards area where collection is displayed  */}
       <div className="q-and-a-main">
-        {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
-        <h1 class="card-title">Q&A Collection</h1>
+        <h1 className="collection-title">My Cards</h1>
         {questionsAndAnswers.map((e) => (
           <div class="flip-card">
             <div class="flip-card-inner">
