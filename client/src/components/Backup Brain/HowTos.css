@@ -35,14 +35,6 @@
   padding-left: 20px;
 }
 
-/* Fake image */
-
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
-
 /* Add a card effect for articles */
 
 .card {
@@ -280,6 +272,18 @@ li {
   color: #f5804e;
   opacity: 0.5;
   /* Firefox */
+}
+
+.q-a-search-input {
+  border: solid 1px #f5804e;
+  border-radius: 5px;
+}
+
+.q-a-search-input:focus {
+  outline: none;
+  border: solid 1px #f5804e;
+  background-color: #ffe7dc;
+  border-radius: 5px;
 }
 
 .post-container {

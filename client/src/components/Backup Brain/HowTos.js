@@ -2,8 +2,7 @@ import e from "cors";
 import React, { useState, useEffect } from "react";
 import "./HowTos.css";
 import Header from "../Header.js";
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { MdOutlineDelete } from "react-icons/md";
+
 //external package for text editor
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
@@ -24,19 +23,25 @@ const he = require("he");
 //search through how-tos later
 
 function HowTos() {
-  //to store all of the posts
+  //set and store full posts
   const [howToPost, setHowToPost] = useState([]);
-  //to set a new post title
+  //store new post title input
   const [howToTitle, setHowToTitle] = useState("");
-  //toggles based on user clicking to display rich text editor
-  const [showTextEditor, setShowTextEditor] = useState(false);
-  //holds search terms
+  //stores the post entry as converted html content
+  const [convertedContent, setConvertedContent] = useState();
+  //set the user input search terms
   const [postSearchTerms, setPostSearchTerms] = useState("");
-  // EDITOR PACKAGE - DRAFT JS//
+
+  //set whether search results are being displayed (needed for conditional rendering of buttons)
+  const [displaySearchResults, setDisplaySearchResults] = useState(false);
+
+  // STATES RELATED TO THE EDITOR PACKAGE - DRAFT JS//
+  //creates an empty editor
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const [convertedContent, setConvertedContent] = useState();
+
+  //converts the content into readable html
   const handleEditorChange = (state) => {
     setEditorState(state);
     convertContentToHTML();
@@ -45,25 +50,29 @@ function HowTos() {
     let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(currentContentAsHTML);
   };
+
+  //can't remember if I actually use this
   const createMarkup = (html) => {
     return {
       __html: DOMPurify.sanitize(html),
     };
   };
 
-  //TOGGLES TEXT EDITOR WHEN USER CLICKS
+  //sets display of rich text editor (default false so post view is shown initially)
+  const [showTextEditor, setShowTextEditor] = useState(false);
+  //toggles view of
   const handleAddPost = () => {
     setShowTextEditor(!showTextEditor);
   };
 
-  //EDITING STATES
+  /*FUNCTIONS FOR MANIPULATING STATES*/
   //sets the title for the new post
   const handleNewTitle = (e) => {
     let newTitle = e.target.value;
     setHowToTitle(newTitle);
   };
 
-  //handles the new post submission
+  //posts a new lesson to the MySQL database onSubmit
   const handleNewPost = (e) => {
     e.preventDefault();
     fetch("http://localhost:5001/lesson", {
@@ -73,13 +82,13 @@ function HowTos() {
       },
       body: JSON.stringify({
         topic_title: howToTitle,
-        step_by_step: convertedContent, //send the html content encoded with the he packageto the step by step area
-        tag_id: 1,
+        step_by_step: convertedContent, //send the html content encoded with the packageto as step by step post content
+        tag_id: 1, //default because haven't implemented linked tables on this yet
       }),
     })
       .then((res) => res.json()) //First transform the JSON to a Javascript object
       .then((json) => {
-        setHowToPost(json); //update the list
+        setHowToPost(json); //update the post list
         setShowTextEditor(!showTextEditor); //close the text editor and show updated post list
         setEditorState(EditorState.createEmpty()); //Set editor back to empty
       })
@@ -95,8 +104,6 @@ function HowTos() {
       method: "delete",
     })
       .then((res) => {
-        console.log(res);
-        console.log(howTo.id);
         if (res.ok) {
           return res.json();
         } else {
@@ -111,13 +118,13 @@ function HowTos() {
       });
   };
 
-  //handles search term input
+  //records and sets the user's search terms
   const handlePostSearchTerms = (e) => {
     let searchTerms = e.target.value;
     setPostSearchTerms(searchTerms);
   };
 
-  //handles displaying search results
+  //displays the search results
   const handleSearchPost = (e) => {
     e.preventDefault();
     fetch(`http://localhost:5001/lesson-list/${postSearchTerms}`, {
@@ -126,22 +133,22 @@ function HowTos() {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json() /*res.json()*/) //First transform the JSON to a Javascript object
+      .then((res) => res.json())
       .then((json) => {
-        setPostSearchTerms("");
-        setHowToPost(json); //update the list
+        setPostSearchTerms(""); //reset search input
+        setHowToPost(json); //update the list when search results are returned
+        setDisplaySearchResults(!displaySearchResults);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  //displays all posts again
+  //displays all posts again (method created for the "see old posts button")
   const showAllPosts = () => {
     fetch("http://localhost:5001/lesson-list")
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res.json();
         } else {
           throw new Error("Not 2xx response");
@@ -149,6 +156,7 @@ function HowTos() {
       })
       .then((json) => {
         setHowToPost(json);
+        setDisplaySearchResults(!displaySearchResults);
         console.log(json);
       })
       .catch((error) => {
@@ -156,7 +164,7 @@ function HowTos() {
       });
   };
 
-  //gets all posts stored in the back-end on load
+  //gets all the posts the user has stored in the back-end on page load
   useEffect(() => {
     fetch("http://localhost:5001/lesson-list")
       .then((res) => {
@@ -180,6 +188,7 @@ function HowTos() {
   return (
     <div className="body">
       <Header></Header>
+      {/*PAGE HEADER AREA*/}
       <div className="header">
         {/*<h2 className="how-to-header-text">My Lessons</h2>*/}
         <div className="title-quote">
@@ -189,6 +198,8 @@ function HowTos() {
           </h1>
         </div>
       </div>
+
+      {/* Conditional Rendering of Post View or Add Post Text Editor View */}
       {showTextEditor === true ? (
         <div className="leftcolumn">
           <div className="add-a-post">
@@ -248,13 +259,12 @@ function HowTos() {
           ))}
         </div>
       )}
+
+      {/*SIDE BAR AREA
+      -Contains conditionally rendered button based on weather text editor is visible or not, and search area  */}
       <div class="rightcolumn">
         <div class="card">
-          {showTextEditor ? (
-            <h2 className="how-to-menu-title"> My How-Tos</h2>
-          ) : (
-            <h2 className="how-to-menu-title">My How-Tos </h2>
-          )}
+          <h2 className="how-to-menu-title"> My How-Tos</h2>
 
           {showTextEditor ? (
             <button className="how-to-button" onClick={handleAddPost}>
@@ -275,17 +285,29 @@ function HowTos() {
           </div>
         </div>
         <div class="card">
-          <h2 className="how-to-menu-title">Find a past lesson:</h2>
-          <input
-            value={postSearchTerms}
-            onChange={handlePostSearchTerms}
-          ></input>
-          <button className="how-to-button" onClick={handleSearchPost}>
-            Search
-          </button>
-          <button className="how-to-button" onClick={showAllPosts}>
-            Show all posts again
-          </button>
+          {/*Conditionally renders button based on whether search results are currently being displayed */}
+          {displaySearchResults ? (
+            <div className="search-area">
+              <h2 className="how-to-menu-title">
+                Not what you were looking for?{" "}
+                <button className="how-to-button" onClick={showAllPosts}>
+                  Go back
+                </button>
+              </h2>
+            </div>
+          ) : (
+            <div>
+              <h2 className="how-to-menu-title">Search for an answer:</h2>
+              <input
+                className="q-a-search-input"
+                value={postSearchTerms}
+                onChange={handlePostSearchTerms}
+              ></input>
+              <button className="how-to-button" onClick={handleSearchPost}>
+                Search
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
