@@ -10,12 +10,23 @@
     display: inline;
 }
 
+.header-logo {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
 .margin {
     margin: 1rem auto;
 }
 
 .padded {
     padding: 1rem;
+}
+
+.nav-style {
+    background-color: #bfe8f3;
+    margin-top: -30px;
 }
 
 .landing-body-left {

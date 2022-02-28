@@ -27,12 +27,6 @@ h1 {
     width: 120px;
 }
 
-
-/* .header {
-    background-color: #FFE0AA;
-    width: 100vw;
-} */
-
 .canvas-container {
     position: relative;
     width: 100vw;
@@ -126,14 +120,14 @@ textarea {
 }
 
 .toolbar-buttons {
-    margin-top: 10px;
-    /* margin-left: 45px; */
+    /* margin-top: 10px; */
+    margin-left: 70px;
     padding: 20px;
     /* padding-left: 25px; */
     height: 540px;
     width: 250px;
     position: fixed;
-    top: 220px;
+    top: 200px;
 }
 
 .toolbar-buttons-design {
@@ -155,6 +149,12 @@ textarea {
     width: 300px;
     position: fixed;
     top: 270px;
+}
+
+.toolbar-header {
+    font-family: 'Shrikhand', cursive;
+    font-size: 20px;
+    text-align: center;
 }
 
 .toolbar-button {
