@@ -149,18 +149,16 @@ function MyQandAs() {
     <div>
       <Header> </Header>
       <div className="q-and-a-menu">
-        <h1>Q & As</h1>
         <div id="newQandAform">
-          <h1>Add a new Q & A:</h1>
           <form className="newQandAform">
-            <h2> Question: </h2>
+            <h2 className="q-a-input-title"> Question: </h2>
             <textarea
               className="q-a-input"
               name="question"
               value={newQuestion}
               onChange={handleNewQuestion}
             ></textarea>
-            <h2> Answer: </h2>
+            <h2 className="q-a-input-title"> Answer: </h2>
             <textarea
               className="q-a-input"
               name="answer"
@@ -168,24 +166,30 @@ function MyQandAs() {
               onChange={handleNewAnswer}
             ></textarea>{" "}
             <br></br>
-            <Button onClick={handleSubmit}>Add to my collection</Button>
+            <button className="q-a-button" onClick={handleSubmit}>
+              Add to my collection
+            </button>
           </form>
         </div>
-      </div>
-
-      <div className="q-and-a-main">
         <div className="newQandAform" id="searchBar">
-          <h1> Search previous questions </h1>
+          <h1 className="q-a-input-title"> Search: </h1>
           <input
             className="q-a-input"
             name="search"
             value={searchTerms}
             onChange={handleSearch}
           ></input>{" "}
-          <Button onClick={showSearchResults}> search</Button>
-          <Button onClick={showFullList}>show all cards</Button>
+          <button className="q-a-button" onClick={showSearchResults}>
+            {" "}
+            search
+          </button>
+          <button className="q-a-button" onClick={showFullList}>
+            show all cards
+          </button>
         </div>
+      </div>
 
+      <div className="q-and-a-main">
         {/*AREA TO DISPLAY Q&AS on FLIPCARDS */}
         <h1 class="card-title">Q&A Collection</h1>
         {questionsAndAnswers.map((e) => (
@@ -199,9 +203,11 @@ function MyQandAs() {
                 <Button
                   className="deleteQa"
                   leftIcon={<MdOutlineDelete />}
-                  color="#0090C3"
-                  size="md"
+                  color="#ee6327"
+                  size="lg"
+                  background="transparent"
                   variant="ghost"
+                  _hover="blue"
                   onClick={() => deleteQA(e)}
                 >
                   {" "}

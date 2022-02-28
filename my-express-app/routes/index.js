@@ -176,7 +176,7 @@ app.post("/tag", (req, res) => {
 /*API ROUTES FOR THE Q & A TABLE*/
 //GET THE FULL LIST OF Q & As
 app.get("/q-and-as-list", (req, res) => {
-  db("select * from q_and_as;")
+  db("select * from q_and_as ORDER BY ID DESC;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
@@ -187,7 +187,7 @@ app.post("/q-and-a", (req, res) => {
     `INSERT INTO q_and_as(question, answer, tag_id) VALUES ("${req.body.question}","${req.body.answer}","${req.body.tag_id}");`
   )
     .then((result) =>
-      db("SELECT * FROM q_and_as;").then((results) => {
+      db("SELECT * FROM q_and_as ORDER BY ID DESC;").then((results) => {
         res.send(results.data);
       })
     )
@@ -197,7 +197,7 @@ app.post("/q-and-a", (req, res) => {
 //DELETE A Q&A FROM THE LIST BY ID
 app.delete("/q-and-a/:id", (req, res) => {
   db(`DELETE FROM q_and_as WHERE id=${req.params.id}`)
-    .then((result) => db("SELECT * FROM q_and_as;"))
+    .then((result) => db("SELECT * FROM q_and_as ORDER BY ID DESC;"))
     .then((results) => {
       res.send(results.data);
     });
@@ -217,7 +217,7 @@ app.get("/q-and-as-list-search/:searchTerms", (req, res) => {
 /*API ROUTES FOR THE TEACH A TOPIC TABLE */
 //GET THE FULL LIST OF TOPIC ENTRIES
 app.get("/lesson-list", (req, res) => {
-  db("select * from teach_a_topic;")
+  db("select * from teach_a_topic ORDER BY ID DESC;")
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
@@ -230,7 +230,7 @@ app.post("/lesson", (req, res) => {
     }","${req.body.step_by_step}","${req.body.tag_id}");`
   )
     .then((result) =>
-      db("SELECT * FROM teach_a_topic;").then((results) => {
+      db("SELECT * FROM teach_a_topic ORDER BY ID DESC;").then((results) => {
         res.send(results.data);
       })
     )
@@ -240,7 +240,7 @@ app.post("/lesson", (req, res) => {
 //DELETE A LESSON BY ID
 app.delete("/lesson/:id", (req, res) => {
   db(`DELETE FROM teach_a_topic WHERE id=${req.params.id}`)
-    .then((result) => db("SELECT * FROM teach_a_topic;"))
+    .then((result) => db("SELECT * FROM teach_a_topic ORDER BY ID DESC;"))
     .then((results) => {
       res.send(results.data);
     });

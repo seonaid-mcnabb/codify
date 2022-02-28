@@ -36,7 +36,7 @@ function HowTos() {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const [convertedContent, setConvertedContent] = useState(null);
+  const [convertedContent, setConvertedContent] = useState();
   const handleEditorChange = (state) => {
     setEditorState(state);
     convertContentToHTML();

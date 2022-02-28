@@ -1,101 +1,134 @@
 /*added in order to make responsive design?*/
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .q-and-a-menu {
-    width: 25%;
-    float: left;
+  width: 25%;
+  float: left;
+  padding-top: 15px;
+  padding-left: 5px;
 }
 
 .q-and-a-main {
-    width: 75%;
-    float: left;
-    padding-left: 10px;
+  width: 75%;
+  float: left;
+  padding-left: 30px;
 }
-
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 
 .flip-card {
-    background-color: transparent;
-    width: 200px;
-    height: 200px;
-    border: 1px solid #f1f1f1;
-    perspective: 1000px;
-    /* Remove this if you don't want the 3D effect */
-    display: inline-block;
-    padding-right: 5px;
+  background-color: transparent;
+  width: 330px;
+  height: 250px;
+  /*border: 1px solid #f1f1f1;*/
+  perspective: 1000px;
+  /* Remove this if you don't want the 3D effect */
+  display: inline-block;
+  padding-right: 5px;
 }
-
 
 /* This container is needed to position the front and back side */
 
 .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 1.2s;
-    transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1.2s;
+  transform-style: preserve-3d;
 }
-
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
 
 .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
-
 
 /* Position the front and back side */
 
 .flip-card-front,
 .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    /* Safari */
-    backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  /* Safari */
+  backface-visibility: hidden;
 }
-
 
 /* Style the front side (fallback if image is missing) */
 
 .flip-card-front {
-    background-color: #0090c3;
-    color: white;
-    font-size: 20px;
-    padding-top: 75px;
+  background: rgb(0, 144, 195);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 144, 195, 1) 0%,
+    rgba(166, 200, 209, 1) 100%
+  );
+  /*background-color: #0090c3;*/
+  color: white;
+  font-size: 25px;
+  border-radius: 30px;
+  padding-top: 90px;
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
 }
-
 
 /* Style the back side */
 
 .flip-card-back {
-    background-color: #bfe8f3;
-    color: darkblue;
-    font-size: 20px;
-    padding-top: 75px;
-    transform: rotateY(180deg);
+  background: rgb(255, 210, 129);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 210, 129, 1) 0%,
+    rgba(238, 99, 39, 1) 100%
+  );
+  color: white;
+  font-size: 25px;
+  border-radius: 30px;
+  padding-top: 90px;
+  transform: rotateY(180deg);
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-title {
-    color: dodgerblue;
-    text-align: center;
+  color: dodgerblue;
+  text-align: center;
 }
 
 .deleteQa:hover {
-    color: #0090c3;
+  color: rgb(4, 4, 80);
+}
+.deleteQa:active {
+  background: rgb(4, 4, 80);
 }
 
 .newQandAform {
-    text-align: center;
+  text-align: center;
 }
 
 .q-a-input {
-    border-color: #0090c3;
-    border-width: 2px;
+  border-color: #c7e6f1;
+  border-width: 0.2px;
+  border-radius: 10px;
+  margin-left: 5px;
+  padding-right: 10px;
+}
+
+.q-a-button {
+  background: #f5804e;
+  border-radius: 7px;
+  color: white;
+  font-family: "Chivo", sans-serif;
+  padding: 6px;
+  margin-right: 3px;
+}
+
+.q-a-input-title {
+  font-family: "Shrikhand", sans-serif;
+  color: #0090c3;
+  font-size: 20px;
+  padding: 10px;
 }

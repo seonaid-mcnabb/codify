@@ -13,6 +13,7 @@ function ReflectionAreaHomePage() {
       <NavLink className="job-reflection-link" to="/joblist">
         Job Priorities
       </NavLink>
+      <button className="job-reflection-link">Code Diary (coming soon!)</button>
     </div>
   );
 }
