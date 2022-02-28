@@ -206,7 +206,7 @@ app.delete("/q-and-a/:id", (req, res) => {
 //FULL TEXT SEARCH THROUGH THE Q & A CARDS
 app.get("/q-and-as-list-search/:searchTerms", (req, res) => {
   db(
-    `SELECT * FROM q_and_as WHERE MATCH(question) AGAINST ("${req.params.searchTerms}");`
+    `SELECT * FROM q_and_as WHERE MATCH(question, answer) AGAINST ("${req.params.searchTerms}");`
   )
     .then((results) => {
       res.send(results.data);
@@ -249,7 +249,7 @@ app.delete("/lesson/:id", (req, res) => {
 //FULL TEXT SEARCH FOR A LESSON (CURRENTLY ONLY IMPLEMENETED FOR SEARCHING TITLES)
 app.get("/lesson-list/:searchTerms", (req, res) => {
   db(
-    `SELECT * FROM teach_a_topic WHERE MATCH(topic_title) AGAINST ("${req.params.searchTerms}");`
+    `SELECT * FROM teach_a_topic WHERE MATCH(topic_title, step_by_step) AGAINST ("${req.params.searchTerms}");`
   )
     .then((results) => {
       res.send(results.data);
