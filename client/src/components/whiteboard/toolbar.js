@@ -89,7 +89,7 @@ export default function Toolbar({
 
       {showToolbar && (
       <div className="toolbar-container">
-        <h1>Whiteboard</h1>
+        <h1 className="toolbar-header">Whiteboard</h1>
 
         <p>Current tool: {tool}</p>
 
