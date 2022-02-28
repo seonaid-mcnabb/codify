@@ -156,3 +156,10 @@
   padding: 10px;
   padding-bottom: 15px;
 }
+
+.no-results-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

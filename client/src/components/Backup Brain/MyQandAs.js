@@ -195,32 +195,50 @@ function MyQandAs() {
       </div>
 
       {/*My cards area where collection is displayed  */}
+      {/*Title toggled based on length of collection */}
       <div className="q-and-a-main">
-        <h1 className="collection-title">My Cards</h1>
-        {questionsAndAnswers.map((e) => (
-          <div class="flip-card">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <h2>{e.question}</h2>
-              </div>
-              <div class="flip-card-back">
-                <h2>{e.answer}</h2>
-                <Button
-                  className="deleteQa"
-                  leftIcon={<MdOutlineDelete />}
-                  color="#ee6327"
-                  size="lg"
-                  background="transparent"
-                  variant="ghost"
-                  _hover="blue"
-                  onClick={() => deleteQA(e)}
-                >
-                  {" "}
-                </Button>
+        {questionsAndAnswers.length === 0 ? (
+          <h1 className="collection-title">
+            Whoops! Nothing to see here! Keep adding questions
+          </h1>
+        ) : (
+          <h1 className="collection-title"> My Cards</h1>
+        )}
+        {/*What will be displayed if there are no cards or if search comes up empty.. currently just a random image from the internet */}
+        {questionsAndAnswers.length === 0 ? (
+          <div>
+            <img
+              className="no-results-image"
+              alt="sad computer"
+              src="https://images.assetsdelivery.com/compings_v2/yupiramos/yupiramos1801/yupiramos180114560.jpg"
+            ></img>
+          </div>
+        ) : (
+          questionsAndAnswers.map((e) => (
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <h2>{e.question}</h2>
+                </div>
+                <div class="flip-card-back">
+                  <h2>{e.answer}</h2>
+                  <Button
+                    className="deleteQa"
+                    leftIcon={<MdOutlineDelete />}
+                    color="#ee6327"
+                    size="lg"
+                    background="transparent"
+                    variant="ghost"
+                    _hover="blue"
+                    onClick={() => deleteQA(e)}
+                  >
+                    {" "}
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
