@@ -244,7 +244,6 @@ function HowTos() {
               <h5 className="how-to-date">
                 <b>POSTED:</b> {howTo.date.toString().slice(0, 10)}{" "}
               </h5>
-              {/*<p className="how-to-post"> {howTo.step_by_step}</p>*/}
               {<div className="post-content">{parse(howTo.step_by_step)}</div>}
               <span>
                 {" "}
@@ -261,7 +260,7 @@ function HowTos() {
       )}
 
       {/*SIDE BAR AREA
-      -Contains conditionally rendered button based on weather text editor is visible or not, and search area  */}
+      -Contains conditionally rendered button based on whether text editor is visible or not, and search area  */}
       <div class="rightcolumn">
         <div class="card">
           <h2 className="how-to-menu-title"> My How-Tos</h2>
