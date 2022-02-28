@@ -62,6 +62,7 @@ con.connect(function (err) {
   });
 
   //Create the tags table
+  /*CURRENTLY NOT USED AS TABLE LINKING NOT IMPLEMENTED
   let tagsSQL =
     "DROP TABLE if exists tags; CREATE TABLE tags(tag_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tag_name VARCHAR(40));";
   con.query(tagsSQL, function (err, result) {
@@ -69,10 +70,11 @@ con.connect(function (err) {
     console.log("Table creation `tags` was successful!");
     console.log("Closing...");
   });
+  */
 
   //Create the q & as table
   let qAndAsSQL =
-    "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question TEXT, answer TEXT, tag_id INT, FULLTEXT(question));";
+    "DROP TABLE if exists q_and_as; CREATE TABLE q_and_as(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, question TEXT, answer TEXT, tag_id INT, FULLTEXT(question)); INSERT INTO q_and_as(question, answer) VALUES ('What are the 4 principles of object oriented programming?','Encapsulation, abstraction, inheritance, and polymorphism'),('How do you remove an item from the end of an array in JavaScript?','Use the .pop() method'), ('What does FIFO stand for and what data structure does it refer to?','It stands for first in, first out and is used in queues'), ('What are the main data types in JavaScript?','Boolean, null, undefined, number, string, symbol, BigInt, and Objects'), ('What is recursion?','A CS concept that will make you doubt your decision to study programming.');";
   con.query(qAndAsSQL, function (err, result) {
     if (err) throw err;
     console.log("Table creation `q_and_as` was successful!");
