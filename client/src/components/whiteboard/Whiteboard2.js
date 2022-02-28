@@ -206,7 +206,7 @@ const notesReducer = (prevState, action) => {
 export default function Whiteboard2() {
   const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
   const [action, setAction] = useState("none");
-  const [tool, setTool] = useState("text");
+  const [tool, setTool] = useState("pencil");
   const [selectedElement, setSelectedElement] = useState(null);
   const [lineColour, setLineColour] = useState("#000000");
   const [fillColour, setFillColour] = useState("#ffffff");

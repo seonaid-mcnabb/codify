@@ -27,11 +27,11 @@ const Header = (props) => {
             maxWidth="100%"
           >
             <TabList mb="2em">
-              <Tab>
+              {/* <Tab>
                 <NavLink className="padded" to="/">
                   Home
                 </NavLink>
-              </Tab>
+              </Tab> */}
               <Tab>
                 <NavLink className="padded" to="/whiteboard">
                   Whiteboard
