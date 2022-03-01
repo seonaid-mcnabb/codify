@@ -75,7 +75,7 @@
     }
 }
 
-@media (min-width: 400px) and (max-width: 985px) {
+@media (min-width: 300px) and (max-width: 985px) {
     .landing-logo {
         margin-top: 0px;
     }
