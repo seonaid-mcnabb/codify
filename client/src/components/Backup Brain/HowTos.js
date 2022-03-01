@@ -23,6 +23,8 @@ const he = require("he");
 //search through how-tos later
 
 function HowTos() {
+  //set loading state
+  const [loading, setLoading] = useState(true);
   //set and store full posts
   const [howToPost, setHowToPost] = useState([]);
   //store new post title input
@@ -157,7 +159,6 @@ function HowTos() {
       .then((json) => {
         setHowToPost(json);
         setDisplaySearchResults(!displaySearchResults);
-        console.log(json);
       })
       .catch((error) => {
         console.log(error);
@@ -177,8 +178,7 @@ function HowTos() {
       })
       .then((json) => {
         setHowToPost(json);
-        //(json);
-        console.log(json);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -188,6 +188,8 @@ function HowTos() {
   return (
     <div className="body">
       <Header></Header>
+      {/*Need to add something here to fix issues with loading / left column not displaying*/}
+
       {/*PAGE HEADER AREA*/}
       <div className="header">
         {/*<h2 className="how-to-header-text">My Lessons</h2>*/}
