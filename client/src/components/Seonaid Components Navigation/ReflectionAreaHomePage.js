@@ -4,13 +4,15 @@ import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import "./ReflectionAreaHomePage.css";
+import Fade from 'react-reveal/Fade';
+
 
 //this is a tab on the main page that contains links to all the "personal refelection" related components
 function ReflectionAreaHomePage() {
   return (
     <div className="reflection-nav">
       <Header />
-
+      <Fade bottom>
       <div className="row">
         <div className="reflection-container col-lg-6">
         <div>
@@ -25,7 +27,7 @@ function ReflectionAreaHomePage() {
           <img src="https://images.pexels.com/photos/6393013/pexels-photo-6393013.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Person making notes" />
         </div>
       </div>
-
+      </Fade>
     </div>
   );
 }

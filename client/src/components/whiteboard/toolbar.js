@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { HuePicker } from "react-color";
+import Fade from 'react-reveal/Fade';
 import html2canvas from "html2canvas";
 import Select from "./images/selection.png";
 import Line from "./images/line.png";
@@ -75,6 +76,7 @@ export default function Toolbar({
 
   return (
     <div>
+      <Fade bottom>
       <div className="toolbar-buttons">
         {/* SHOW/HIDE/DOWNLOAD BUTTONS */}
       <button className="toolbar-buttons-show" onClick={() => setShowToolbar(!showToolbar)}>Show/hide toolbar</button>
@@ -167,6 +169,7 @@ export default function Toolbar({
 
       </div>
       )}
+      </Fade>
       </div>
   );
 }
