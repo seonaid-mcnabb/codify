@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Quiz.css";
+import Fade from 'react-reveal/Fade';
 import Header from "../Header";
 import Footer from "../Footer";
 import Login from "../Login";
@@ -28,6 +29,7 @@ const StartQuiz = (props) => {
     <div>
       <Header />
       <center>
+        <Fade bottom>
         {props.loginStatus ? (
           <form className="page">
             <Center display="block" alignItems="center">
@@ -134,6 +136,7 @@ const StartQuiz = (props) => {
           </Link>
         )}
         <Footer />
+        </Fade>
       </center>
     </div>
   );
