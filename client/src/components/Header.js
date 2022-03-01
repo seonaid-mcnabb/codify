@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Link as ReactLink } from "react-router-dom";
 import {
   Tabs,
@@ -10,24 +10,25 @@ import {
 } from "@chakra-ui/react";
 import Codify from "./Codify.png";
 
-const Header = (props) => {
+const Header = ({ setTabIndex, tabIndex }) => {
   return (
     <div className="nav-style" width="100%">
       <NavLink to="/">
         <div className="">
-        <img src={Codify} width="100rem" className="header-logo" />
+          <img src={Codify} width="100rem" className="header-logo" />
         </div>
       </NavLink>
       <header className="center">
         <nav className="margin">
           {/* styling info for tabs is here: https://chakra-ui.com/docs/disclosure/tabs && https://chakra-ui.com/docs/disclosure/tabs#make-a-tab-initially-active */}
           <Tabs
-            defaultIndex={props.tabIndex}
+            defaultIndex={tabIndex}
+            index={tabIndex}
             isFitted
             variant="enclosed-colored"
             size="xs"
             maxWidth="100%"
-            colorScheme='blue'
+            colorScheme="blue"
           >
             <TabList mb="2em">
               {/* <Tab>
@@ -35,22 +36,22 @@ const Header = (props) => {
                   Home
                 </NavLink>
               </Tab> */}
-              <Tab>
+              <Tab onClick={() => setTabIndex(0)} value={0}>
                 <NavLink className="padded" to="/whiteboard">
                   Whiteboard
                 </NavLink>
               </Tab>
-              <Tab>
+              <Tab onClick={() => setTabIndex(1)} value={1}>
                 <NavLink className="padded" to="/quiz">
                   Quiz
                 </NavLink>
               </Tab>
-              <Tab>
+              <Tab onClick={() => setTabIndex(2)} value={2}>
                 <NavLink className="padded" to="/reflection-area-navigation">
                   Reflection Area
                 </NavLink>
               </Tab>
-              <Tab>
+              <Tab onClick={() => setTabIndex(3)} value={3}>
                 <NavLink className="padded" to="/documentation-navigation">
                   Personal Documentation
                 </NavLink>
