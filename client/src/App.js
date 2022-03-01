@@ -27,13 +27,12 @@ function App() {
   let [quizStatus, setQuizStatus] = useState("Playing");
   let [loginStatus, setLoginStatus] = useState(false);
   let [tabIndex, setTabIndex] = useState(null);
-  let [hide, setHide] = useState(true);
+  let [hide, setHide] = useState(false);
 
   const pathname = window.location.pathname;
+
   return (
     <div className="App">
-      <Header tabIndex={tabIndex} setTabIndex={setTabIndex} />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route

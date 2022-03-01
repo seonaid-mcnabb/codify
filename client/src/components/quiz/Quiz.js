@@ -21,9 +21,13 @@ import {
 } from "@chakra-ui/react";
 
 const StartQuiz = (props) => {
+  useEffect(() => {
+    props.setTabIndex(1);
+  }, props);
+
   return (
     <div>
-      <Header />
+      <Header setTabIndex={props.setTabIndex} tabIndex={props.tabIndex} />
       <center>
         <Fade bottom>
           {props.loginStatus ? (
