@@ -21,8 +21,6 @@ function MyQandAs() {
   const [searchTerms, setSearchTerms] = useState("");
   //state to manipulate whether search results are being shown or not
   const [displaySearchResults, setDisplaySearchesults] = useState(false);
-  //to set loading
-  const [loading, setLoading] = useState(true);
 
   //handles user input questions
   const handleNewQuestion = (e) => {
@@ -141,7 +139,7 @@ function MyQandAs() {
       })
       .then((json) => {
         setQuestionsAndAnswers(json);
-        setLoading(false);
+        //(json);
         console.log(json);
       })
       .catch((error) => {
@@ -152,9 +150,9 @@ function MyQandAs() {
   return (
     <div>
       <Header> </Header>
-      {/* added to prevent no results page from flashing on load, could be customized with transitions */}
-      {loading ? null : null}
       {/*Sidebar menu and input forms for new q&as*/}
+      <div className="row">
+        <div className="col-lg-3">
       <div className="q-and-a-menu">
         <div id="newQandAform">
           <form className="newQandAform">
@@ -197,11 +195,14 @@ function MyQandAs() {
           </button>
         </div>
       </div>
+      </div>
+      <div className="col-lg-9">
+        
 
       {/*My cards area where collection is displayed  */}
       {/*Title toggled based on length of collection */}
       <div className="q-and-a-main">
-        {questionsAndAnswers.length === 0 && !loading ? (
+        {questionsAndAnswers.length === 0 ? (
           <h1 className="collection-title">
             Whoops! Nothing to see here! Keep adding questions
           </h1>
@@ -209,7 +210,7 @@ function MyQandAs() {
           <h1 className="collection-title"> My Cards</h1>
         )}
         {/*What will be displayed if there are no cards or if search comes up empty.. currently just a random image from the internet */}
-        {questionsAndAnswers.length === 0 && !loading ? (
+        {questionsAndAnswers.length === 0 ? (
           <div>
             <img
               className="no-results-image"
@@ -244,6 +245,8 @@ function MyQandAs() {
           ))
         )}
       </div>
+    </div>
+    </div>
     </div>
   );
 }

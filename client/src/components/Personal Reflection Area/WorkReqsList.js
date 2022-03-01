@@ -277,6 +277,8 @@ function WorkReqsList() {
       <h1 className="priorities-title" id="professional-priorities-title">
         Professional Priorities
       </h1>
+      <div className="row">
+        <div className="col-lg-4">
       <div className="priorities-menu">
         <div className="add-to-list">
           <h1 id="addNew-title">Add a new priority</h1>
@@ -312,7 +314,9 @@ function WorkReqsList() {
           </form>
         </div>
       </div>
-
+      </div>
+      
+      <div className="col-lg-8">
       <div className="priorities-main">
         <div className="priorities-list">
           <h1 className="my-list-title">My List</h1>
@@ -397,6 +401,8 @@ function WorkReqsList() {
           </ul>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   );
 }
