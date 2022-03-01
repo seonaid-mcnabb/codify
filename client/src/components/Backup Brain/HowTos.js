@@ -23,6 +23,8 @@ const he = require("he");
 //search through how-tos later
 
 function HowTos() {
+  //set loading state
+  const [loading, setLoading] = useState(true);
   //set and store full posts
   const [howToPost, setHowToPost] = useState([]);
   //store new post title input
@@ -157,7 +159,6 @@ function HowTos() {
       .then((json) => {
         setHowToPost(json);
         setDisplaySearchResults(!displaySearchResults);
-        console.log(json);
       })
       .catch((error) => {
         console.log(error);
@@ -177,8 +178,7 @@ function HowTos() {
       })
       .then((json) => {
         setHowToPost(json);
-        //(json);
-        console.log(json);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -201,117 +201,119 @@ function HowTos() {
 
       {/* Conditional Rendering of Post View or Add Post Text Editor View */}
       <div className="row body">
-      {showTextEditor === true ? (
-        <div className="col-lg-8">
-          <div className="add-a-post">
-            <span>
-              <input
-                type="text"
-                className="title-input"
-                name="title-input"
-                placeholder="Add a title"
-                onChange={handleNewTitle}
-              ></input>
-            </span>
-            <Editor
-              editorState={editorState}
-              onEditorStateChange={handleEditorChange}
-              wrapperClassName="wrapper-class"
-              toolbarClassName="toolbar-class"
-              editorClassName="editor-class"
-              toolbar={{
-                options: ["inline", "blockType", "list"],
-                inline: { inDropdown: false, options: ["bold", "italic"] },
-                list: { options: ["unordered"] },
-                blockType: {
-                  inDropdown: true,
-                  options: ["Normal", "H1", "H2", "H3", "H4", "H5", "H6"],
-                  className: undefined,
-                  component: undefined,
-                  dropdownClassName: undefined,
-                },
-              }}
-            />
-            <button className="how-to-button" onClick={handleNewPost}>
-              ADD POST
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div class="col-lg-8">
-          {howToPost.map((howTo) => (
-            <div className="post-card">
-              <h2 className="how-to-headings">{howTo.topic_title}</h2>
-              <h5 className="how-to-date">
-                <b>POSTED:</b> {howTo.date.toString().slice(0, 10)}{" "}
-              </h5>
-              {<div className="post-content">{parse(howTo.step_by_step)}</div>}
+        {showTextEditor === true ? (
+          <div className="col-lg-8">
+            <div className="add-a-post">
               <span>
-                {" "}
-                <button
-                  className="how-to-button"
-                  onClick={() => handleDeletePost(howTo)}
-                >
-                  Delete this post{" "}
-                </button>{" "}
+                <input
+                  type="text"
+                  className="title-input"
+                  name="title-input"
+                  placeholder="Add a title"
+                  onChange={handleNewTitle}
+                ></input>
               </span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/*SIDE BAR AREA
-      -Contains conditionally rendered button based on whether text editor is visible or not, and search area  */}
-      <div class="col-lg-4">
-        <div class="card">
-          <h2 className="how-to-menu-title"> My How-Tos</h2>
-
-          {showTextEditor ? (
-            <button className="how-to-button" onClick={handleAddPost}>
-              {" "}
-              See old posts{" "}
-            </button>
-          ) : (
-            <button className="how-to-button" onClick={handleAddPost}>
-              {" "}
-              Add a post
-            </button>
-          )}
-          <div style={{ height: "150px" }}>
-            <img
-              alt="robot"
-              src="https://cdni.iconscout.com/illustration/premium/thumb/easy-online-learning-1946855-1648374.png"
-            ></img>
-          </div>
-          
-        </div>
-        <div class="card">
-          {/*Conditionally renders button based on whether search results are currently being displayed */}
-          {displaySearchResults ? (
-            <div className="search-area">
-              <h2 className="how-to-menu-title">
-                Not what you were looking for?{" "}
-                <button className="how-to-button" onClick={showAllPosts}>
-                  Go back
-                </button>
-              </h2>
-            </div>
-          ) : (
-            <div>
-              <h2 className="how-to-menu-title">Search for an answer:</h2>
-              <input
-                className="q-a-search-input"
-                value={postSearchTerms}
-                onChange={handlePostSearchTerms}
-              ></input>
-              <button className="how-to-button" onClick={handleSearchPost}>
-                Search
+              <Editor
+                editorState={editorState}
+                onEditorStateChange={handleEditorChange}
+                wrapperClassName="wrapper-class"
+                toolbarClassName="toolbar-class"
+                editorClassName="editor-class"
+                toolbar={{
+                  options: ["inline", "blockType", "list"],
+                  inline: { inDropdown: false, options: ["bold", "italic"] },
+                  list: { options: ["unordered"] },
+                  blockType: {
+                    inDropdown: true,
+                    options: ["Normal", "H1", "H2", "H3", "H4", "H5", "H6"],
+                    className: undefined,
+                    component: undefined,
+                    dropdownClassName: undefined,
+                  },
+                }}
+              />
+              <button className="how-to-button" onClick={handleNewPost}>
+                ADD POST
               </button>
             </div>
-          )}
-        </div>
-        </div>
+          </div>
+        ) : (
+          <div class="col-lg-8">
+            {howToPost.map((howTo) => (
+              <div className="post-card">
+                <h2 className="how-to-headings">{howTo.topic_title}</h2>
+                <h5 className="how-to-date">
+                  <b>POSTED:</b> {howTo.date.toString().slice(0, 10)}{" "}
+                </h5>
+                {
+                  <div className="post-content">
+                    {parse(howTo.step_by_step)}
+                  </div>
+                }
+                <span>
+                  {" "}
+                  <button
+                    className="how-to-button"
+                    onClick={() => handleDeletePost(howTo)}
+                  >
+                    Delete this post{" "}
+                  </button>{" "}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
 
+        {/*SIDE BAR AREA
+      -Contains conditionally rendered button based on whether text editor is visible or not, and search area  */}
+        <div class="col-lg-4">
+          <div class="card">
+            <h2 className="how-to-menu-title"> My How-Tos</h2>
+
+            {showTextEditor ? (
+              <button className="how-to-button" onClick={handleAddPost}>
+                {" "}
+                See old posts{" "}
+              </button>
+            ) : (
+              <button className="how-to-button" onClick={handleAddPost}>
+                {" "}
+                Add a post
+              </button>
+            )}
+            <div style={{ height: "200px" }}>
+              <img
+                alt="woman-at-desk"
+                src="https://cdni.iconscout.com/illustration/premium/thumb/easy-online-learning-1946855-1648374.png"
+              ></img>
+            </div>
+          </div>
+          <div class="card">
+            {/*Conditionally renders button based on whether search results are currently being displayed */}
+            {displaySearchResults ? (
+              <div className="search-area">
+                <h2 className="how-to-menu-title">
+                  Not what you were looking for?{" "}
+                  <button className="how-to-button" onClick={showAllPosts}>
+                    Go back
+                  </button>
+                </h2>
+              </div>
+            ) : (
+              <div>
+                <h2 className="how-to-menu-title">Search for an answer:</h2>
+                <input
+                  className="q-a-search-input"
+                  value={postSearchTerms}
+                  onChange={handlePostSearchTerms}
+                ></input>
+                <button className="how-to-button" onClick={handleSearchPost}>
+                  Search
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
