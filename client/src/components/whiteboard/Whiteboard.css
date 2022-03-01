@@ -1,17 +1,7 @@
+/* CANVAS */
+
 #canvas {
     background-color: #ffffff;
-}
-
-input {
-    margin-right: 5px;
-}
-
-#select {
-    margin-left: 5px;
-}
-
-label {
-    margin-right: 10px;
 }
 
 h1 {
@@ -22,11 +12,6 @@ h1 {
     color: #F5804E;
 }
 
-.logo {
-    height: 120px;
-    width: 120px;
-}
-
 .canvas-container {
     position: relative;
     width: 100vw;
@@ -34,9 +19,8 @@ h1 {
     /* background-color: #FFE0AA; */
 }
 
-.shape-cursor {
-    cursor: crosshair;
-}
+
+/* COLOUR PICKER */
 
 .popover {
     /* position: absolute; */
@@ -50,13 +34,48 @@ h1 {
     width: 600px;
 }
 
+.colour-picker {
+    position: absolute;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.fill-colour-picker {
+    position: absolute;
+    display: inline-block;
+    margin-left: 25px;
+}
+
+#colour-button {
+    background-color: black;
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    outline: none;
+    border: 1px solid #F5804E;
+}
+
+#fill-colour-button {
+    background-color: white;
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    outline: none;
+    border: 1px solid #F5804E;
+}
+
+
+/* STICKY NOTES */
+
 .sticky-note {
     display: flex;
     position: fixed;
     flex-direction: column;
     width: 150px;
     top: 280px;
-    left: 280px;
+    left: 500px;
 }
 
 textarea {
@@ -90,8 +109,8 @@ textarea {
     /* background-color: #F5804E; */
     background-image: url("./images/post-it.png");
     background-size: cover;
-    top: 100px;
-    left: 300px;
+    top: 280px;
+    left: 700px;
     height: 150px;
     width: 150px;
     padding: 20px;
@@ -119,58 +138,56 @@ textarea {
     transform: scale(1.6)
 }
 
-.toolbar-buttons {
-    /* margin-top: 10px; */
-    margin-left: 70px;
-    padding: 20px;
-    /* padding-left: 25px; */
-    height: 540px;
-    width: 250px;
-    position: fixed;
-    top: 200px;
-}
 
-.toolbar-buttons-design {
-    background-color: #F5804E;
-    color: white;
-    font-size: 10px;
-    margin: 3px;
-    padding: 5px;
-    font-family: 'Chivo', sans-serif;
-}
+/* TOOLBAR */
 
 .toolbar-container {
-    background-color: rgba(255, 224, 170, 0.5);
-    margin-top: 10px;
-    margin-left: 10px;
+    background-color: rgba(255, 224, 170, 0.4);
+    /* margin-top: 5px; */
+    margin-left: 15px;
     padding: 20px;
     padding-left: 25px;
-    height: 540px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     position: fixed;
     top: 270px;
 }
 
-.toolbar-header {
-    font-family: 'Shrikhand', cursive;
-    font-size: 20px;
-    text-align: center;
+.toolbar-buttons {
+    margin-left: 10px;
+    padding: 30px;
+    position: fixed;
+    top: 180px;
+}
+
+.toolbar-buttons-show {
+    background-color: #F5804E;
+    color: white;
+    font-size: 12px;
+    margin: 5px;
+    padding: 10px;
+    font-family: 'Chivo', sans-serif;
+}
+
+.toolbar-sections {
+    font-size: 13px;
+    margin-bottom: 5px;
 }
 
 .toolbar-button {
     border: none;
     outline: none;
     background: none;
-    margin-left: 10px;
+    margin-left: 5px;
     transition: transform .3s ease;
 }
 
-.toolbar-button-square {
-    border: none;
+.toolbar-icon {
+    height: 25px;
     outline: none;
-    background: none;
-    margin-top: 25px;
-    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-right: 14px;
     transition: transform .3s ease;
 }
 
@@ -178,39 +195,22 @@ textarea {
     transform: scale(1.6);
 }
 
-.toolbar-icon {
-    height: 30px;
+.toolbar-icon-bottom {
+    height: 25px;
     outline: none;
     margin-top: 5px;
-    margin-left: 10px;
+    margin-left: 30px;
+    margin-bottom: 20px;
     margin-right: 15px;
     transition: transform .3s ease;
 }
 
-.toolbar-icon-square {
-    height: 30px;
-    outline: none;
-    margin-top: 5px;
-    margin-left: 10px;
-    margin-right: 15px;
-    transition: transform .3s ease;
-}
-
-.toolbar-icon-text {
-    height: 33px;
-    outline: none;
-    margin-left: 9px;
-    margin-right: 15px;
-    transition: transform .3s ease;
-}
-
-.toolbar-icon-square:hover {
+.toolbar-icon-bottom:hover {
     transform: scale(1.6);
 }
 
-.toolbar-icon-text:hover {
-    transform: scale(1.6);
-}
+
+/* BACKGROUND SELECTION */
 
 .white-background {
     background-color: white;
@@ -255,107 +255,21 @@ textarea {
     transition: transform .3s ease;
 }
 
-#colour-button {
-    background-color: black;
-    border-radius: 50px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-    outline: none;
-    border: none;
-}
-
-#fill-colour-button {
-    background-color: white;
-    border-radius: 50px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-    outline: none;
-    border: none;
-}
-
 .grid-background:hover {
     transform: scale(1.6);
 }
 
-.toolbar-icon-width {
-    height: 25px;
-    outline: none;
-    margin-left: 35px;
-    margin-top: 20px;
-    transition: transform .3s ease;
-}
 
-.toolbar-icon-minus {
-    height: 25px;
-    outline: none;
-    margin-left: 20px;
-    margin-top: 20px;
-    transition: transform .3s ease;
-}
-
-.toolbar-icon-undo {
-    height: 25px;
-    outline: none;
-    margin-left: 35px;
-    margin-top: -20px;
-    transition: transform .3s ease;
-}
-
-.toolbar-icon-undo:hover {
-    transform: scale(1.6);
-}
-
-.toolbar-icon-redo {
-    height: 25px;
-    outline: none;
-    margin-left: 25px;
-    margin-top: -20px;
-    transition: transform .3s ease;
-}
-
-.toolbar-icon-redo:hover {
-    transform: scale(1.6);
-}
-
-.toolbar-icon-dl {
-    height: 25px;
-    outline: none;
-    margin-left: 35px;
-    margin-top: 15px;
-    transition: transform .3s ease;
-}
-
-.toolbar-icon-dl:hover {
-    transform: scale(1.6);
-}
-
-.toolbar-icon-clear {
-    height: 25px;
-    outline: none;
-    margin-left: 25px;
-    margin-top: 15px;
-    transition: transform .3s ease;
-}
-
-.toolbar-icon-clear:hover {
-    transform: scale(1.6);
-}
+/* IMAGE UPLOAD */
 
 .uploaded-image {
     position: fixed;
     top: 500px;
+    cursor: move;
 }
 
 .upload-image {
-    font-size: 13px;
+    font-size: 12px;
     margin: 0 auto;
-}
-
-p {
-    text-align: center;
-    margin: 10px;
-    margin-top: 15px;
-    font-size: 15px;
+    margin-left: 10px;
 }
