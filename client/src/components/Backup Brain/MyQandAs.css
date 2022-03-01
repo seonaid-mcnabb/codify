@@ -5,20 +5,21 @@
 }
 
 .q-and-a-menu {
-    width: 20%;
-    float: left;
+    /* width: 20%; */
+    /* float: left; */
     border: 1px solid#BFE8F3;
     padding: 5px;
     margin-left: 6px;
     margin-top: 30px;
-    padding-right: 10px;
+    margin-bottom: 20px;
+    /* padding-right: 10px; */
     padding-bottom: 15px;
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .q-and-a-main {
-    width: 78%;
-    float: right;
+    /* width: 78%; */
+    /* float: right; */
     padding-left: 10px;
 }
 
@@ -26,13 +27,21 @@
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 
 .flip-card {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
-    width: 330px;
+    margin: 0 auto;
+    /* display: block; */
+    position: relative;
+    /* left: 15%; */
+    width: 370px;
     height: 250px;
     /*border: 1px solid #f1f1f1;*/
     perspective: 1000px;
     /* Remove this if you don't want the 3D effect */
-    display: inline-block;
+    /* display: inline-block; */
     padding-right: 5px;
 }
 
@@ -154,7 +163,8 @@
     font-family: "Shrikhand", sans-serif;
     color: #f5804e;
     font-size: 40px;
-    padding: 10px;
+    text-align: center;
+    /* padding: 10px; */
     padding-bottom: 15px;
 }
 

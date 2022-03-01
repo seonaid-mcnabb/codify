@@ -21,7 +21,6 @@ function MyQandAs() {
   const [searchTerms, setSearchTerms] = useState("");
   //state to manipulate whether search results are being shown or not
   const [displaySearchResults, setDisplaySearchesults] = useState(false);
-  //to set loading
   const [loading, setLoading] = useState(true);
 
   //handles user input questions
@@ -155,6 +154,8 @@ function MyQandAs() {
       {/* added to prevent no results page from flashing on load, could be customized with transitions */}
       {loading ? null : null}
       {/*Sidebar menu and input forms for new q&as*/}
+      <div className="row">
+        <div className="col-lg-3">
       <div className="q-and-a-menu">
         <div id="newQandAform">
           <form className="newQandAform">
@@ -197,6 +198,9 @@ function MyQandAs() {
           </button>
         </div>
       </div>
+      </div>
+      <div className="col-lg-9">
+        
 
       {/*My cards area where collection is displayed  */}
       {/*Title toggled based on length of collection */}
@@ -244,6 +248,8 @@ function MyQandAs() {
           ))
         )}
       </div>
+    </div>
+    </div>
     </div>
   );
 }

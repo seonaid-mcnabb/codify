@@ -1,48 +1,50 @@
 .priorities-title {
-  font-family: Shrikhand, cursive;
-  color: #f5804e;
-  font-size: 35px;
-  text-align: center;
+    font-family: Shrikhand, cursive;
+    color: #f5804e;
+    font-size: 35px;
+    text-align: center;
 }
 
 p {
-  font-family: "Chivo", sans-serif;
-  font-weight: 300;
+    font-family: "Chivo", sans-serif;
+    font-weight: 300;
 }
+
 h2 {
-  font-family: "Chivo", sans-serif;
-  font-weight: 200;
-  letter-spacing: 250;
+    font-family: "Chivo", sans-serif;
+    font-weight: 200;
+    letter-spacing: 250;
 }
 
 .priorities-list {
-  text-align: left;
+    text-align: left;
 }
 
 .add-to-list {
-  text-align: center;
+    text-align: center;
 }
 
 .priorities-input {
-  border-color: #0090c3;
-  border-width: 2px;
+    border-color: #0090c3;
+    border-width: 2px;
 }
 
 .priorities-menu {
-  width: 25%;
-  float: left;
+    /* width: 25%;
+  float: left; */
 }
+
 .priorities-main {
-  width: 75%;
-  float: left;
-  padding-left: 10px;
+    /* width: 75%;
+    float: left; */
+    padding-left: 10px;
 }
 
 .my-list-title {
-  text-align: left;
+    text-align: left;
 }
 
 .list-header {
-  font-size: 30px;
-  text-decoration: underline;
+    font-size: 30px;
+    text-decoration: underline;
 }
