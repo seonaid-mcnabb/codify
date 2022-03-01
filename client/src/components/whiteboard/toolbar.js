@@ -142,12 +142,12 @@ export default function Toolbar({
         {/* COLOUR PICKERS */}
         <p className="toolbar-sections">
           Pen Colour: <button id="colour-button"></button>        
-        <HuePicker color="#fff" onChange={(color) => handleColourChange(color)} width="200px" className="colour-picker" />
+        <HuePicker color="#fff" onChange={(color) => handleColourChange(color)} width="220px" className="colour-picker" />
         </p>
 
         <p className="toolbar-sections">
           Fill Colour: <button id="fill-colour-button"></button>
-        <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)} width="200px" className="fill-colour-picker"/>
+        <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)} width="220px" className="fill-colour-picker"/>
         </p>
 
         {/* UNDO/REDO BUTTONS */}
