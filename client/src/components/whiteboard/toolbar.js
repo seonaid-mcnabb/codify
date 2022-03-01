@@ -76,12 +76,12 @@ export default function Toolbar({
 
   return (
     <div>
-      <Fade bottom>
       <div className="toolbar-buttons">
         {/* SHOW/HIDE/DOWNLOAD BUTTONS */}
       <button className="toolbar-buttons-show" onClick={() => setShowToolbar(!showToolbar)}>Show/hide toolbar</button>
       <button title="Download" id="screenshot" className="toolbar-buttons-show" onClick={() => {saveAsImage()}} download="image.png">Download image</button>      
       </div>
+      <Fade bottom>
         {/* CURRENT TOOL */}
       {showToolbar && (
       <div className="toolbar-container">
