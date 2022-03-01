@@ -17,4 +17,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 //app.use("/users", usersRouter);
 
+// Location of static assets
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+// (All of your API routes should be here)
+
+// Respond with index.html for unmatched routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
+
 module.exports = app;
