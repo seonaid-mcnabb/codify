@@ -33,6 +33,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header setTabIndex={setTabIndex} tabIndex={tabIndex} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
