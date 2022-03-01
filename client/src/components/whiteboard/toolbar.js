@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { HuePicker } from "react-color";
+import Fade from 'react-reveal/Fade';
 import html2canvas from "html2canvas";
 import Select from "./images/selection.png";
 import Line from "./images/line.png";
@@ -76,213 +77,99 @@ export default function Toolbar({
   return (
     <div>
       <div className="toolbar-buttons">
-      <button className="toolbar-buttons-design" onClick={() => setShowToolbar(!showToolbar)}>Show/hide toolbar</button>
-      <button 
-      title="Download"
-          id="screenshot"
-          className="toolbar-buttons-design"
-          onClick={() => {
-            saveAsImage();
-          }}
-          download="image.png">Download image</button>      
+        {/* SHOW/HIDE/DOWNLOAD BUTTONS */}
+      <button className="toolbar-buttons-show" onClick={() => setShowToolbar(!showToolbar)}>Show/hide toolbar</button>
+      <button title="Download" id="screenshot" className="toolbar-buttons-show" onClick={() => {saveAsImage()}} download="image.png">Download image</button>      
       </div>
-
+      <Fade bottom>
+        {/* CURRENT TOOL */}
       {showToolbar && (
       <div className="toolbar-container">
-        <h1>Whiteboard</h1>
+        <p className="toolbar-sections">Current tool: {tool}</p>
 
-        <p>Current tool: {tool}</p>
-
-        <button
-          id="select"
-          onClick={() => setTool("select")}
-          className="toolbar-button"
-        >
+        {/* SELECT BUTTON */}
+        <button id="select" onClick={() => setTool("select")} className="toolbar-button">
           <img src={Select} className="toolbar-icon" alt="Select arrow" />
         </button>
 
-        <button
-          id="line"
-          onClick={() => setTool("line")}
-          className="toolbar-button"
-        >
+        {/* LINE TOOL */}
+        <button id="line" onClick={() => setTool("line")} className="toolbar-button">
           <img src={Line} className="toolbar-icon" alt="Line tool" />
         </button>
 
-        <button
-          id="pencil"
-          onClick={() => setTool("pencil")}
-          className="toolbar-button"
-        >
+        {/* PENCIL TOOL */}
+        <button id="pencil" onClick={() => setTool("pencil")} className="toolbar-button">
           <img src={Pencil} className="toolbar-icon" alt="Pencil tool" />
         </button>
-        <br />
-        <button
-          id="square"
-          onClick={() => setTool("square")}
-          className="toolbar-button-square"
-        >
-          <img src={Square} className="toolbar-icon-square" alt="Square tool" />
+
+        {/* SQUARE TOOL */}
+        <button id="square" onClick={() => setTool("square")} className="toolbar-button">
+          <img src={Square} className="toolbar-icon" alt="Square tool" />
         </button>
 
-        {/* <button
-        id="circle"
-        onClick={() => setTool("circle")}
-        className="toolbar-button-square"
-        >
-        <img src={Circle} className="toolbar-icon" alt="Square tool" />
-        </button> */}
-
-        <button
-          id="text"
-          onClick={() => setTool("text")}
-          className="toolbar-button"
-        >
-          <img src={Text} className="toolbar-icon-text" alt="Text tool" />
+        {/* TEXT TOOL */}
+        <button id="text" onClick={() => setTool("text")} className="toolbar-button">
+          <img src={Text} className="toolbar-icon" alt="Text tool" />
         </button>
 
-        <button
-          id="sticky"
-          onClick={() => {
-            setTool("sticky");
-            setShowStickyNote(!showStickyNote);
-          }}
-          className="toolbar-button"
-        >
-          <img src={Sticky} className="toolbar-icon-text" alt="Sticky notes" />
+        {/* STICKY NOTE TOOL */}
+        <button id="sticky"  onClick={() => { setTool("sticky"); setShowStickyNote(!showStickyNote); }} className="toolbar-button">
+          <img src={Sticky} className="toolbar-icon" alt="Sticky notes" />
         </button>
-        <br />
-        <p>Select background:</p>
 
-        <button 
-            id="white"
-            className="white-background"
-            onClick={() => {
-              setBackgroundImage(`#ffffff`);
-            }}
-            ></button>
+        {/* INCREASE PEN THICKNESS */}
+        <button title="Increase" id="increase-thickness" className="toolbar-button" onClick={() => { setLineWidth((prevState) => prevState + 1); }}>
+          <img src={Plus} className="toolbar-icon" alt="Increase pen thickness" />
+        </button>
 
-        <button
-          id="lined"
-          className="lined-background"
-          onClick={() => {
-            setBackgroundImage(`${Lined}`);
-          }}
-        ></button>
+        {/* DECREASE PEN THICKNESS */}
+        <button title="Decrease" id="decrease-thickness" className="toolbar-button" onClick={() => { setLineWidth((prevState) => prevState - 1); }}>
+          <img src={Minus} className="toolbar-icon" alt="Decrease pen thickness" />
+        </button>
 
-        <button
-          id="grid"
-          className="grid-background"
-          onClick={() => {
-            setBackgroundImage(`${Grid}`);
-          }}
-        ></button>
-        <br />
-        <p>Upload image:</p>
-        
+        {/* SELECT BACKGROUND IMAGE */}
+        <p className="toolbar-sections">Select background:
+        <button id="white" className="white-background" onClick={() => {setBackgroundImage("#ffffff");}}></button>
+        <button id="lined" className="lined-background" onClick={() => {setBackgroundImage(`${Lined}`);}}></button>
+        <button id="grid"  className="grid-background"  onClick={() => {setBackgroundImage(`${Grid}`);}}></button>
+        </p>
+
+        {/* IMAGE UPLOAD */}
+        <p className="toolbar-sections">Upload image:        
         <input type="file" className="upload-image" onChange={uploadImage}/>
-
-
-        <button
-          title="Increase"
-          id="increase-thickness"
-          className="toolbar-button"
-          onClick={() => {
-            setLineWidth((prevState) => prevState + 1);
-          }}
-        >
-          <img
-            src={Plus}
-            className="toolbar-icon-width"
-            alt="Increase pen thickness"
-          />
-        </button>
-
-        <button
-          title="Decrease"
-          id="decrease-thickness"
-          className="toolbar-button"
-          onClick={() => {
-            setLineWidth((prevState) => prevState - 1);
-          }}
-        >
-          <img
-            src={Minus}
-            className="toolbar-icon-minus"
-            alt="Decrease pen thickness"
-          />
-        </button>
-        <br />
-
-        <p>
-          Pen Colour: <button id="colour-button"></button>
         </p>
-        <HuePicker
-          color="#fff"
-          onChange={(color) => handleColourChange(color)}
-          width="200px"
-        />
 
-        <p>
+        {/* COLOUR PICKERS */}
+        <p className="toolbar-sections">
+          Pen Colour: <button id="colour-button"></button>        
+        <HuePicker color="#fff" onChange={(color) => handleColourChange(color)} width="200px" className="colour-picker" />
+        </p>
+
+        <p className="toolbar-sections">
           Fill Colour: <button id="fill-colour-button"></button>
+        <HuePicker color="#fff" onChange={(color) => handleFillColourChange(color)} width="200px" className="fill-colour-picker"/>
         </p>
-        <HuePicker
-          color="#fff"
-          onChange={(color) => handleFillColourChange(color)}
-          width="200px"
-        />
-        <br />
 
-        <button
-          title="Undo"
-          id="undo-button"
-          className="toolbar-button"
-          onClick={undo}
-        >
-          <img src={Undo} className="toolbar-icon-undo" alt="Undo button" />
+        {/* UNDO/REDO BUTTONS */}
+        <button title="Undo" id="undo-button" className="toolbar-button" onClick={undo}>
+          <img src={Undo} className="toolbar-icon-bottom" alt="Undo button" />
+        </button>
+        <button title="Redo" id="redo-button" className="toolbar-button" onClick={redo}>
+          <img src={Redo} className="toolbar-icon-bottom" alt="Redo button" />
         </button>
 
-        <button
-          title="Redo"
-          id="redo-button"
-          className="toolbar-button"
-          onClick={redo}
-        >
-          <img src={Redo} className="toolbar-icon-redo" alt="Redo button" />
-        </button>
-        <br />
-
-        <button
-          title="Download"
-          id="screenshot"
-          className="toolbar-button"
-          onClick={() => {
-            saveAsImage();
-          }}
-          download="image.png"
-        >
-          <img
-            src={Download}
-            className="toolbar-icon-dl"
-            alt="Download button"
-          />
+        {/* DOWNLOAD/CLEAR BUTTONS */}
+        <button title="Download" id="screenshot" className="toolbar-button" onClick={() => {saveAsImage(); }} download="image.png">
+          <img src={Download} className="toolbar-icon-bottom" alt="Download button" />
         </button>
 
-        <button
-          title="Clear"
-          id="clear-button"
-          className="toolbar-button"
-          onClick={clear}
-        >
-          <img
-            src={Clear}
-            className="toolbar-icon-clear"
-            alt="Clear canvas button"
-          />
+        <button title="Clear" id="clear-button" className="toolbar-button" onClick={clear}>
+          <img src={Clear} className="toolbar-icon-bottom"alt="Clear canvas button" />
         </button>
-        <br />
+
       </div>
       )}
+      </Fade>
       </div>
   );
 }

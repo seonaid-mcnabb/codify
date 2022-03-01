@@ -12,9 +12,11 @@ import Codify from "./Codify.png";
 
 const Header = (props) => {
   return (
-    <div width="100%">
+    <div className="nav-style" width="100%">
       <NavLink to="/">
-        <img src={Codify} width="100rem" className="center margin" />
+        <div className="">
+        <img src={Codify} width="100rem" className="header-logo" />
+        </div>
       </NavLink>
       <header className="center">
         <nav className="margin">
@@ -25,13 +27,14 @@ const Header = (props) => {
             variant="enclosed-colored"
             size="xs"
             maxWidth="100%"
+            colorScheme='blue'
           >
             <TabList mb="2em">
-              <Tab>
+              {/* <Tab>
                 <NavLink className="padded" to="/">
                   Home
                 </NavLink>
-              </Tab>
+              </Tab> */}
               <Tab>
                 <NavLink className="padded" to="/whiteboard">
                   Whiteboard

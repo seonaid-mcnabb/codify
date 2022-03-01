@@ -10,6 +10,12 @@
     display: inline;
 }
 
+.header-logo {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
 .margin {
     margin: 1rem auto;
 }
@@ -18,31 +24,33 @@
     padding: 1rem;
 }
 
+.nav-style {
+    background-color: #bfe8f3;
+    margin-top: -30px;
+}
+
 .landing-body-left {
     background-color: #bfe8f3;
-    height: 50vh;
+    height: 100vh;
 }
 
 .landing-body-right {
     background-color: #ffe0aa;
-    height: 50vh;
+    height: 100vh;
 }
 
 .landing-body-bottom {
     position: fixed;
-    bottom: 5%;
+    bottom: 7%;
     background-color: #f5804e;
-    height: 200px;
+    margin: 0 auto;
+    display: block;
+    height: 150px;
     width: 71.3vw;
     margin-left: 12px;
     margin-right: 1px;
-}
-
-.landing-photo {
-    position: fixed;
-    width: 1125px;
-    top: 10%;
-    margin-left: -3px;
+    /* border: 1px solid #ddd; */
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .landing-logo {
@@ -55,9 +63,45 @@
     margin-top: 80px;
 }
 
+
+/* RESPONSIVENESS */
+
+@media (min-width: 985px) {
+    .landing-photo {
+        position: fixed;
+        width: 1125px;
+        top: 7%;
+        margin-left: -3px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 985px) {
+    .landing-logo {
+        margin-top: 0px;
+    }
+    .landing-body-left {
+        height: 50vh;
+    }
+    .landing-body-right {
+        height: 50vh;
+    }
+    .landing-body-bottom {
+        bottom: 0;
+        margin: 0 auto;
+        display: block;
+        width: 100vw;
+    }
+    .landing-photo {
+        margin-top: 10px;
+    }
+}
+
+
+/* BUTTONS */
+
 .glow-on-hover {
-    width: 220px;
-    height: 70px;
+    width: 200px;
+    height: 60px;
     border: none;
     outline: none;
     color: #000;
@@ -72,6 +116,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .glow-on-hover:before {
@@ -127,6 +172,15 @@
     }
 }
 
+.typing {
+    display: inline-block;
+    position: relative;
+    /* left: 50%;
+top: 80%; */
+    font-family: "Chivo", sans-serif;
+    font-size: 25px;
+}
+
 .type {
     display: inline-block;
     position: relative;
@@ -152,7 +206,7 @@
     overflow: hidden;
     height: inherit;
     word-break: break-all;
-    animation: c 0.5s infinite steps(1), t 2s linear infinite alternate, m 12s steps(3) infinite;
+    animation: c 0.5s infinite steps(4), t 2s linear infinite alternate, m 12s steps(3) infinite;
 }
 
 .type span span:before {
@@ -181,12 +235,4 @@
     100% {
         transform: translateY(-300%);
     }
-}
-
-.typing {
-    /* position: absolute;
-    margin: 0 auto;
-    display: block;
-    margin-left: 0;
-    margin-right: 0; */
 }

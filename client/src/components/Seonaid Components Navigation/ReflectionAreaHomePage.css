@@ -1,21 +1,29 @@
 .reflection-nav {
-  text-align: center;
+    text-align: center;
+}
+
+.reflection-container {
+    background-color: #fff1a0;
+    padding: 50px;
+    font-family: 'Chivo', sans-serif;
+    font-size: 20px;
 }
 
 .job-reflection-link {
-  display: inline-block;
-  padding: 50px;
-  background-color: #fff1a0;
-  border-radius: 20px;
-  margin-top: 50px;
-  color: #f5804e;
+    display: inline-block;
+    padding: 50px;
+    background-color: #bfe8f3;
+    border-radius: 20px;
+    margin-top: 50px;
+    color: #0090c3;
+    margin-right: 5px;
 }
 
 .job-reflection-link:hover {
-  display: inline-block;
-  padding: 50px;
-  background-color: #0090c3;
-  border-radius: 20px;
-  margin-top: 50px;
-  color: #bfe8f3;
+    display: inline-block;
+    padding: 50px;
+    background-color: #f5804e;
+    border-radius: 20px;
+    margin-top: 50px;
+    color: white;
 }

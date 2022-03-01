@@ -186,10 +186,18 @@ function HowTos() {
   }, []);
 
   return (
+<<<<<<< HEAD
     <div className="body">
       <Header></Header>
       {/*Need to add something here to fix issues with loading / left column not displaying*/}
 
+||||||| 31b84b6
+    <div className="body">
+      <Header></Header>
+=======
+    <div>
+      <Header />
+>>>>>>> 4aaaef948bbea60421adb1c9686991e6c16febe8
       {/*PAGE HEADER AREA*/}
       <div className="header">
         {/*<h2 className="how-to-header-text">My Lessons</h2>*/}
@@ -202,8 +210,9 @@ function HowTos() {
       </div>
 
       {/* Conditional Rendering of Post View or Add Post Text Editor View */}
+      <div className="row body">
       {showTextEditor === true ? (
-        <div className="leftcolumn">
+        <div className="col-lg-8">
           <div className="add-a-post">
             <span>
               <input
@@ -239,7 +248,7 @@ function HowTos() {
           </div>
         </div>
       ) : (
-        <div class="leftcolumn">
+        <div class="col-lg-8">
           {howToPost.map((howTo) => (
             <div className="post-card">
               <h2 className="how-to-headings">{howTo.topic_title}</h2>
@@ -263,7 +272,7 @@ function HowTos() {
 
       {/*SIDE BAR AREA
       -Contains conditionally rendered button based on whether text editor is visible or not, and search area  */}
-      <div class="rightcolumn">
+      <div class="col-lg-4">
         <div class="card">
           <h2 className="how-to-menu-title"> My How-Tos</h2>
 
@@ -284,6 +293,7 @@ function HowTos() {
               src="https://cdni.iconscout.com/illustration/premium/thumb/easy-online-learning-1946855-1648374.png"
             ></img>
           </div>
+          
         </div>
         <div class="card">
           {/*Conditionally renders button based on whether search results are currently being displayed */}
@@ -310,6 +320,8 @@ function HowTos() {
             </div>
           )}
         </div>
+        </div>
+
       </div>
     </div>
   );

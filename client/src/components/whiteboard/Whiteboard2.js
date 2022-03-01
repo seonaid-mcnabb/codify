@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useLayoutEffect,
-  useEffect,
-  useRef,
-  useReducer,
-} from "react";
+import React, { useState, useLayoutEffect, useEffect, useRef, useReducer,} from "react";
 import { v4 as uuid } from "uuid";
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
@@ -42,13 +36,7 @@ const positionWithinElement = (x, y, element) => {
       const bottomLeft = nearPoint(x, y, x1, y2, "bl");
       const bottomRight = nearPoint(x, y, x2, y2, "br");
       const inside = x >= x1 && x <= x2 && y >= y1 && y <= y2 ? "inside" : null; // returns true if mouse is within the square
-      return topLeft || topRight || bottomLeft || bottomRight || inside; // return what is found
-    case "circle": // currently not working properly as the circle can be moved from anywhere on the screen....
-      // const radius = (x2 - x1 + (y2 - y1)) / 1.4; // defines radius
-      // const x0 = (x1 + x2) / 2;
-      // const y0 = (y1 + y2) / 2;
-      // return Math.sqrt((x1-x0)*(x1-x0) + (y1-y0)*(y1-y0)) < radius;
-      break;
+      return topLeft || topRight || bottomLeft || bottomRight || inside; // returns what is found
     case "pencil":
       const betweenAnyPoint = element.points.some((point, index) => {
         // checking if any points are on the line and returning true for each one
@@ -61,6 +49,8 @@ const positionWithinElement = (x, y, element) => {
       return betweenAnyPoint ? "inside" : null;
     case "text":
       return x >= x1 && x <= x2 && y >= y1 && y <= y2 ? "inside" : null;
+    case "sticky":
+      return;
     default:
       throw new Error("Type not recognised");
   }
@@ -71,10 +61,7 @@ const distance = (a, b) =>
 
 const getElementAtPosition = (x, y, elements) => {
   return elements
-    .map((element) => ({
-      ...element,
-      position: positionWithinElement(x, y, element),
-    })) // goes through elements and returns position within element
+    .map((element) => ({...element, position: positionWithinElement(x, y, element)})) // goes through elements and returns position within element
     .find((element) => element.position !== null); // finds first one in return statement that isn't null
 };
 
@@ -179,7 +166,7 @@ const getSvgPathFromStroke = (stroke) => {
 };
 
 const adjustmentRequired = (type) =>
-  ["line", "rectangle", "circle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
+  ["line", "rectangle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
 const initialNoteState = {
   notes: [],
@@ -206,7 +193,7 @@ const notesReducer = (prevState, action) => {
 export default function Whiteboard2() {
   const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
   const [action, setAction] = useState("none");
-  const [tool, setTool] = useState("text");
+  const [tool, setTool] = useState("pencil");
   const [selectedElement, setSelectedElement] = useState(null);
   const [lineColour, setLineColour] = useState("#000000");
   const [fillColour, setFillColour] = useState("#ffffff");
@@ -280,15 +267,12 @@ export default function Whiteboard2() {
       // const rect = gen.rectangle(100, 200, 200, 300); // (x1, y1, width, height), width = x2-x1, height = y2-y1
       const roughElement = generator.rectangle(x1, y1, x2 - x1, y2 - y1, {
         fill: fillColour,
-        hachureGap: 5,
+        hachureGap: 1,
         stroke: lineColour,
       });
       return { id, x1, y1, x2, y2, type, roughElement };
     } else if (type === "sticky") {
       return;
-      // const circle = gen.circle(500, 300, 200); // (x1, y1, diameter), diameter = 2 * (x2-x1 + y2-y1)
-      // const roughElement = generator.circle(x1, y1, 2 * (x2 - x1 + y2 - y1), { roughness: 0.5, fill: fillColour, stroke: lineColour, strokeWidth: lineWidth });
-      // return { id, x1, y1, x2, y2, type, roughElement };
     } else if (type === "pencil") {
       return { id, type, points: [{ x: x1, y: y1 }], lineColour };
     } else if (type === "text") {
@@ -298,18 +282,14 @@ export default function Whiteboard2() {
 
   const updateElement = (id, x1, y1, x2, y2, type, options) => {
     const elementsCopy = [...elements];
-
     switch (type) {
       case "line":
       case "square":
         // case "circle":
-        elementsCopy[id] = createElement(id, x1, y1, x2, y2, type); // ensures last coords stored are the ones where the mouse stops moving;
+        elementsCopy[id] = createElement(id, x1, y1, x2, y2, type); // ensures last coords stored are the ones where the mouse stops moving
         break;
       case "pencil":
-        elementsCopy[id].points = [
-          ...elementsCopy[id].points,
-          { x: x2, y: y2 },
-        ];
+        elementsCopy[id].points = [...elementsCopy[id].points, { x: x2, y: y2 }];
         break;
       case "text":
         const textWidth = document
@@ -317,10 +297,7 @@ export default function Whiteboard2() {
           .getContext("2d")
           .measureText(options.text).width;
         const textHeight = 24;
-        elementsCopy[id] = {
-          ...createElement(id, x1, y1, x1 + textWidth, y1 + textHeight, type),
-          text: options.text,
-        };
+        elementsCopy[id] = {...createElement(id, x1, y1, x1 + textWidth, y1 + textHeight, type), text: options.text};
         break;
       default:
         throw new Error("Type not recognised");
@@ -337,18 +314,11 @@ export default function Whiteboard2() {
         break;
       case "pencil":
         ctx.fillStyle = lineColour;
-        const stroke = getStroke(element.points, {
-          size: lineWidth,
-          thinning: 0,
-        });
+        const stroke = getStroke(element.points, {size: lineWidth, thinning: 0});
         const pathData = getSvgPathFromStroke(stroke);
-
         const myPath = new Path2D(pathData);
         console.log(myPath);
-
         ctx.fill(myPath);
-        // const stroke = getSvgPathFromStroke(getStroke(element.points, pencilOptions));
-        // ctx.fill(new Path2D(stroke));
         break;
       case "text":
         ctx.textBaseline = "middle"; // where text appears against the cursor when you click, and where select tool can grab it
@@ -365,14 +335,11 @@ export default function Whiteboard2() {
 
   const addNote = (e) => {
     e.preventDefault();
-
     if (!noteInput) return;
-
     const newNote = {
       id: uuid(),
       text: noteInput,
     };
-
     dispatch({ type: "add_note", payload: newNote });
   };
 
@@ -413,17 +380,9 @@ export default function Whiteboard2() {
       }
     } else {
       const id = elements.length;
-      const element = createElement(
-        id,
-        clientX,
-        clientY,
-        clientX,
-        clientY,
-        tool
-      );
+      const element = createElement(id, clientX, clientY, clientX, clientY, tool);
       setElements((prevState) => [...prevState, element]);
       setSelectedElement(element);
-
       setAction(tool === "text" ? "writing" : "drawing");
     }
   };
@@ -462,15 +421,7 @@ export default function Whiteboard2() {
         const newX1 = clientX - offsetX;
         const newY1 = clientY - offsetY;
         const options = type === "text" ? { text: selectedElement.text } : {};
-        updateElement(
-          id,
-          newX1,
-          newY1,
-          newX1 + width,
-          newY1 + height,
-          type,
-          options
-        ); // ensures last coords stored are the ones where the mouse stops moving
+        updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type, options); // ensures last coords stored are the ones where the mouse stops moving
       }
     } else if (action === "resizing") {
       const { id, type, position, ...coordinates } = selectedElement;
@@ -523,16 +474,9 @@ export default function Whiteboard2() {
 
   return (
     <div id="screenshot" className="canvas-container" onDragOver={dragOver}>
-      <div
-        style={{
-          position: "fixed",
-          left: "0%",
-          right: "0%",
-        }}
-      >
+      <div style={{position: "fixed", left: "0%", right: "0%"}}>
         {/* buttons are fixed so canvas isn't offset */}
         <Header />
-        {/* <Link to="/"><img src={Codify} className="logo" alt="Codify logo" /></Link> */}
       </div>
       <div style={{ position: "fixed" }}>
         <div>
@@ -551,33 +495,19 @@ export default function Whiteboard2() {
           />
         </div>
 
-        <img 
-        src={imageUpload}
-        className="uploaded-image" 
-        alt=""
-        draggable="true"
-        onDragEnd={dropNote} />
+        <img src={imageUpload} className="uploaded-image" alt="" draggable="true" onDragEnd={dropNote} />
 
-        {/* {imageUpload.length > 0 && imageUpload.map((image) => (
-          <div
-          className="uploaded-image"
-          draggable="true"
-          onDragEnd={dropNote}
-        >{image}
-          </div>
-        ))} */}
-
+        {/* FORM TO ADD STICKY NOTE */}
         {showStickyNote ? (
           <form className="sticky-note" onSubmit={addNote}>
-            <textArea
-              value={noteInput}
-              onChange={(e) => setNoteInput(e.target.value)}
-              placeholder="Add text..."
-            ></textArea>
+            <textArea value={noteInput} onChange={(e) => setNoteInput(e.target.value)} placeholder="Add text..."></textArea>
             <button className="add-note">Add</button>
           </form>
         ) : null}
+
       </div>
+
+      {/* TEXT AREA FOR TYPING */}
       {action === "writing" ? (
         <textarea
           ref={textAreaRef}
@@ -599,34 +529,27 @@ export default function Whiteboard2() {
         />
       ) : null}
 
+      {/* DISPLAY STICKY NOTE ON SCREEN */}
       {notesState.notes.map((note) => (
-        <div
-          className="note"
-          draggable="true"
-          onDragEnd={dropNote}
-          key={note.id}
-        >
-          <div
-            className="close"
-            onClick={() => dispatch({ type: "delete_note", payload: note })}
-          >
+        <div className="note" draggable="true" onDragEnd={dropNote} key={note.id}>
+          <div className="close"onClick={() => dispatch({ type: "delete_note", payload: note })}>
             <img src={Close} className="close-button" alt="" />
           </div>
           <pre className="text">{note.text}</pre>
         </div>
       ))}
+
+      {/* CANVAS CONTAINER */}
       <canvas
         id="canvas"
         width={window.innerWidth}
         height={window.innerHeight}
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
+        style={{backgroundImage: `url(${backgroundImage})`}}
         onMouseDown={startDrawing}
         onMouseMove={draw}
-        onMouseUp={finishDrawing}
-      ></canvas>
-      {/* </div> */}
+        onMouseUp={finishDrawing}>
+        </canvas>
+        
     </div>
   );
 }
