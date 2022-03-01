@@ -2,7 +2,7 @@
 <img src="./client/src/components/Codify.png" width="250"/>
 </p>
 
-Codify is a collaborative project by <a href="https://github.com/AlexJackson01">Alex Jackson</a>, <a href="https://github.com/minoi001"> Imogen Minoli </a>, and <a href="https://github.com/seonaid-mcnabb/"> Seonaid McNabb </a>.
+Codify is a collaborative project by <a href="https://github.com/AlexJackson01">Alex Jackson</a>, <a href="https://github.com/minoi001"> Imogen Minoli</a>, and <a href="https://github.com/seonaid-mcnabb/"> Seonaid McNabb </a>.
 
 No matter your background, learning to program requires discipline and dedication, along with the ability to evaluate your own errors, learn from your mistakes, and sift through massive amounts of information in order to find code solutions that work for your needs.
 
@@ -23,6 +23,7 @@ Front end:
 - React
 - React Router
 - React-icons
+- React Reveal for transitions
 - CSS / Chakra UI
 - Figma for design mock-up
 - Canva for logo
@@ -82,7 +83,7 @@ Ideas for how we'd like to develop the project include:
 - A coding resource collection where students can upload tutorials, videos, articles, and links to resources
 - An "unrelated" resources board, where students can upload articles, videos, etc. of concepts not directly related to programming, but which have deepened or expanded their understanding of the topic
 - Linking back-end tables with tags in order to facilitate a global search of all resources and student entries
--An area to save frequqently used code snippets and templates
+- An area to save frequently used code snippets and templates
 - More advanced styling and search methods
 
 _This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._
