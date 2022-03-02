@@ -153,7 +153,7 @@ app.delete("/nice2have/:id", (req, res) => {
     });
 });
 
-/*API ROUTES FOR THE TAGS TABLE*/
+/*API ROUTES FOR THE TAGS TABLE (NOT YET IMPLEMENTED)*/
 
 //GET THE FULL LIST OF TAGS
 app.get("/tags-list", (req, res) => {
@@ -246,7 +246,7 @@ app.delete("/lesson/:id", (req, res) => {
     });
 });
 
-//FULL TEXT SEARCH FOR A LESSON (CURRENTLY ONLY IMPLEMENETED FOR SEARCHING TITLES)
+//FULL TEXT SEARCH FOR A LESSON (Implemented for titles as well as content)
 app.get("/lesson-list/:searchTerms", (req, res) => {
   db(
     `SELECT * FROM teach_a_topic WHERE MATCH(topic_title, step_by_step) AGAINST ("${req.params.searchTerms}");`

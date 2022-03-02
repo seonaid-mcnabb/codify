@@ -21,6 +21,7 @@ con.connect(function (err) {
   //ADD THE TABLES THAT YOU WANT IN THE BACK-END HERE\\
 
   /* DATABASE TABLES FOR THE WORKREQSLIST.JS COMPONENT */
+  //these 4 tables will eventually be re-factored into one
   //Add table to store job must-haves
   let jobMustHavesSQL =
     "DROP TABLE if exists job_must_haves; CREATE TABLE job_must_haves(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, must_haves VARCHAR(200));";
