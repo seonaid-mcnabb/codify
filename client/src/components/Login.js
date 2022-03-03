@@ -27,7 +27,7 @@ const Login = (props) => {
 
   const login = async () => {
     try {
-      const { data } = await axios("http://localhost:5001/users/login", {
+      const { data } = await axios("http://localhost:5000/users/login", {
         method: "POST",
         data: credentials,
       });
@@ -40,13 +40,11 @@ const Login = (props) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-  };
+
 
   const requestData = async () => {
     try {
-      const { data } = await axios("http://localhost:5001/users/profile", {
+      const { data } = await axios("/users/profile", {
         headers: {
           authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -58,7 +56,7 @@ const Login = (props) => {
     }
   };
 
-  const isError = email === "";
+  const isError = credentials === "";
 
   return (
     <div>
@@ -77,6 +75,7 @@ const Login = (props) => {
             name="email"
             type="email"
             bg="white"
+            placeholder="email@address.com"
             value={email}
             onChange={handleChange}
           />
@@ -88,6 +87,7 @@ const Login = (props) => {
             id="password"
             name="password"
             type="password"
+            placeholder="********"
             bg="white"
             value={password}
             onChange={handleChange}
@@ -110,7 +110,7 @@ const Login = (props) => {
               </center>
             </FormErrorMessage>
           )}
-          <Button onClick={requestData}>Login</Button>
+          <Button onClick={login}>Login</Button>
         </FormControl>
       </Box>
     </div>
