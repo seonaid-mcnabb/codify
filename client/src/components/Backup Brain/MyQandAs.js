@@ -203,9 +203,13 @@ function MyQandAs() {
         <div className="col-lg-9">
           {/*My cards area where collection is displayed  */}
           {questionsAndAnswers.length === 0 && !loading ? (
-            <h1 className="collection-title">
-              Whoops! Nothing to see here! Keep adding questions
-            </h1>
+            <Fade left>
+              (
+              <h1 className="collection-title">
+                Whoops! Nothing to see here! Keep adding questions
+              </h1>
+              ){" "}
+            </Fade>
           ) : (
             <h1 className="collection-title"> My Cards</h1>
           )}
@@ -214,13 +218,15 @@ function MyQandAs() {
             <div className="q-and-a-main">
               {/*What will be displayed if there are no cards or if search comes up empty.. currently just a random image from the internet */}
               {questionsAndAnswers.length === 0 && !loading ? (
-                <div>
-                  <img
-                    className="no-results-image"
-                    alt="sad computer"
-                    src="https://images.assetsdelivery.com/compings_v2/yupiramos/yupiramos1801/yupiramos180114560.jpg"
-                  ></img>
-                </div>
+                <Fade right>
+                  <div>
+                    <img
+                      className="no-results-image"
+                      alt="sad computer"
+                      src="https://images.assetsdelivery.com/compings_v2/yupiramos/yupiramos1801/yupiramos180114560.jpg"
+                    ></img>
+                  </div>
+                </Fade>
               ) : (
                 questionsAndAnswers.map((e) => (
                   <div class="flip-card">
