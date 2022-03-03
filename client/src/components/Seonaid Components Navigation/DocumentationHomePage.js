@@ -12,7 +12,7 @@ import Fade from "react-reveal/Fade";
 function DocumentationHomePage() {
   return (
     <div className="documentation-nav">
-      <Header />
+      {/*<Header />*/}
       <Fade bottom>
         <div className="row">
           <div className="col-lg-6">

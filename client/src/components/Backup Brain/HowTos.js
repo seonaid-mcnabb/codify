@@ -188,7 +188,6 @@ function HowTos() {
 
   return (
     <div>
-      <Header />
       <Fade bottom>
         {/*PAGE HEADER AREA*/}
         <div className="header">

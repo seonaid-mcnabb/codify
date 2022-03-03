@@ -280,7 +280,6 @@ function WorkReqsList() {
 
   return (
     <div>
-      <Header></Header>
       <h1 className="priorities-title" id="professional-priorities-title">
         Professional Priorities
       </h1>
@@ -344,7 +343,7 @@ function WorkReqsList() {
         <div className="col-lg-8">
           <div className="priorities-main">
             {!checkListView ? (
-              <Fade bottom>
+              <Fade left>
                 <div className="priorities-list">
                   <ul id="must-haves-list">
                     <h2 className="list-header" id="must-haves-title">
