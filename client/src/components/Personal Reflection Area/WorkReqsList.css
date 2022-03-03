@@ -1,50 +1,110 @@
 .priorities-title {
-    font-family: Shrikhand, cursive;
-    color: #f5804e;
-    font-size: 35px;
-    text-align: center;
+  font-family: Shrikhand, cursive;
+  color: #f5804e;
+  font-size: 35px;
+  text-align: left;
+  padding-left: 40px;
+  padding-top: 20px;
+  background: #ffe0aa;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-top: 1px solid #0090c3;
+  border-right: 1px solid #0090c3;
+  border-left: 1px solid #0090c3;
 }
 
 p {
-    font-family: "Chivo", sans-serif;
-    font-weight: 300;
+  font-family: "Chivo", sans-serif;
+  font-weight: 300;
 }
 
 h2 {
-    font-family: "Chivo", sans-serif;
-    font-weight: 200;
-    letter-spacing: 250;
+  font-family: "Chivo", sans-serif;
+  font-weight: 200;
+  letter-spacing: 250;
 }
 
 .priorities-list {
-    text-align: left;
+  text-align: center;
 }
 
 .add-to-list {
-    text-align: center;
+  text-align: center;
+  border: 1px solid #0090c3;
+  margin-left: 20px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2);
+  background: rgb(0, 144, 195, 0.1);
+  padding-bottom: 15px;
 }
 
 .priorities-input {
-    border-color: #0090c3;
-    border-width: 2px;
+  border-color: #0090c3;
+  border-width: 0.5px;
+  border-radius: 10px;
+  margin-left: 2px;
+  margin-bottom: 10px;
+}
+
+.priorities-input:focus {
+  outline: none;
+  border-color: #0090c3;
+  background-color: #ffe0aa;
+  border-width: 0.2px;
+  border-radius: 10px;
+  margin-left: 2px;
+  margin-bottom: 10px;
 }
 
 .priorities-menu {
-    /* width: 25%;
+  /* width: 25%;
   float: left; */
 }
 
 .priorities-main {
-    /* width: 75%;
+  /* width: 75%;
     float: left; */
-    padding-left: 10px;
+  padding-left: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background: rgb(0, 144, 195, 0.1);
+  border: 1px solid #0090c3;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .my-list-title {
-    text-align: left;
+  text-align: center;
 }
 
 .list-header {
-    font-size: 30px;
-    text-decoration: underline;
+  font-size: 30px;
+  font-family: Shrikhand;
+  padding-top: 5px;
+}
+
+.form-header {
+  font-family: Chivo;
+  font-size: 25px;
+  color: black;
+  padding-top: 4px;
+  padding-bottom: 5px;
+}
+
+.priorities-button {
+  background: #f5804e;
+  border-radius: 7px;
+  color: white;
+  font-family: "Chivo", sans-serif;
+  padding: 6px;
+  margin-right: 3px;
+  margin-top: 4px;
+  margin-bottom: 3px;
+}
+
+.priorities-button:hover {
+  background: #0090c3;
+}
+
+.priorities-list-items {
+  padding: 2px;
+  list-style-type: none;
 }

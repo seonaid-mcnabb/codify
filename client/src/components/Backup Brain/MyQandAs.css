@@ -151,6 +151,10 @@
   margin-right: 3px;
 }
 
+.q-a-button:hover {
+  background: #0090c3;
+}
+
 .q-a-input-title {
   font-family: "Shrikhand", sans-serif;
   color: #0090c3;
