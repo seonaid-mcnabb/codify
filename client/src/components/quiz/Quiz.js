@@ -21,13 +21,9 @@ import {
 } from "@chakra-ui/react";
 
 const StartQuiz = (props) => {
-  useEffect(() => {
-    props.setTabIndex(1);
-  }, props);
-
   return (
     <div>
-      <Header setTabIndex={props.setTabIndex} tabIndex={props.tabIndex} />
+      {/* <Header setTabIndex={props.setTabIndex} tabIndex={props.tabIndex} /> */}
       <center>
         <Fade bottom>
           {props.loginStatus ? (
@@ -134,10 +130,13 @@ const StartQuiz = (props) => {
               </Center>
             </form>
           ) : (
-            <Link to="/login">
-              You must be logged in to see this page, login here:{" "}
-              <Button>Login</Button>
-            </Link>
+            <center>
+              {" "}
+              <p className="center">
+                You must be logged in to access this page:
+              </p>
+              <Login />
+            </center>
           )}
           <Footer />
         </Fade>

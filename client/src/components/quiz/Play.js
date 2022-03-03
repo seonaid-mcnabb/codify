@@ -58,7 +58,7 @@ const Play = (props) => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <center>
         {props.quizStatus == "Playing" ? (
           <div className="page">

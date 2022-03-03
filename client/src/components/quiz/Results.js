@@ -95,77 +95,89 @@ const Results = (props) => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <h1>Results</h1>
-      <p className="center">{result}</p>
-      <p className="center">Check your answers ⬇️</p>
-      {answers
-        ? answers.map((answer, id) => (
-            <center>
-              <div id={id} key={id} className="page">
-                <Accordion allowToggle maxWidth="600px" display="block">
-                  <AccordionItem>
-                    {answer.user_answer === answer.correct_answer ? (
-                      <AccordionButton
-                        _expanded={{ bg: "tomato", color: "white" }}
-                      >
-                        <Box flex="1" textAlign="left">
-                          ✅ {answer.question}
-                        </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                    ) : (
-                      <AccordionButton
-                        _expanded={{ bg: "tomato", color: "white" }}
-                      >
-                        <Box flex="1" textAlign="left">
-                          ❌ {answer.question}
-                        </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                    )}
-                    <AccordionPanel>
-                      <p>
-                        The correct answer was {answer.formatted_correct_answer}
-                        ) and you answered {answer.formatted_user_answer}).
-                      </p>
-                      {answer.all_answers[0] ? (
-                        <p className="left">a) {answer.all_answers[0]}</p>
-                      ) : (
-                        ""
-                      )}
-                      {answer.all_answers[1] ? (
-                        <p className="left">b) {answer.all_answers[1]}</p>
-                      ) : (
-                        ""
-                      )}
-                      {answer.all_answers[2] ? (
-                        <p className="left">c) {answer.all_answers[2]}</p>
-                      ) : (
-                        ""
-                      )}
-                      {answer.all_answers[3] ? (
-                        <p className="left">d) {answer.all_answers[3]}</p>
-                      ) : (
-                        ""
-                      )}
-                      {answer.all_answers[4] ? (
-                        <p className="left">e) {answer.all_answers[4]}</p>
-                      ) : (
-                        ""
-                      )}
-                      {answer.all_answers[5] ? (
-                        <p className="left">f) {answer.all_answers[5]}</p>
-                      ) : (
-                        ""
-                      )}
-                    </AccordionPanel>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-            </center>
-          ))
-        : ""}
+      <center>
+        <Box
+          alignItems="flex"
+          className="Topic"
+          bg="#BFE8F3"
+          borderRadius="1rem"
+          padding="2rem"
+          maxWidth="600px"
+        >
+          <p className="center">{result}</p>
+          <p className="center">Check your answers ⬇️</p>
+          {answers
+            ? answers.map((answer, id) => (
+                <center>
+                  <div id={id} key={id} className="page">
+                    <Accordion allowToggle maxWidth="600px" display="block">
+                      <AccordionItem>
+                        {answer.user_answer === answer.correct_answer ? (
+                          <AccordionButton
+                            _expanded={{ bg: "tomato", color: "white" }}
+                          >
+                            <Box flex="1" textAlign="left">
+                              ✅ {answer.question}
+                            </Box>
+                            <AccordionIcon />
+                          </AccordionButton>
+                        ) : (
+                          <AccordionButton
+                            _expanded={{ bg: "tomato", color: "white" }}
+                          >
+                            <Box flex="1" textAlign="left">
+                              ❌ {answer.question}
+                            </Box>
+                            <AccordionIcon />
+                          </AccordionButton>
+                        )}
+                        <AccordionPanel>
+                          <p>
+                            The correct answer was{" "}
+                            {answer.formatted_correct_answer}) and you answered{" "}
+                            {answer.formatted_user_answer}).
+                          </p>
+                          {answer.all_answers[0] ? (
+                            <p className="left">a) {answer.all_answers[0]}</p>
+                          ) : (
+                            ""
+                          )}
+                          {answer.all_answers[1] ? (
+                            <p className="left">b) {answer.all_answers[1]}</p>
+                          ) : (
+                            ""
+                          )}
+                          {answer.all_answers[2] ? (
+                            <p className="left">c) {answer.all_answers[2]}</p>
+                          ) : (
+                            ""
+                          )}
+                          {answer.all_answers[3] ? (
+                            <p className="left">d) {answer.all_answers[3]}</p>
+                          ) : (
+                            ""
+                          )}
+                          {answer.all_answers[4] ? (
+                            <p className="left">e) {answer.all_answers[4]}</p>
+                          ) : (
+                            ""
+                          )}
+                          {answer.all_answers[5] ? (
+                            <p className="left">f) {answer.all_answers[5]}</p>
+                          ) : (
+                            ""
+                          )}
+                        </AccordionPanel>
+                      </AccordionItem>
+                    </Accordion>
+                  </div>
+                </center>
+              ))
+            : ""}
+        </Box>
+      </center>
       <Footer />
     </div>
   );
