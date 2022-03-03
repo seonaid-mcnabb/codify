@@ -91,5 +91,15 @@ con.connect(function (err) {
     console.log("Closing...");
   });
 
+  //Add table to store users
+  let users =
+    "DROP TABLE if exists users; CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY (id));";
+  con.query(users, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `users` was successful!");
+
+    console.log("Closing...");
+  });
+
   con.end();
 });
