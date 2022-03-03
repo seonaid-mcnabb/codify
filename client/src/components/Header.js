@@ -7,10 +7,16 @@ import {
   Tab,
   TabPanel,
   Link,
+  Button,
 } from "@chakra-ui/react";
 import Codify from "./Codify.png";
 
 const Header = ({ setTabIndex, tabIndex }) => {
+  const logout = () => {
+    localStorage.setItem("token", false);
+    console.log(localStorage.token);
+  };
+
   return (
     <div className="nav-style" width="100%">
       <NavLink to="/">
@@ -18,6 +24,9 @@ const Header = ({ setTabIndex, tabIndex }) => {
           <img src={Codify} width="100rem" className="header-logo" />
         </div>
       </NavLink>
+      <Button position="float-right" onClick={logout}>
+        Logout
+      </Button>
       <header className="center">
         <nav className="margin">
           {/* styling info for tabs is here: https://chakra-ui.com/docs/disclosure/tabs && https://chakra-ui.com/docs/disclosure/tabs#make-a-tab-initially-active */}

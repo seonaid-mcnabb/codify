@@ -28,6 +28,7 @@ function App() {
   let [loginStatus, setLoginStatus] = useState(false);
   let [tabIndex, setTabIndex] = useState(null);
   let [hide, setHide] = useState(false);
+  const [token, setToken] = useState(null);
 
   const pathname = window.location.pathname;
 
@@ -39,7 +40,12 @@ function App() {
         <Route
           path="/login"
           element={
-            <Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+            <Login
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              token={token}
+              setToken={setToken}
+            />
           }
         />
         <Route path="/whiteboard" element={<Whiteboard />} />
@@ -57,6 +63,8 @@ function App() {
               loginStatus={loginStatus}
               setLoginStatus={setLoginStatus}
               setTabIndex={setTabIndex}
+              token={token}
+              setToken={setToken}
             />
           }
         />

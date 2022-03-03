@@ -21,12 +21,13 @@ import {
 } from "@chakra-ui/react";
 
 const StartQuiz = (props) => {
+  let token = localStorage.getItem("token");
   return (
     <div>
       {/* <Header setTabIndex={props.setTabIndex} tabIndex={props.tabIndex} /> */}
       <center>
         <Fade bottom>
-          {props.loginStatus ? (
+          {token ? (
             <form className="page">
               <Center display="block" alignItems="center">
                 <h1>Time to ace a quiz!</h1>
