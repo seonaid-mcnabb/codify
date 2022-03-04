@@ -15,7 +15,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import DocumentationHomePage from "./components/Seonaid Components Navigation/DocumentationHomePage";
 import ReflectionAreaHomePage from "./components/Seonaid Components Navigation/ReflectionAreaHomePage";
 import HowTos from "./components/Backup Brain/HowTos";
-
+import Dashboard from "./components/Dashboard";
 //comment to add push
 function App() {
   let [level, setLevel] = useState("Easy");
@@ -41,6 +41,15 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+            />
+          }
+        />
         <Route
           path="/login"
           element={
