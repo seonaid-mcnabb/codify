@@ -11,13 +11,16 @@ import {
 } from "@chakra-ui/react";
 import Codify from "./Codify.png";
 
-const Header = ({ setTabIndex, tabIndex }) => {
-  const logout = () => {
-    localStorage.setItem("token", false);
-    console.log(localStorage.getItem("token"));
+const Header = (props) => {
+  let setLogout = () => {
+    props.setLoginStatus(false);
   };
 
-  let token = localStorage.getItem("token");
+  const logout = () => {
+    localStorage.setItem("token", false);
+    setLogout();
+    console.log(props.loginStatus);
+  };
 
   return (
     <div className="nav-style" width="100%">
@@ -26,7 +29,7 @@ const Header = ({ setTabIndex, tabIndex }) => {
           <img src={Codify} width="100rem" className="header-logo" />
         </div>
       </NavLink>
-      {token ? (
+      {props.loginStatus ? (
         <Button position="fixed" onClick={logout} top="5%" right="5%">
           Logout
         </Button>
@@ -37,8 +40,8 @@ const Header = ({ setTabIndex, tabIndex }) => {
         <nav className="margin">
           {/* styling info for tabs is here: https://chakra-ui.com/docs/disclosure/tabs && https://chakra-ui.com/docs/disclosure/tabs#make-a-tab-initially-active */}
           <Tabs
-            defaultIndex={tabIndex}
-            index={tabIndex}
+            defaultIndex={props.tabIndex}
+            index={props.tabIndex}
             isFitted
             variant="enclosed-colored"
             size="xs"
@@ -51,22 +54,22 @@ const Header = ({ setTabIndex, tabIndex }) => {
                   Home
                 </NavLink>
               </Tab> */}
-              <Tab onClick={() => setTabIndex(0)} value={0}>
+              <Tab onClick={() => props.setTabIndex(0)} value={0}>
                 <NavLink className="padded" to="/whiteboard">
                   Whiteboard
                 </NavLink>
               </Tab>
-              <Tab onClick={() => setTabIndex(1)} value={1}>
+              <Tab onClick={() => props.setTabIndex(1)} value={1}>
                 <NavLink className="padded" to="/quiz">
                   Quiz
                 </NavLink>
               </Tab>
-              <Tab onClick={() => setTabIndex(2)} value={2}>
+              <Tab onClick={() => props.setTabIndex(2)} value={2}>
                 <NavLink className="padded" to="/reflection-area-navigation">
                   Reflection Area
                 </NavLink>
               </Tab>
-              <Tab onClick={() => setTabIndex(3)} value={3}>
+              <Tab onClick={() => props.setTabIndex(3)} value={3}>
                 <NavLink className="padded" to="/documentation-navigation">
                   Personal Documentation
                 </NavLink>

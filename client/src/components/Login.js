@@ -13,6 +13,10 @@ import Header from "./Header";
 const axios = require("axios").default;
 
 const Login = (props) => {
+  let setLogin = () => {
+    props.setLoginStatus(true);
+  };
+
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -34,25 +38,26 @@ const Login = (props) => {
 
       //store it locally
       localStorage.setItem("token", data.token);
+      setLogin();
       console.log(data.message, data.token);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const requestData = async () => {
-    try {
-      const { data } = await axios("/users/profile", {
-        headers: {
-          authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+  // const requestData = async () => {
+  //   try {
+  //     const { data } = await axios("/users/profile", {
+  //       headers: {
+  //         authorization: "Bearer " + localStorage.getItem("token"),
+  //       },
+  //     });
 
-      console.log(data.message);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log(data.message);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const isError = credentials === "";
 
