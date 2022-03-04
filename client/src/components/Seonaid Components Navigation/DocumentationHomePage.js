@@ -2,14 +2,25 @@ import e from "cors";
 import React, { useState, useEffect } from "react";
 import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./DocumentationHomePage.css";
 import Fade from "react-reveal/Fade";
 
 //This is a tab in the header that, onClick, contains links to all of the personal
 //coding documentation resources
 
-function DocumentationHomePage() {
+function DocumentationHomePage(props) {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, props);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   return (
     <div className="documentation-nav">
       {/*<Header />*/}

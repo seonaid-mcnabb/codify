@@ -5,13 +5,25 @@ import Header from "../Header.js";
 import { Button } from "@chakra-ui/react";
 import { MdOutlineDelete } from "react-icons/md";
 import Fade from "react-reveal/Fade";
+import { useNavigate } from "react-router-dom";
 
 //This component should:
 //Have full text searchability
 //Display your own q&as visually on cards: question on front, displays on back
 //have an input form that accepts question, answer, and tag
 
-function MyQandAs() {
+function MyQandAs(props) {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, props);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   //sets and stores all the Q&As
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   //sets a user input question
