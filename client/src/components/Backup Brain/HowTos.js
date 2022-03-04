@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./HowTos.css";
 import Header from "../Header.js";
 import Fade from "react-reveal/Fade";
+import { useNavigate } from "react-router-dom";
 
 //external package for text editor
 import { EditorState } from "draft-js";
@@ -23,7 +24,18 @@ const he = require("he");
 //save the how to to their personal collection
 //search through how-tos later
 
-function HowTos() {
+function HowTos(props) {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, props);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   //set loading state
   const [loading, setLoading] = useState(true);
   //set and store full posts

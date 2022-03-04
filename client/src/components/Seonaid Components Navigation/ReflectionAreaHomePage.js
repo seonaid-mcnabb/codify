@@ -2,12 +2,23 @@ import e from "cors";
 import React, { useState, useEffect } from "react";
 import Header from "../Header.js";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./ReflectionAreaHomePage.css";
 import Fade from "react-reveal/Fade";
 
 //this is a tab on the main page that contains links to all the "personal refelection" related components
-function ReflectionAreaHomePage() {
+function ReflectionAreaHomePage(props) {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, props);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   return (
     <div className="reflection-nav">
       <Fade bottom>

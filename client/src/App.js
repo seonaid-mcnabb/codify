@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Whiteboard from "./components/whiteboard/Whiteboard2.js";
@@ -32,10 +33,10 @@ function App() {
 
   function getToken() {
     if (localStorage.getItem("token")) {
-      console.log("got token yay!");
+      // console.log("got token yay!");
       setLoginStatus(true);
     } else {
-      console.log("no token :(");
+      // console.log("no token :(");
       setLoginStatus(false);
     }
   }
@@ -69,10 +70,27 @@ function App() {
         <Route
           path="/login"
           element={
-            <Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+            <Login
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
           }
         />
-        <Route path="/whiteboard" element={<Whiteboard />} />
+        <Route
+          path="/register"
+          element={
+            <SignUp
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
+          }
+        />
+        <Route
+          path="/whiteboard"
+          element={<Whiteboard loginStatus={loginStatus} />}
+        />
         <Route
           path="/quiz"
           element={
@@ -103,6 +121,7 @@ function App() {
               setUserAnswersArray={setUserAnswersArray}
               quizStatus={quizStatus}
               setQuizStatus={setQuizStatus}
+              loginStatus={loginStatus}
             />
           }
         />
@@ -118,6 +137,7 @@ function App() {
               userAnswersArray={userAnswersArray}
               quizStatus={quizStatus}
               setQuizStatus={setQuizStatus}
+              loginStatus={loginStatus}
             />
           }
         />
@@ -125,19 +145,25 @@ function App() {
         {/*Routes to links on nav bar Seonaid's components*/}
         <Route
           path="/documentation-navigation"
-          element={<DocumentationHomePage />}
+          element={<DocumentationHomePage loginStatus={loginStatus} />}
         />
         <Route
           path="/reflection-area-navigation"
-          element={<ReflectionAreaHomePage />}
+          element={<ReflectionAreaHomePage loginStatus={loginStatus} />}
         />
 
         {/*Seonaids Component Routes--For The Reflection Area */}
-        <Route path="/joblist" element={<WorkReqsList />} />
+        <Route
+          path="/joblist"
+          element={<WorkReqsList loginStatus={loginStatus} />}
+        />
 
         {/*Seonaids Component Routes--For The Documentation Area */}
-        <Route path="/qandas" element={<MyQandAs />} />
-        <Route path="/how-tos" element={<HowTos />} />
+        <Route
+          path="/qandas"
+          element={<MyQandAs loginStatus={loginStatus} />}
+        />
+        <Route path="/how-tos" element={<HowTos loginStatus={loginStatus} />} />
       </Routes>
     </div>
   );

@@ -4,8 +4,20 @@ import Header from "../Header.js";
 import { Button, Checkbox } from "@chakra-ui/react";
 import { MdOutlineDelete } from "react-icons/md";
 import Fade from "react-reveal";
+import { useNavigate } from "react-router-dom";
 
-function WorkReqsList() {
+function WorkReqsList(props) {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, props);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   const [mustHaves, setMustHaves] = useState([]);
   const [negotiables, setNegotiables] = useState([]);
   const [dealBreakers, setDealBreakers] = useState([]);
