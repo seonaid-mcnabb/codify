@@ -32,7 +32,13 @@ function ReflectionAreaHomePage(props) {
         <Fade bottom>
           <div className="row">
             <div className="reflection-container col-lg-6">
-              <div>Information on section</div>
+              <div>
+                {" "}
+                <b>Fine-tune your approach:</b> <br></br> Use these tools to
+                reflect on the learning strategies that work best for you, to
+                strategize and plan for your future, and to identify areas where
+                you need improvement.
+              </div>
               <NavLink className="job-reflection-link" to="/joblist">
                 Job Priorities
               </NavLink>

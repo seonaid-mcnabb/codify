@@ -40,7 +40,13 @@ function DocumentationHomePage(props) {
               />
             </div>
             <div className="documentation-container col-lg-6">
-              <div>Information on section</div>
+              <div>
+                <b>Build as you learn:</b> <br></br>saving your own tutorials,
+                Q&As, and preferred resources will not only enhance your
+                understanding of course material, but also give you a personal
+                library to reference before looking for answers on Stack
+                Overflow.
+              </div>
               <NavLink className="q-and-a-link" to="/qandas">
                 Q&As
               </NavLink>
