@@ -292,6 +292,13 @@ function WorkReqsList(props) {
 
   return (
     <div>
+      <Header
+        tabIndex={3}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
+
       <h1 className="priorities-title" id="professional-priorities-title">
         Professional Priorities
       </h1>

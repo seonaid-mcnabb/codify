@@ -34,7 +34,12 @@ const StartQuiz = (props) => {
   }
   return (
     <div>
-      {/* <Header setTabIndex={props.setTabIndex} tabIndex={props.tabIndex} /> */}
+      <Header
+        tabIndex={2}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
       <center>
         <Fade bottom>
           <form className="page">

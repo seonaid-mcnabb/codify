@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Box } from "@chakra-ui/react";
 import Login from "./Login";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 const Dashboard = (props) => {
   let navigate = useNavigate();
@@ -17,6 +18,12 @@ const Dashboard = (props) => {
   }
   return (
     <div>
+      <Header
+        tabIndex={0}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
       <div>
         <center>
           <Box

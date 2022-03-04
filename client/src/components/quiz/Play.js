@@ -58,7 +58,12 @@ const Play = (props) => {
 
   return (
     <div>
-      {/* <Header /> */}
+      <Header
+        tabIndex={2}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
       <center>
         {props.quizStatus == "Playing" ? (
           <div className="page">

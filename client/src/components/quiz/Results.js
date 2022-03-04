@@ -95,7 +95,12 @@ const Results = (props) => {
 
   return (
     <div>
-      {/* <Header /> */}
+      <Header
+        tabIndex={2}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
       <h1>Results</h1>
       <center>
         <Box

@@ -163,6 +163,13 @@ function MyQandAs(props) {
 
   return (
     <div>
+      <Header
+        tabIndex={4}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
+
       {/* added to prevent no results page from flashing on load, could be customized with transitions */}
       {loading ? null : null}
       {/*Sidebar menu and input forms for new q&as*/}

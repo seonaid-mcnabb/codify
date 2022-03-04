@@ -9,28 +9,20 @@ import {
   Box,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
 import Header from "./Header";
 const axios = require("axios").default;
 
-const Login = (props) => {
+const SignUp = (props) => {
   let navigate = useNavigate();
 
-  useEffect(() => {
-    if (props.loginStatus === true) {
-      navigate(`/dashboard`);
-    }
-  }, props);
-
-  if (props.loginStatus === true) {
-    navigate(`/dashboard`);
-  }
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  const isError = credentials === "";
 
   const { email, password } = credentials;
 
@@ -39,48 +31,29 @@ const Login = (props) => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const login = async () => {
+  const register = async () => {
     try {
-      const { data } = await axios("http://localhost:5000/users/login", {
+      const { data } = await axios("http://localhost:5000/users/register", {
         method: "POST",
         data: credentials,
       });
 
       //store it locally
-      localStorage.setItem("token", data.token);
-      // console.log(data.message, data.token);
-      props.getToken();
-      navigate(`/dashboard`);
+
+      navigate(`/login`);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const requestData = async () => {
-  //   try {
-  //     const { data } = await axios("/users/profile", {
-  //       headers: {
-  //         authorization: "Bearer " + localStorage.getItem("token"),
-  //       },
-  //     });
-
-  //     console.log(data.message);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const isError = credentials === "";
-
   return (
     <div>
+      {" "}
       <Header
         tabIndex={0}
         getToken={props.getToken}
         loginStatus={props.loginStatus}
         setLoginStatus={props.setLoginStatus}
       />
-
       <Fade bottom>
         <center>
           <div>
@@ -92,10 +65,8 @@ const Login = (props) => {
               width="600px"
               maxWidth="90%"
             >
-              <p className="center">Not registered yet?</p>
-              <Link to="/register">
-                <Button>Sign Up</Button>
-              </Link>
+              <p className="center">Already registed?</p>
+              <Button>Login</Button>
               <br />
               <br />
               <FormControl isInvalid={isError}>
@@ -126,9 +97,7 @@ const Login = (props) => {
                   <FormHelperText>
                     <br />
                     <center>
-                      <p className="center">
-                        Enter the email you wish to login with.
-                      </p>
+                      <p className="center">Please enter a valid email.</p>
                     </center>
                   </FormHelperText>
                 ) : (
@@ -140,7 +109,7 @@ const Login = (props) => {
                     </center>
                   </FormErrorMessage>
                 )}
-                <Button onClick={login}>Login</Button>
+                <Button onClick={register}>Sign Up</Button>
               </FormControl>
             </Box>
           </div>
@@ -150,4 +119,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default SignUp;
