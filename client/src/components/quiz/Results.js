@@ -9,6 +9,7 @@ import {
   AccordionIcon,
   AccordionPanel,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const Results = (props) => {
   let points = 0;
@@ -93,6 +94,17 @@ const Results = (props) => {
   }
   result = `You got ${points} out of ${props.length} right ${emoji}. ${message}`;
 
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, []);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   return (
     <div>
       <Header

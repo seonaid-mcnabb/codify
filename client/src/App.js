@@ -113,6 +113,10 @@ function App() {
               setLoginStatus={setLoginStatus}
               getToken={getToken}
               setTabIndex={setTabIndex}
+              quizStatus={quizStatus}
+              setQuizStatus={setQuizStatus}
+              userAnswersArray={userAnswersArray}
+              setUserAnswersArray={setUserAnswersArray}
             />
           }
         />

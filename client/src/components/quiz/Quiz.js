@@ -27,7 +27,10 @@ const StartQuiz = (props) => {
     if (props.loginStatus === false) {
       navigate(`/login`);
     }
-  }, props);
+    props.setQuizStatus("Playing");
+    props.setLength(20);
+    props.setUserAnswersArray([]);
+  }, []);
 
   if (props.loginStatus === false) {
     navigate(`/login`);

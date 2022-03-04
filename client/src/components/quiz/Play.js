@@ -1,5 +1,5 @@
 import React, { useDebugValue, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Quiz.css";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -7,6 +7,7 @@ import { Box, Button, Center, Radio, RadioGroup } from "@chakra-ui/react";
 
 const Play = (props) => {
   useEffect(() => {
+    props.setUserAnswersArray([]);
     if (props.quizStatus === "Finished") {
       console.log("Finished");
     } else {
@@ -55,7 +56,17 @@ const Play = (props) => {
   //     setCurrentQuestion(currentQuestion - 1);
   //   }
   // }
+  let navigate = useNavigate();
 
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, []);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   return (
     <div>
       <Header
