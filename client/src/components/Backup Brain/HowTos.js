@@ -200,6 +200,13 @@ function HowTos(props) {
 
   return (
     <div>
+      <Header
+        tabIndex={4}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
+
       <Fade bottom>
         {/*PAGE HEADER AREA*/}
         <div className="header">

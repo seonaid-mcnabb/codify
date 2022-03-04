@@ -31,7 +31,7 @@ const Header = (props) => {
         </div>
       </NavLink>
       {props.loginStatus ? (
-        <Button position="absolute" onClick={logout} top="4%" right="6%">
+        <Button position="absolute" onClick={logout} top="2.25rem" right="3rem">
           Logout
         </Button>
       ) : (
@@ -50,31 +50,43 @@ const Header = (props) => {
             colorScheme="blue"
           >
             <TabList mb="2em">
-              <Tab onClick={() => props.setTabIndex(0)} value={0}>
-                <NavLink className="padded" to="/dashboard">
-                  Dashboard
-                </NavLink>
-              </Tab>
-              <Tab onClick={() => props.setTabIndex(1)} value={1}>
-                <NavLink className="padded" to="/whiteboard">
-                  Whiteboard
-                </NavLink>
-              </Tab>
-              <Tab onClick={() => props.setTabIndex(2)} value={2}>
-                <NavLink className="padded" to="/quiz">
-                  Quiz
-                </NavLink>
-              </Tab>
-              <Tab onClick={() => props.setTabIndex(3)} value={3}>
-                <NavLink className="padded" to="/reflection-area-navigation">
-                  Reflection Area
-                </NavLink>
-              </Tab>
-              <Tab onClick={() => props.setTabIndex(4)} value={4}>
-                <NavLink className="padded" to="/documentation-navigation">
-                  Personal Documentation
-                </NavLink>
-              </Tab>
+              <NavLink to="/dashboard">
+                <Tab value={0}>
+                  <NavLink className="padded" to="/dashboard">
+                    Dashboard
+                  </NavLink>
+                </Tab>
+              </NavLink>
+
+              <NavLink to="/whiteboard">
+                <Tab value={1}>
+                  <NavLink className="padded" to="/whiteboard">
+                    Whiteboard
+                  </NavLink>
+                </Tab>
+              </NavLink>
+
+              <NavLink to="/quiz">
+                <Tab value={2}>
+                  <NavLink className="padded" to="/quiz">
+                    Quiz
+                  </NavLink>
+                </Tab>
+              </NavLink>
+              <NavLink to="/reflection-area-navigation">
+                <Tab value={3}>
+                  <NavLink className="padded" to="/reflection-area-navigation">
+                    Reflection Area
+                  </NavLink>
+                </Tab>
+              </NavLink>
+              <NavLink to="/documentation-navigation">
+                <Tab value={4}>
+                  <NavLink className="padded" to="/documentation-navigation">
+                    Personal Documentation
+                  </NavLink>
+                </Tab>
+              </NavLink>
             </TabList>
           </Tabs>
         </nav>

@@ -20,26 +20,35 @@ function ReflectionAreaHomePage(props) {
     navigate(`/login`);
   }
   return (
-    <div className="reflection-nav">
-      <Fade bottom>
-        <div className="row">
-          <div className="reflection-container col-lg-6">
-            <div>Information on section</div>
-            <NavLink className="job-reflection-link" to="/joblist">
-              Job Priorities
-            </NavLink>
-            <button className="job-reflection-link">
-              Code Diary (coming soon!)
-            </button>
+    <div>
+      {" "}
+      <Header
+        tabIndex={3}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
+      <div className="reflection-nav">
+        <Fade bottom>
+          <div className="row">
+            <div className="reflection-container col-lg-6">
+              <div>Information on section</div>
+              <NavLink className="job-reflection-link" to="/joblist">
+                Job Priorities
+              </NavLink>
+              <button className="job-reflection-link">
+                Code Diary (coming soon!)
+              </button>
+            </div>
+            <div className="col-lg-6">
+              <img
+                src="https://images.pexels.com/photos/6393013/pexels-photo-6393013.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                alt="Person making notes"
+              />
+            </div>
           </div>
-          <div className="col-lg-6">
-            <img
-              src="https://images.pexels.com/photos/6393013/pexels-photo-6393013.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt="Person making notes"
-            />
-          </div>
-        </div>
-      </Fade>
+        </Fade>
+      </div>
     </div>
   );
 }

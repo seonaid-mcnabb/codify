@@ -49,13 +49,13 @@ function App() {
 
   return (
     <div className="App">
-      <Header
+      {/* <Header
         setTabIndex={setTabIndex}
         tabIndex={tabIndex}
         loginStatus={loginStatus}
         setLoginStatus={setLoginStatus}
         getToken={getToken}
-      />
+      /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -64,6 +64,7 @@ function App() {
             <Dashboard
               loginStatus={loginStatus}
               setLoginStatus={setLoginStatus}
+              getToken={getToken}
             />
           }
         />
@@ -89,7 +90,13 @@ function App() {
         />
         <Route
           path="/whiteboard"
-          element={<Whiteboard loginStatus={loginStatus} />}
+          element={
+            <Whiteboard
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
+          }
         />
         <Route
           path="/quiz"
@@ -103,6 +110,7 @@ function App() {
               setLength={setLength}
               setTopic={setTopic}
               loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
               getToken={getToken}
               setTabIndex={setTabIndex}
             />
@@ -122,6 +130,8 @@ function App() {
               quizStatus={quizStatus}
               setQuizStatus={setQuizStatus}
               loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
             />
           }
         />
@@ -138,6 +148,8 @@ function App() {
               quizStatus={quizStatus}
               setQuizStatus={setQuizStatus}
               loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
             />
           }
         />
@@ -145,25 +157,58 @@ function App() {
         {/*Routes to links on nav bar Seonaid's components*/}
         <Route
           path="/documentation-navigation"
-          element={<DocumentationHomePage loginStatus={loginStatus} />}
+          element={
+            <DocumentationHomePage
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
+          }
         />
         <Route
           path="/reflection-area-navigation"
-          element={<ReflectionAreaHomePage loginStatus={loginStatus} />}
+          element={
+            <ReflectionAreaHomePage
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
+          }
         />
 
         {/*Seonaids Component Routes--For The Reflection Area */}
         <Route
           path="/joblist"
-          element={<WorkReqsList loginStatus={loginStatus} />}
+          element={
+            <WorkReqsList
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
+          }
         />
 
         {/*Seonaids Component Routes--For The Documentation Area */}
         <Route
           path="/qandas"
-          element={<MyQandAs loginStatus={loginStatus} />}
+          element={
+            <MyQandAs
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
+          }
         />
-        <Route path="/how-tos" element={<HowTos loginStatus={loginStatus} />} />
+        <Route
+          path="/how-tos"
+          element={
+            <HowTos
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
+          }
+        />
       </Routes>
     </div>
   );
