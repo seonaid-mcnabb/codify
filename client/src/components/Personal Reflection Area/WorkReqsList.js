@@ -453,8 +453,6 @@ function WorkReqsList(props) {
                   <input
                     className="priorities-input"
                     id="priority-description-input"
-                    value={description}
-                    onChange={handleInputChange}
                   ></input>
                   <ul id="must-haves-list">
                     <h2 className="list-header" id="must-haves-title">
