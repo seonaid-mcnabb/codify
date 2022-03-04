@@ -21,13 +21,12 @@ import {
 } from "@chakra-ui/react";
 
 const StartQuiz = (props) => {
-  let token = localStorage.getItem("token");
   return (
     <div>
       {/* <Header setTabIndex={props.setTabIndex} tabIndex={props.tabIndex} /> */}
       <center>
         <Fade bottom>
-          {token ? (
+          {props.loginStatus ? (
             <form className="page">
               <Center display="block" alignItems="center">
                 <h1>Time to ace a quiz!</h1>
@@ -37,7 +36,8 @@ const StartQuiz = (props) => {
                   bg="#BFE8F3"
                   borderRadius="1rem"
                   padding="2rem"
-                  maxWidth="600px"
+                  width="600px"
+                  maxWidth="90%"
                 >
                   <h1>Topic:</h1>
                   <RadioGroup onChange={props.setTopic} value={props.topic}>
@@ -76,7 +76,8 @@ const StartQuiz = (props) => {
                   bg="#BFE8F3"
                   borderRadius="1rem"
                   padding="2rem"
-                  maxWidth="600px"
+                  width="600px"
+                  maxWidth="90%"
                 >
                   <h1>Level:</h1>
 
@@ -116,7 +117,8 @@ const StartQuiz = (props) => {
                   bg="#BFE8F3"
                   borderRadius="1rem"
                   padding="2rem"
-                  maxWidth="600px"
+                  width="600px"
+                  maxWidth="90%"
                 >
                   <h1>Number of questions:</h1>
                   <Slider

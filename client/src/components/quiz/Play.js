@@ -67,9 +67,11 @@ const Play = (props) => {
                 alignItems="flex"
                 className="Questions"
                 bg="#BFE8F3"
+                textAlign="left"
                 borderRadius="1rem"
                 padding="2rem"
-                maxWidth="600px"
+                width="600px"
+                maxWidth="90%"
               >
                 {!props.questions[0] ? (
                   "Starting..."
@@ -215,13 +217,21 @@ const Play = (props) => {
               )} */}
 
                     {currentQuestion < props.length ? (
-                      <Button>
-                        <input type="submit" value="Next" />
-                      </Button>
+                      <center>
+                        <Button textAlign="center">
+                          <input type="submit" value="Next" />
+                        </Button>
+                      </center>
                     ) : (
-                      <Button>
-                        <input type="submit" value="Submit Answers" />
-                      </Button>
+                      <center>
+                        <Button>
+                          <input
+                            type="submit"
+                            value="Submit Answers"
+                            textAlign="center"
+                          />
+                        </Button>
+                      </center>
                     )}
                   </form>
                 )}{" "}

@@ -104,7 +104,8 @@ const Results = (props) => {
           bg="#BFE8F3"
           borderRadius="1rem"
           padding="2rem"
-          maxWidth="600px"
+          width="600px"
+          maxWidth="90%"
         >
           <p className="center">{result}</p>
           <p className="center">Check your answers ⬇️</p>
