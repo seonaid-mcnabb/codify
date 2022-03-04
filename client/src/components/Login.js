@@ -9,14 +9,12 @@ import {
   Box,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import Fade from "react-reveal/Fade";
+
 import Header from "./Header";
 const axios = require("axios").default;
 
 const Login = (props) => {
-  let setLogin = () => {
-    props.setLoginStatus(true);
-  };
-
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -38,8 +36,8 @@ const Login = (props) => {
 
       //store it locally
       localStorage.setItem("token", data.token);
-      setLogin();
       console.log(data.message, data.token);
+      props.getToken();
     } catch (error) {
       console.log(error);
     }
@@ -62,61 +60,64 @@ const Login = (props) => {
   const isError = credentials === "";
 
   return (
-    <div>
-      <Box
-        className="Length"
-        bg="#BFE8F3"
-        borderRadius="1rem"
-        padding="2rem"
-        width="600px"
-        maxWidth="90%"
-      >
-        <FormControl isInvalid={isError}>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            bg="white"
-            placeholder="email@address.com"
-            value={email}
-            onChange={handleChange}
-          />
-          <br />
-          <br />
+    <Fade bottom>
+      <div>
+        <p className="center">You must be logged in to access this page:</p>
+        <Box
+          className="Length"
+          bg="#BFE8F3"
+          borderRadius="1rem"
+          padding="2rem"
+          width="600px"
+          maxWidth="90%"
+        >
+          <FormControl isInvalid={isError}>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              bg="white"
+              placeholder="email@address.com"
+              value={email}
+              onChange={handleChange}
+            />
+            <br />
+            <br />
 
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="********"
-            bg="white"
-            value={password}
-            onChange={handleChange}
-          />
-          {!isError ? (
-            <FormHelperText>
-              <br />
-              <center>
-                <p className="center">
-                  Enter the email you wish to login with.
-                </p>
-              </center>
-            </FormHelperText>
-          ) : (
-            <FormErrorMessage>
-              <br />
+            <FormLabel htmlFor="password">Password</FormLabel>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="********"
+              bg="white"
+              value={password}
+              onChange={handleChange}
+            />
+            {!isError ? (
+              <FormHelperText>
+                <br />
+                <center>
+                  <p className="center">
+                    Enter the email you wish to login with.
+                  </p>
+                </center>
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage>
+                <br />
 
-              <center>
-                <p className="center">Login credentials incorrect.</p>
-              </center>
-            </FormErrorMessage>
-          )}
-          <Button onClick={login}>Login</Button>
-        </FormControl>
-      </Box>
-    </div>
+                <center>
+                  <p className="center">Login credentials incorrect.</p>
+                </center>
+              </FormErrorMessage>
+            )}
+            <Button onClick={login}>Login</Button>
+          </FormControl>
+        </Box>
+      </div>
+    </Fade>
   );
 };
 

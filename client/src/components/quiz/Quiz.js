@@ -25,8 +25,8 @@ const StartQuiz = (props) => {
     <div>
       {/* <Header setTabIndex={props.setTabIndex} tabIndex={props.tabIndex} /> */}
       <center>
-        <Fade bottom>
-          {props.loginStatus ? (
+        {props.loginStatus ? (
+          <Fade bottom>
             <form className="page">
               <Center display="block" alignItems="center">
                 <h1>Time to ace a quiz!</h1>
@@ -150,17 +150,15 @@ const StartQuiz = (props) => {
                 </Box>
               </Center>
             </form>
-          ) : (
+          </Fade>
+        ) : (
+          <Fade bottom>
             <center>
-              {" "}
-              <p className="center">
-                You must be logged in to access this page:
-              </p>
               <Login />
             </center>
-          )}
-          <Footer />
-        </Fade>
+          </Fade>
+        )}
+        <Footer />
       </center>
     </div>
   );
