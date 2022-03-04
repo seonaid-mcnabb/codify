@@ -14,7 +14,7 @@ import { getStroke } from "perfect-freehand";
 import Close from "./images/close.png";
 import { useNavigate } from "react-router-dom";
 
-const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
+const generator = rough.generator(); 
 
 const nearPoint = (x, y, x1, y1, name) => {
   // function checks if mouse is near the corner/end of the shape for resizing
