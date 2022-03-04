@@ -1,0 +1,27 @@
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.page {
+    margin: 0 auto;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+.bottom {
+    vertical-align: text-bottom;
+}
