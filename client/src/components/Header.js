@@ -17,8 +17,9 @@ const Header = (props) => {
   };
 
   const logout = () => {
-    localStorage.setItem("token", false);
+    localStorage.removeItem("token");
     setLogout();
+    props.getToken();
     console.log(props.loginStatus);
   };
 

@@ -32,10 +32,10 @@ function App() {
 
   function getToken() {
     if (localStorage.getItem("token")) {
-      console.log("got token yay!");
+      // console.log("got token yay!");
       setLoginStatus(true);
     } else {
-      console.log("no token :(");
+      // console.log("no token :(");
       setLoginStatus(false);
     }
   }
@@ -69,7 +69,11 @@ function App() {
         <Route
           path="/login"
           element={
-            <Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+            <Login
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+              getToken={getToken}
+            />
           }
         />
         <Route path="/whiteboard" element={<Whiteboard />} />
