@@ -40,8 +40,6 @@ const Login = (props) => {
     }
   };
 
-
-
   const requestData = async () => {
     try {
       const { data } = await axios("/users/profile", {

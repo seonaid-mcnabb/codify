@@ -43,8 +43,9 @@ const StartQuiz = (props) => {
                   <RadioGroup onChange={props.setTopic} value={props.topic}>
                     <Stack>
                       <Radio
-                        name="topc"
+                        name="topic"
                         colorScheme="orange"
+                        bg="white"
                         value="HTML"
                         defaultChecked
                       >
@@ -54,10 +55,16 @@ const StartQuiz = (props) => {
                         name="topc"
                         colorScheme="orange"
                         value="JavaScript"
+                        bg="white"
                       >
                         JavaScript
                       </Radio>
-                      <Radio name="topc" colorScheme="orange" value="MySQL">
+                      <Radio
+                        name="topc"
+                        colorScheme="orange"
+                        value="MySQL"
+                        bg="white"
+                      >
                         MySQL
                       </Radio>
                     </Stack>
@@ -78,15 +85,26 @@ const StartQuiz = (props) => {
                       <Radio
                         name="level"
                         colorScheme="orange"
+                        bg="white"
                         value="Easy"
                         defaultChecked
                       >
                         Easy
                       </Radio>
-                      <Radio name="level" colorScheme="orange" value="Medium">
+                      <Radio
+                        name="level"
+                        colorScheme="orange"
+                        bg="white"
+                        value="Medium"
+                      >
                         Medium
                       </Radio>
-                      <Radio name="level" colorScheme="orange" value="Hard">
+                      <Radio
+                        name="level"
+                        colorScheme="orange"
+                        bg="white"
+                        value="Hard"
+                      >
                         Hard
                       </Radio>
                     </Stack>

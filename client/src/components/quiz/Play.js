@@ -94,6 +94,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer A"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_a"
                           display="flex"
                           paddingLeft="10%"
@@ -113,6 +114,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer B"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_b"
                           display="flex"
                           paddingLeft="10%"
@@ -131,6 +133,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer C"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_c"
                           display="flex"
                           paddingLeft="10%"
@@ -149,6 +152,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer D"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_d"
                           display="flex"
                           paddingLeft="10%"
@@ -167,6 +171,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer E"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_e"
                           display="flex"
                           paddingLeft="10%"
@@ -185,6 +190,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer F"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_f"
                           display="flex"
                           paddingLeft="10%"
