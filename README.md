@@ -71,6 +71,8 @@ To get your QuizAPI token, you need to create a free account here:
 Then go to this URL to generate your token:
 `https://quizapi.io/clientarea/settings/token`
 
+Once you have this token, you'll want to add this to the fetch request in Components > Quiz > Play.js
+
 Here you can see your API usage:
 `https://quizapi.io/clientarea/api/usage`
 
