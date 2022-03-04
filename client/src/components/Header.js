@@ -14,7 +14,7 @@ import Codify from "./Codify.png";
 const Header = ({ setTabIndex, tabIndex }) => {
   const logout = () => {
     localStorage.setItem("token", false);
-    console.log(localStorage.token);
+    console.log(localStorage.getItem("token"));
   };
 
   let token = localStorage.getItem("token");
@@ -27,7 +27,7 @@ const Header = ({ setTabIndex, tabIndex }) => {
         </div>
       </NavLink>
       {token ? (
-        <Button position="float-right" onClick={logout}>
+        <Button position="fixed" onClick={logout} top="5%" right="5%">
           Logout
         </Button>
       ) : (
