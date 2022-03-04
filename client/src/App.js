@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
@@ -15,7 +15,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import DocumentationHomePage from "./components/Seonaid Components Navigation/DocumentationHomePage";
 import ReflectionAreaHomePage from "./components/Seonaid Components Navigation/ReflectionAreaHomePage";
 import HowTos from "./components/Backup Brain/HowTos";
-
+import Dashboard from "./components/Dashboard";
 //comment to add push
 function App() {
   let [level, setLevel] = useState("Easy");
@@ -25,9 +25,24 @@ function App() {
   let [userAnswersArray, setUserAnswersArray] = useState([]);
   let [allAnswers, setAllAnswers] = useState([]);
   let [quizStatus, setQuizStatus] = useState("Playing");
-  let [loginStatus, setLoginStatus] = useState(false);
-  let [tabIndex, setTabIndex] = useState(null);
+  let [tabIndex, setTabIndex] = useState(0);
   let [hide, setHide] = useState(false);
+
+  let [loginStatus, setLoginStatus] = useState(false);
+
+  function getToken() {
+    if (localStorage.getItem("token")) {
+      console.log("got token yay!");
+      setLoginStatus(true);
+    } else {
+      console.log("no token :(");
+      setLoginStatus(false);
+    }
+  }
+
+  useEffect(() => {
+    getToken();
+  }, localStorage);
 
   const pathname = window.location.pathname;
 
@@ -38,9 +53,19 @@ function App() {
         tabIndex={tabIndex}
         loginStatus={loginStatus}
         setLoginStatus={setLoginStatus}
+        getToken={getToken}
       />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+            />
+          }
+        />
         <Route
           path="/login"
           element={
@@ -60,7 +85,7 @@ function App() {
               setLength={setLength}
               setTopic={setTopic}
               loginStatus={loginStatus}
-              setLoginStatus={setLoginStatus}
+              getToken={getToken}
               setTabIndex={setTabIndex}
             />
           }
