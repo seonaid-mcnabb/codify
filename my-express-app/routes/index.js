@@ -153,7 +153,7 @@ app.delete("/nice2have/:id", (req, res) => {
     });
 });
 
-/*API ROUTES FOR THE TAGS TABLE*/
+/*API ROUTES FOR THE TAGS TABLE (NOT YET IMPLEMENTED)*/
 
 //GET THE FULL LIST OF TAGS
 app.get("/tags-list", (req, res) => {
@@ -246,7 +246,7 @@ app.delete("/lesson/:id", (req, res) => {
     });
 });
 
-//FULL TEXT SEARCH FOR A LESSON (CURRENTLY ONLY IMPLEMENETED FOR SEARCHING TITLES)
+//FULL TEXT SEARCH FOR A LESSON (Implemented for titles as well as content)
 app.get("/lesson-list/:searchTerms", (req, res) => {
   db(
     `SELECT * FROM teach_a_topic WHERE MATCH(topic_title, step_by_step) AGAINST ("${req.params.searchTerms}");`
@@ -256,6 +256,29 @@ app.get("/lesson-list/:searchTerms", (req, res) => {
     })
     .catch((err) => res.status(500).send(err));
 });
+
+// app.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     const results = await db(`SELECT * FROM users WHERE email = "${email}"`);
+//     const user = results.data[0];
+//     if (user) {
+//       const user_id = user.id;
+
+//       const correctPassword = await bcrypt.compare(password, user.password);
+
+//       if (!correctPassword) throw new Error("Incorrect password");
+
+//       var token = jwt.sign({ user_id }, supersecret);
+//       res.send({ message: "Login successful, here is your token", token });
+//     } else {
+//       throw new Error("User does not exist");
+//     }
+//   } catch (err) {
+//     res.status(400).send({ message: err.message });
+//   }
+// });
 
 module.exports = app;
 

@@ -1,4 +1,10 @@
-import React, { useState, useLayoutEffect, useEffect, useRef, useReducer,} from "react";
+import React, {
+  useState,
+  useLayoutEffect,
+  useEffect,
+  useRef,
+  useReducer,
+} from "react";
 import { v4 as uuid } from "uuid";
 import "./Whiteboard.css";
 import Toolbar from "./toolbar";
@@ -6,6 +12,7 @@ import Header from "../Header";
 import rough from "roughjs/bundled/rough.esm";
 import { getStroke } from "perfect-freehand";
 import Close from "./images/close.png";
+import { useNavigate } from "react-router-dom";
 
 const generator = rough.generator(); // generator allows user to create a drawable object - to be used for shapes later with .draw method
 
@@ -61,7 +68,10 @@ const distance = (a, b) =>
 
 const getElementAtPosition = (x, y, elements) => {
   return elements
-    .map((element) => ({...element, position: positionWithinElement(x, y, element)})) // goes through elements and returns position within element
+    .map((element) => ({
+      ...element,
+      position: positionWithinElement(x, y, element),
+    })) // goes through elements and returns position within element
     .find((element) => element.position !== null); // finds first one in return statement that isn't null
 };
 
@@ -165,8 +175,7 @@ const getSvgPathFromStroke = (stroke) => {
   return d.join(" ");
 };
 
-const adjustmentRequired = (type) =>
-  ["line", "rectangle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
+const adjustmentRequired = (type) => ["line", "rectangle"].includes(type); // checks for type and whether points should be adjusted - pencil tool not included here
 
 const initialNoteState = {
   notes: [],
@@ -190,7 +199,7 @@ const notesReducer = (prevState, action) => {
   }
 };
 
-export default function Whiteboard2() {
+export default function Whiteboard2(props) {
   const [elements, setElements, undo, redo] = useHistory([]); // keeping track of created elements
   const [action, setAction] = useState("none");
   const [tool, setTool] = useState("pencil");
@@ -289,7 +298,10 @@ export default function Whiteboard2() {
         elementsCopy[id] = createElement(id, x1, y1, x2, y2, type); // ensures last coords stored are the ones where the mouse stops moving
         break;
       case "pencil":
-        elementsCopy[id].points = [...elementsCopy[id].points, { x: x2, y: y2 }];
+        elementsCopy[id].points = [
+          ...elementsCopy[id].points,
+          { x: x2, y: y2 },
+        ];
         break;
       case "text":
         const textWidth = document
@@ -297,7 +309,10 @@ export default function Whiteboard2() {
           .getContext("2d")
           .measureText(options.text).width;
         const textHeight = 24;
-        elementsCopy[id] = {...createElement(id, x1, y1, x1 + textWidth, y1 + textHeight, type), text: options.text};
+        elementsCopy[id] = {
+          ...createElement(id, x1, y1, x1 + textWidth, y1 + textHeight, type),
+          text: options.text,
+        };
         break;
       default:
         throw new Error("Type not recognised");
@@ -314,7 +329,10 @@ export default function Whiteboard2() {
         break;
       case "pencil":
         ctx.fillStyle = lineColour;
-        const stroke = getStroke(element.points, {size: lineWidth, thinning: 0});
+        const stroke = getStroke(element.points, {
+          size: lineWidth,
+          thinning: 0,
+        });
         const pathData = getSvgPathFromStroke(stroke);
         const myPath = new Path2D(pathData);
         console.log(myPath);
@@ -380,7 +398,14 @@ export default function Whiteboard2() {
       }
     } else {
       const id = elements.length;
-      const element = createElement(id, clientX, clientY, clientX, clientY, tool);
+      const element = createElement(
+        id,
+        clientX,
+        clientY,
+        clientX,
+        clientY,
+        tool
+      );
       setElements((prevState) => [...prevState, element]);
       setSelectedElement(element);
       setAction(tool === "text" ? "writing" : "drawing");
@@ -421,7 +446,15 @@ export default function Whiteboard2() {
         const newX1 = clientX - offsetX;
         const newY1 = clientY - offsetY;
         const options = type === "text" ? { text: selectedElement.text } : {};
-        updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type, options); // ensures last coords stored are the ones where the mouse stops moving
+        updateElement(
+          id,
+          newX1,
+          newY1,
+          newX1 + width,
+          newY1 + height,
+          type,
+          options
+        ); // ensures last coords stored are the ones where the mouse stops moving
       }
     } else if (action === "resizing") {
       const { id, type, position, ...coordinates } = selectedElement;
@@ -472,11 +505,27 @@ export default function Whiteboard2() {
     updateElement(id, x1, y1, null, null, type, { text: e.target.value });
   };
 
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, props);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   return (
     <div id="screenshot" className="canvas-container" onDragOver={dragOver}>
-      <div style={{position: "fixed", left: "0%", right: "0%"}}>
+      <div style={{ position: "fixed", left: "0%", right: "0%" }}>
         {/* buttons are fixed so canvas isn't offset */}
-        <Header />
+        <Header
+          tabIndex={1}
+          getToken={props.getToken}
+          loginStatus={props.loginStatus}
+          setLoginStatus={props.setLoginStatus}
+        />
       </div>
       <div style={{ position: "fixed" }}>
         <div>
@@ -495,16 +544,25 @@ export default function Whiteboard2() {
           />
         </div>
 
-        <img src={imageUpload} className="uploaded-image" alt="" draggable="true" onDragEnd={dropNote} />
+        <img
+          src={imageUpload}
+          className="uploaded-image"
+          alt=""
+          draggable="true"
+          onDragEnd={dropNote}
+        />
 
         {/* FORM TO ADD STICKY NOTE */}
         {showStickyNote ? (
           <form className="sticky-note" onSubmit={addNote}>
-            <textArea value={noteInput} onChange={(e) => setNoteInput(e.target.value)} placeholder="Add text..."></textArea>
+            <textArea
+              value={noteInput}
+              onChange={(e) => setNoteInput(e.target.value)}
+              placeholder="Add text..."
+            ></textArea>
             <button className="add-note">Add</button>
           </form>
         ) : null}
-
       </div>
 
       {/* TEXT AREA FOR TYPING */}
@@ -531,8 +589,16 @@ export default function Whiteboard2() {
 
       {/* DISPLAY STICKY NOTE ON SCREEN */}
       {notesState.notes.map((note) => (
-        <div className="note" draggable="true" onDragEnd={dropNote} key={note.id}>
-          <div className="close"onClick={() => dispatch({ type: "delete_note", payload: note })}>
+        <div
+          className="note"
+          draggable="true"
+          onDragEnd={dropNote}
+          key={note.id}
+        >
+          <div
+            className="close"
+            onClick={() => dispatch({ type: "delete_note", payload: note })}
+          >
             <img src={Close} className="close-button" alt="" />
           </div>
           <pre className="text">{note.text}</pre>
@@ -544,12 +610,11 @@ export default function Whiteboard2() {
         id="canvas"
         width={window.innerWidth}
         height={window.innerHeight}
-        style={{backgroundImage: `url(${backgroundImage})`}}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
         onMouseDown={startDrawing}
         onMouseMove={draw}
-        onMouseUp={finishDrawing}>
-        </canvas>
-        
+        onMouseUp={finishDrawing}
+      ></canvas>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useDebugValue, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Quiz.css";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -7,6 +7,7 @@ import { Box, Button, Center, Radio, RadioGroup } from "@chakra-ui/react";
 
 const Play = (props) => {
   useEffect(() => {
+    props.setUserAnswersArray([]);
     if (props.quizStatus === "Finished") {
       console.log("Finished");
     } else {
@@ -55,10 +56,25 @@ const Play = (props) => {
   //     setCurrentQuestion(currentQuestion - 1);
   //   }
   // }
+  let navigate = useNavigate();
 
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, []);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   return (
     <div>
-      <Header />
+      <Header
+        tabIndex={2}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
       <center>
         {props.quizStatus == "Playing" ? (
           <div className="page">
@@ -67,9 +83,11 @@ const Play = (props) => {
                 alignItems="flex"
                 className="Questions"
                 bg="#BFE8F3"
+                textAlign="left"
                 borderRadius="1rem"
                 padding="2rem"
-                maxWidth="600px"
+                width="600px"
+                maxWidth="90%"
               >
                 {!props.questions[0] ? (
                   "Starting..."
@@ -94,6 +112,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer A"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_a"
                           display="flex"
                           paddingLeft="10%"
@@ -113,6 +132,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer B"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_b"
                           display="flex"
                           paddingLeft="10%"
@@ -131,6 +151,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer C"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_c"
                           display="flex"
                           paddingLeft="10%"
@@ -149,6 +170,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer D"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_d"
                           display="flex"
                           paddingLeft="10%"
@@ -167,6 +189,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer E"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_e"
                           display="flex"
                           paddingLeft="10%"
@@ -185,6 +208,7 @@ const Play = (props) => {
                         <Radio
                           name="Answer F"
                           colorScheme="orange"
+                          bg="white"
                           value="answer_f"
                           display="flex"
                           paddingLeft="10%"
@@ -209,13 +233,21 @@ const Play = (props) => {
               )} */}
 
                     {currentQuestion < props.length ? (
-                      <Button>
-                        <input type="submit" value="Next" />
-                      </Button>
+                      <center>
+                        <Button textAlign="center">
+                          <input type="submit" value="Next" />
+                        </Button>
+                      </center>
                     ) : (
-                      <Button>
-                        <input type="submit" value="Submit Answers" />
-                      </Button>
+                      <center>
+                        <Button>
+                          <input
+                            type="submit"
+                            value="Submit Answers"
+                            textAlign="center"
+                          />
+                        </Button>
+                      </center>
                     )}
                   </form>
                 )}{" "}

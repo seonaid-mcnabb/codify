@@ -21,6 +21,7 @@ con.connect(function (err) {
   //ADD THE TABLES THAT YOU WANT IN THE BACK-END HERE\\
 
   /* DATABASE TABLES FOR THE WORKREQSLIST.JS COMPONENT */
+  //these 4 tables will eventually be re-factored into one
   //Add table to store job must-haves
   let jobMustHavesSQL =
     "DROP TABLE if exists job_must_haves; CREATE TABLE job_must_haves(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, must_haves VARCHAR(200));";
@@ -87,6 +88,16 @@ con.connect(function (err) {
   con.query(teachATopicSQL, function (err, result) {
     if (err) throw err;
     console.log("Table creation `teach_a_topic` was successful!");
+    console.log("Closing...");
+  });
+
+  //Add table to store users
+  let users =
+    "DROP TABLE if exists users; CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY (id));";
+  con.query(users, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `users` was successful!");
+
     console.log("Closing...");
   });
 

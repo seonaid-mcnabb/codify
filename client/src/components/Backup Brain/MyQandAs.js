@@ -4,13 +4,26 @@ import "./MyQandAs.css";
 import Header from "../Header.js";
 import { Button } from "@chakra-ui/react";
 import { MdOutlineDelete } from "react-icons/md";
+import Fade from "react-reveal/Fade";
+import { useNavigate } from "react-router-dom";
 
 //This component should:
 //Have full text searchability
 //Display your own q&as visually on cards: question on front, displays on back
 //have an input form that accepts question, answer, and tag
 
-function MyQandAs() {
+function MyQandAs(props) {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.loginStatus === false) {
+      navigate(`/login`);
+    }
+  }, props);
+
+  if (props.loginStatus === false) {
+    navigate(`/login`);
+  }
   //sets and stores all the Q&As
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   //sets a user input question
@@ -150,106 +163,118 @@ function MyQandAs() {
 
   return (
     <div>
-      <Header> </Header>
+      <Header
+        tabIndex={4}
+        getToken={props.getToken}
+        loginStatus={props.loginStatus}
+        setLoginStatus={props.setLoginStatus}
+      />
+
       {/* added to prevent no results page from flashing on load, could be customized with transitions */}
       {loading ? null : null}
       {/*Sidebar menu and input forms for new q&as*/}
       <div className="row">
         <div className="col-lg-3">
-      <div className="q-and-a-menu">
-        <div id="newQandAform">
-          <form className="newQandAform">
-            <h2 className="q-a-input-title"> Question: </h2>
-            <textarea
-              className="q-a-input"
-              name="question"
-              value={newQuestion}
-              onChange={handleNewQuestion}
-            ></textarea>
-            <h2 className="q-a-input-title"> Answer: </h2>
-            <textarea
-              className="q-a-input"
-              name="answer"
-              value={newAnswer}
-              onChange={handleNewAnswer}
-            ></textarea>{" "}
-            <br></br>
-            <button className="q-a-button" onClick={handleSubmit}>
-              Add to my collection
-            </button>
-          </form>
-        </div>
-
-        {/*Sidebar menu search form*/}
-        <div className="newQandAform" id="searchBar">
-          <h1 className="q-a-input-title"> Search: </h1>
-          <input
-            className="q-a-input"
-            name="search"
-            value={searchTerms}
-            onChange={handleSearch}
-          ></input>{" "}
-          <button className="q-a-button" onClick={showSearchResults}>
-            {" "}
-            search
-          </button>
-          <button className="q-a-button" onClick={showFullList}>
-            show all cards
-          </button>
-        </div>
-      </div>
-      </div>
-      <div className="col-lg-9">
-        
-
-      {/*My cards area where collection is displayed  */}
-      {/*Title toggled based on length of collection */}
-      <div className="q-and-a-main">
-        {questionsAndAnswers.length === 0 && !loading ? (
-          <h1 className="collection-title">
-            Whoops! Nothing to see here! Keep adding questions
-          </h1>
-        ) : (
-          <h1 className="collection-title"> My Cards</h1>
-        )}
-        {/*What will be displayed if there are no cards or if search comes up empty.. currently just a random image from the internet */}
-        {questionsAndAnswers.length === 0 && !loading ? (
-          <div>
-            <img
-              className="no-results-image"
-              alt="sad computer"
-              src="https://images.assetsdelivery.com/compings_v2/yupiramos/yupiramos1801/yupiramos180114560.jpg"
-            ></img>
-          </div>
-        ) : (
-          questionsAndAnswers.map((e) => (
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <h2>{e.question}</h2>
-                </div>
-                <div class="flip-card-back">
-                  <h2>{e.answer}</h2>
-                  <Button
-                    className="deleteQa"
-                    leftIcon={<MdOutlineDelete />}
-                    color="#ee6327"
-                    size="lg"
-                    background="transparent"
-                    variant="ghost"
-                    _hover="blue"
-                    onClick={() => deleteQA(e)}
-                  >
-                    {" "}
-                  </Button>
-                </div>
-              </div>
+          <div className="q-and-a-menu">
+            <div id="newQandAform">
+              <form className="newQandAform">
+                <h2 className="q-a-input-title"> Question: </h2>
+                <textarea
+                  className="q-a-input"
+                  name="question"
+                  value={newQuestion}
+                  onChange={handleNewQuestion}
+                ></textarea>
+                <h2 className="q-a-input-title"> Answer: </h2>
+                <textarea
+                  className="q-a-input"
+                  name="answer"
+                  value={newAnswer}
+                  onChange={handleNewAnswer}
+                ></textarea>{" "}
+                <br></br>
+                <button className="q-a-button" onClick={handleSubmit}>
+                  Add to my collection
+                </button>
+              </form>
             </div>
-          ))
-        )}
+
+            {/*Sidebar menu search form*/}
+            <div className="newQandAform" id="searchBar">
+              <h1 className="q-a-input-title"> Search: </h1>
+              <input
+                className="q-a-input"
+                name="search"
+                value={searchTerms}
+                onChange={handleSearch}
+              ></input>{" "}
+              <button className="q-a-button" onClick={showSearchResults}>
+                {" "}
+                search
+              </button>
+              <button className="q-a-button" onClick={showFullList}>
+                show all cards
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-9">
+          {/*My cards area where collection is displayed  */}
+          {questionsAndAnswers.length === 0 && !loading ? (
+            <Fade left>
+              (
+              <h1 className="collection-title">
+                Whoops! Nothing to see here! Keep adding questions
+              </h1>
+              ){" "}
+            </Fade>
+          ) : (
+            <h1 className="collection-title"> My Cards</h1>
+          )}
+          {/*Title toggled based on length of collection */}
+          <Fade right>
+            <div className="q-and-a-main">
+              {/*What will be displayed if there are no cards or if search comes up empty.. currently just a random image from the internet */}
+              {questionsAndAnswers.length === 0 && !loading ? (
+                <Fade right>
+                  <div>
+                    <img
+                      className="no-results-image"
+                      alt="sad computer"
+                      src="https://images.assetsdelivery.com/compings_v2/yupiramos/yupiramos1801/yupiramos180114560.jpg"
+                    ></img>
+                  </div>
+                </Fade>
+              ) : (
+                questionsAndAnswers.map((e) => (
+                  <div class="flip-card">
+                    <div class="flip-card-inner">
+                      <div class="flip-card-front">
+                        <h2>{e.question}</h2>
+                      </div>
+                      <div class="flip-card-back">
+                        <h2>{e.answer}</h2>
+                        <Button
+                          className="deleteQa"
+                          leftIcon={<MdOutlineDelete />}
+                          color="#ee6327"
+                          size="lg"
+                          background="transparent"
+                          variant="ghost"
+                          _hover="blue"
+                          onClick={() => deleteQA(e)}
+                        >
+                          {" "}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </Fade>
+        </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 }
