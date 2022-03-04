@@ -41,7 +41,7 @@ function DocumentationHomePage(props) {
             </div>
             <div className="documentation-container col-lg-6">
               <div>
-                <b>Build as you learn:</b> <br></br>saving your own tutorials,
+                <b>Build as you learn:</b> <br></br>Saving your own tutorials,
                 Q&As, and preferred resources will not only enhance your
                 understanding of course material, but also give you a personal
                 library to reference before looking for answers on Stack
