@@ -44,28 +44,41 @@ Backend:
 # Set up
 
 - Clone the repository
-- Run ```npm install``` to install packages
+- Run `npm install` to install packages
 
 Start the back-end:
 
-- Navigate to your MySQL command line and run: ```mysql -u root -p``` ```create database codify```
-- ```cd my-express-app```
-- ```npm install```
-- ```npm run migrate``` (only necessry the first time you run the project)
-- ```npm start```
+- Navigate to your MySQL command line and run: `mysql -u root -p` `create database codify`
+- `cd my-express-app`
+- `npm install`
+- `npm run migrate` (only necessry the first time you run the project)
+- `npm start`
 
 Start the front-end
 
-- ```cd .. to return to root```
-- ```cd client```
-- ```npm install```
-- ```npm start```
+- `cd .. to return to root`
+- `cd client`
+- `npm install`
+- `npm start`
 
-The app will run on ```http://localhost:3000``` as the default port and the back-end will run on ```http://localhost:5001```.
+The app will run on `http://localhost:3000` as the default port and the back-end will run on `http://localhost:5001`.
 
 # API keys
 
-TODO: add description of API key set-up for QuizAPI
+To get your QuizAPI token, you need to create a free account here:
+`https://quizapi.io/register`
+
+Then go to this URL to generate your token:
+`https://quizapi.io/clientarea/settings/token`
+
+Here you can see your API usage:
+`https://quizapi.io/clientarea/api/usage`
+
+## Helpful resources for the QuizAPI:
+
+Tags used in API requests: JavaScript, HTML, MySQL
+`https://quizapi.io/docs/1.0/overview`
+`https://quizapi.io/api-config`
 
 ### **The API calls should now work as expected!**
 
