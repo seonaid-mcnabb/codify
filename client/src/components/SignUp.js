@@ -65,7 +65,7 @@ const SignUp = (props) => {
               width="600px"
               maxWidth="90%"
             >
-              <p className="center">Already registed?</p>
+              <p className="center">Already registered?</p>
               <Button>Login</Button>
               <br />
               <br />
