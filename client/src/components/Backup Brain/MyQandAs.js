@@ -57,7 +57,7 @@ function MyQandAs(props) {
   //add a new q&a to the list
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5001/q-and-a", {
+    fetch("/q-and-a", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -122,7 +122,7 @@ function MyQandAs(props) {
 
   //go back to the full list view
   const showFullList = () => {
-    fetch("http://localhost:5001/q-and-as-list")
+    fetch("/q-and-as-list")
       .then((res) => {
         if (res.ok) {
           console.log(res);
@@ -142,7 +142,7 @@ function MyQandAs(props) {
 
   //Get all the q&as from back-end on load
   useEffect(() => {
-    fetch("http://localhost:5001/q-and-as-list")
+    fetch("/q-and-as-list")
       .then((res) => {
         if (res.ok) {
           console.log(res);

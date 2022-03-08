@@ -48,7 +48,7 @@ function WorkReqsList(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (type === "must-have") {
-      fetch("http://localhost:5001/must-have", {
+      fetch("/must-have", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +66,7 @@ function WorkReqsList(props) {
           console.log(error);
         });
     } else if (type === "negotiable") {
-      fetch("http://localhost:5001/negotiable", {
+      fetch("/negotiable", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ function WorkReqsList(props) {
           console.log(error);
         });
     } else if (type === "deal-breaker") {
-      fetch("http://localhost:5001/dealbreaker", {
+      fetch("/dealbreaker", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ function WorkReqsList(props) {
           console.log(error);
         });
     } else if (type === "nice-to-have") {
-      fetch("http://localhost:5001/nice2have", {
+      fetch("/nice2have", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -212,7 +212,7 @@ function WorkReqsList(props) {
 
   //get all niceToHaves from backEnd
   useEffect(() => {
-    fetch("http://localhost:5001/nice2haves-list")
+    fetch("/nice2haves-list")
       .then((res) => {
         if (res.ok) {
           console.log(res);
@@ -232,7 +232,7 @@ function WorkReqsList(props) {
 
   //Get all dealbreakers from the back-end
   useEffect(() => {
-    fetch("http://localhost:5001/dealbreakers-list")
+    fetch("/dealbreakers-list")
       .then((res) => {
         if (res.ok) {
           console.log(res);
@@ -252,7 +252,7 @@ function WorkReqsList(props) {
 
   //Get all must-haves from back-end
   useEffect(() => {
-    fetch("http://localhost:5001/must-haves-list")
+    fetch("/must-haves-list")
       .then((res) => {
         if (res.ok) {
           console.log(res);
@@ -272,7 +272,7 @@ function WorkReqsList(props) {
 
   //get list of negotiables from backend
   useEffect(() => {
-    fetch("http://localhost:5001/negotiables-list")
+    fetch("/negotiables-list")
       .then((res) => {
         if (res.ok) {
           console.log(res);

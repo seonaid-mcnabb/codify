@@ -90,7 +90,7 @@ function HowTos(props) {
   //posts a new lesson to the MySQL database onSubmit
   const handleNewPost = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5001/lesson", {
+    fetch("/lesson", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -161,7 +161,7 @@ function HowTos(props) {
 
   //displays all posts again (method created for the "see old posts button")
   const showAllPosts = () => {
-    fetch("http://localhost:5001/lesson-list")
+    fetch("/lesson-list")
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -180,7 +180,7 @@ function HowTos(props) {
 
   //gets all the posts the user has stored in the back-end on page load
   useEffect(() => {
-    fetch("http://localhost:5001/lesson-list")
+    fetch("/lesson-list")
       .then((res) => {
         if (res.ok) {
           console.log(res);
