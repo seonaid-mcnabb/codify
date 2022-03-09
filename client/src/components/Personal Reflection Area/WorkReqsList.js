@@ -124,7 +124,7 @@ function WorkReqsList(props) {
 
   //delete a must-have
   const deleteMustHave = (e) => {
-    fetch(`http://localhost:5001/must-have/${e.id}`, {
+    fetch(`/must-have/${e.id}`, {
       method: "delete",
     })
       .then((res) => {
@@ -146,7 +146,7 @@ function WorkReqsList(props) {
 
   //delete a negotiable
   const deleteNegotiable = (e) => {
-    fetch(`http://localhost:5001/negotiable/${e.id}`, {
+    fetch(`/negotiable/${e.id}`, {
       method: "delete",
     })
       .then((res) => {
@@ -169,7 +169,7 @@ function WorkReqsList(props) {
   //delete a deal-breaker
 
   const deleteDealbreaker = (e) => {
-    fetch(`http://localhost:5001/dealbreaker/${e.id}`, {
+    fetch(`/dealbreaker/${e.id}`, {
       method: "delete",
     })
       .then((res) => {
@@ -190,7 +190,7 @@ function WorkReqsList(props) {
   };
   //delete a nice2have
   const deleteNice2have = (e) => {
-    fetch(`http://localhost:5001/nice2have/${e.id}`, {
+    fetch(`/nice2have/${e.id}`, {
       method: "delete",
     })
       .then((res) => {

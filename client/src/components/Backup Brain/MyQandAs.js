@@ -81,7 +81,7 @@ function MyQandAs(props) {
 
   //delete a q&a card
   const deleteQA = (e) => {
-    fetch(`http://localhost:5001/q-and-a/${e.id}`, {
+    fetch(`/q-and-a/${e.id}`, {
       method: "delete",
     })
       .then((res) => {
@@ -104,7 +104,7 @@ function MyQandAs(props) {
   //show the results of the users search
   const showSearchResults = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5001/q-and-as-list-search/${searchTerms}`, {
+    fetch(`/q-and-as-list-search/${searchTerms}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

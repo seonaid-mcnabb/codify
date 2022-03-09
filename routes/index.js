@@ -24,11 +24,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-//Response when database is called
-app.get("/", (req, res) => {
-  res.send("Welcome to the API");
-});
-
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });

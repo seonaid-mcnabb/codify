@@ -115,7 +115,7 @@ function HowTos(props) {
   //handles post deletion
   const handleDeletePost = (howTo) => {
     console.log(howTo.id);
-    fetch(`http://localhost:5001/lesson/${howTo.id}`, {
+    fetch(`/lesson/${howTo.id}`, {
       method: "delete",
     })
       .then((res) => {
@@ -142,7 +142,7 @@ function HowTos(props) {
   //displays the search results
   const handleSearchPost = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5001/lesson-list/${postSearchTerms}`, {
+    fetch(`/lesson-list/${postSearchTerms}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
