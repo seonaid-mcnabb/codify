@@ -33,7 +33,7 @@ const SignUp = (props) => {
 
   const register = async () => {
     try {
-      const { data } = await axios("http://localhost:5000/users/register", {
+      const { data } = await axios("/users/register", {
         method: "POST",
         data: credentials,
       });

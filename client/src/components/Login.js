@@ -41,7 +41,7 @@ const Login = (props) => {
 
   const login = async () => {
     try {
-      const { data } = await axios("http://localhost:5000/users/login", {
+      const { data } = await axios("/users/login", {
         method: "POST",
         data: credentials,
       });
