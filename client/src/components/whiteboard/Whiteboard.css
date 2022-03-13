@@ -19,6 +19,13 @@ h1 {
     /* background-color: #FFE0AA; */
 }
 
+.mobile-message {
+    /* text-align: center; */
+    /* margin-left: 20px; */
+    font-size: 20px;
+    /* width: 100vw; */
+}
+
 
 /* COLOUR PICKER */
 
@@ -147,7 +154,7 @@ textarea {
     margin-left: 15px;
     padding: 20px;
     padding-left: 25px;
-    height: 400px;
+    height: 475px;
     width: 400px;
     position: fixed;
     top: 270px;
