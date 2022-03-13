@@ -371,20 +371,8 @@ export default function Whiteboard2(props) {
     e.preventDefault();
   };
 
-  const getTouchPos = (canvasDom, touchEvent) => {
-    let rect = canvasDom.getBoundingClientRect();
-    return {
-      x: touchEvent.touches[0].clientX - rect.left,
-      y: touchEvent.touches[0].clientY - rect.top
-    };
-  }
-
   const startDrawing = (e) => {
     // onMouseDown
-
-    e.preventDefault();
-    e.stopPropagation();
-
     if (action === "writing") return;
     const { clientX, clientY } = e; // mouse coordinates relative to window size
     if (tool === "select") {
@@ -423,26 +411,6 @@ export default function Whiteboard2(props) {
       setAction(tool === "text" ? "writing" : "drawing");
     }
   };
-
-  const touchStartDrawing = (e) => {
-    const canvas = document.getElementById("canvas");
-    if (e.target == canvas) {
-      e.preventDefault();
-    }
-    const { clientX, clientY } = e;
-    let mousePos = {x: 0, y: 0};
-
-    canvas.addEventListener("touchstart", function (e) {
-        mousePos = getTouchPos(canvas, e);
-        let touch = e.touches[0];
-        var mouseEvent = new MouseEvent("mousedown", {
-          clientX: touch.clientX,
-          clientY: touch.clientY
-        });
-        canvas.dispatchEvent(mouseEvent);
-      }, false)
-  };
-
 
   const draw = (e) => {
     // tracks movement of mouse after clicking, saves copy of element to elements state
@@ -500,23 +468,6 @@ export default function Whiteboard2(props) {
     }
   };
 
-  const touchDraw = (e) => {
-    const canvas = document.getElementById("canvas");
-
-    if (e.target == canvas) {
-      e.preventDefault();
-    }
-    
-    canvas.addEventListener("touchmove", function (e) {
-      let touch = e.touches[0];
-      let mouseEvent = new MouseEvent("mousemove", {
-        clientX: touch.clientX,
-        clientY: touch.clientY
-      });
-      canvas.dispatchEvent(mouseEvent);
-    }, false);
-  }
-
   const finishDrawing = (e) => {
     // sets drawing state to false when mouse is released, stores end coords for shape and stroke so the final element is rendered on board
     const { clientX, clientY } = e;
@@ -546,19 +497,6 @@ export default function Whiteboard2(props) {
     setAction("none");
     setSelectedElement(null);
   };
-
-  const touchFinishDrawing = (e) => {
-    const canvas = document.getElementById("canvas");
-
-    if (e.target == canvas) {
-      e.preventDefault();
-    }
-
-    canvas.addEventListener("touchend", function (e) {
-      let mouseEvent = new MouseEvent("mouseup", {});
-      canvas.dispatchEvent(mouseEvent);
-    }, false);
-  }
 
   const handleBlur = (e) => {
     const { id, x1, y1, type } = selectedElement;
@@ -676,9 +614,6 @@ export default function Whiteboard2(props) {
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={finishDrawing}
-        onTouchStart={touchStartDrawing}
-        onTouchMove={touchDraw}
-        onTouchEnd={touchFinishDrawing}
       ></canvas>
     </div>
   );
